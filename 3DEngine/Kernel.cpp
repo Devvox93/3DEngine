@@ -5,13 +5,14 @@
 
 int main()
 {
-	Logger::getInstance().log("Hello World!");
+	Logger::getInstance().log(INFO, "Hello World!");
 	for (int i = 0; i < 10; i++)
 	{
 		std::ostringstream oss;
-		oss << "Hello World! " << i;
-		Logger::getInstance().log(oss.str());
+		oss << "Problem: " << i << "!";
+		Logger::getInstance().log(WARNING, oss.str());
 	}
+	Logger::getInstance().log(SEVERE, "Application end!");
 	system("pause");
 
 	return 0;

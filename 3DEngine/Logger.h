@@ -1,6 +1,8 @@
 #include <fstream>
 //#include <iostream>
 
+enum LogLevel {INFO, WARNING, SEVERE};
+
 class Logger
 {
 public:
@@ -11,7 +13,7 @@ public:
 		return instance;
 	}
 
-	void log(std::string message);
+	void log(LogLevel type, std::string message);
 
 private:
 	Logger()

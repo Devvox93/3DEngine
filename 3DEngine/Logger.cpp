@@ -1,7 +1,8 @@
 #include "logger.h"
 #include <iostream>
+#include <windows.h>
 
-void Logger::log(std::string message)
+void Logger::log(LogLevel type, std::string message)
 {
 	if (!logfile.is_open())
 	{
@@ -11,9 +12,34 @@ void Logger::log(std::string message)
 			throw(std::runtime_error("LOGGER: kan logbestand niet openen!"));
 		}
 	}
-	logfile << __TIME__ << ":";
-	logfile << message.c_str() << std::endl;
 
-	std::cout << __TIME__ << ":";
+	SYSTEMTIME time;
+	GetSystemTime(&time);
+	WORD millis = time.wMilliseconds;
+
+	logfile << __TIME__ << "." << millis << " ";
+	std::cout << __TIME__ << "." << millis << " ";
+
+
+	switch (type)
+	{
+	case INFO:
+		logfile << "<INFO>: ";
+		std::cout << "<INFO>: ";
+		break;
+	case WARNING:
+		logfile << "<WARNING>: ";
+		std::cout << "<WARNING>: ";
+		break;
+	case SEVERE:
+		logfile << "<SEVERE>: ";
+		std::cout << "<SEVERE>: ";
+		break;
+	default:
+		logfile << "<???>: ";
+		std::cout << "<???>: ";
+		break;
+	}
+	logfile << message.c_str() << std::endl;
 	std::cout << message.c_str() << std::endl;
 }
