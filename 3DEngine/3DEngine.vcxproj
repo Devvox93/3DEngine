@@ -89,7 +89,9 @@
     <ClCompile Include="Code\EntityManager.cpp" />
     <ClCompile Include="Code\Ground.cpp" />
     <ClCompile Include="Code\InputManager.cpp" />
+    <ClCompile Include="Code\Kernel.cpp" />
     <ClCompile Include="Code\Keyboard.cpp" />
+    <ClCompile Include="Code\Logger.cpp" />
     <ClCompile Include="Code\Model.cpp" />
     <ClCompile Include="Code\ModelTexture.cpp" />
     <ClCompile Include="Code\Mouse.cpp" />
@@ -101,8 +103,6 @@
     <ClCompile Include="Code\Texture.cpp" />
     <ClCompile Include="Code\Window.cpp" />
     <ClCompile Include="Code\WindowManager.cpp" />
-    <ClCompile Include="Kernel.cpp" />
-    <ClCompile Include="Logger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
