@@ -1206,6 +1206,45 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="7861e681-6e1a-4d8a-836a-fb3d0a62c617"
+            isDerived="false"
+            sourceEndRoleName="Kernel"
+            targetEndRoleName="InputManager"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="3af53368-7388-45d9-9cfe-1a9c1900f134"
+              LastKnownName="InputManager"
+              LastKnownLocation="KlassenDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="036ddd60-0ae1-40bb-905b-ba06994f1c3f"
+                  name="Kernel"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6f6ae8aa-1f3c-494e-ad39-16fe01efcc21"
+                  name="InputManager"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
       </Interface>
     </packageHasNamedElement>
@@ -1459,6 +1498,111 @@
       <class
         Id="e3470090-5618-4866-9e2d-736db6d85339"
         name="EntityManager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="3af53368-7388-45d9-9cfe-1a9c1900f134"
+        name="InputManager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="b0384876-3854-4ba4-ae41-c8d70505504e"
+            isDerived="false"
+            sourceEndRoleName="InputManager"
+            targetEndRoleName="Keyboard"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="bc008821-efa4-4ac7-8a0a-524101b787e3"
+              LastKnownName="Keyboard"
+              LastKnownLocation="KlassenDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="644f4f38-8dac-4455-b2c4-e3dbbaadec6b"
+                  name="InputManager"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="703fca47-5437-4c11-84c4-b98102bbe334"
+                  name="Keyboard"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="3f09578f-c9ca-4f86-8926-0c06be2c5a87"
+            isDerived="false"
+            sourceEndRoleName="InputManager"
+            targetEndRoleName="Mouse"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="cded4cd9-898b-46d2-b798-02e9c96fe6cf"
+              LastKnownName="Mouse"
+              LastKnownLocation="KlassenDiagram.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="391f0897-a971-416f-aa89-c2b83c96e779"
+                  name="InputManager"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b2c3b24f-4c24-4682-bec7-415b06944854"
+                  name="Mouse"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="bc008821-efa4-4ac7-8a0a-524101b787e3"
+        name="Keyboard"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="cded4cd9-898b-46d2-b798-02e9c96fe6cf"
+        name="Mouse"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false" />
