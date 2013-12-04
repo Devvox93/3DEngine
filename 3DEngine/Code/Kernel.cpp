@@ -12,7 +12,7 @@ int main()
 		oss << "Problem: " << i << "!";
 		Logger::getInstance().log(WARNING, oss.str());
 	}
-	Logger::getInstance().log(SEVERE, "Application end!");
+	Logger::getInstance().log(CRITICAL, "Application end!");
 	system("pause");
 
 	return 0;
