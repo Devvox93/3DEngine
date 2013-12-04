@@ -64,9 +64,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Logger.h" />
+    <ClInclude Include="Code\Camera.h" />
+    <ClInclude Include="Code\Entity.h" />
+    <ClInclude Include="Code\EntityManager.h" />
+    <ClInclude Include="Code\Ground.h" />
+    <ClInclude Include="Code\InputManager.h" />
+    <ClInclude Include="Code\Keyboard.h" />
+    <ClInclude Include="Code\Logger.h" />
+    <ClInclude Include="Code\Model.h" />
+    <ClInclude Include="Code\ModelTexture.h" />
+    <ClInclude Include="Code\Mouse.h" />
+    <ClInclude Include="Code\Renderer.h" />
+    <ClInclude Include="Code\ResourceManager.h" />
+    <ClInclude Include="Code\Scene.h" />
+    <ClInclude Include="Code\SceneManager.h" />
+    <ClInclude Include="Code\Skybox.h" />
+    <ClInclude Include="Code\Texture.h" />
+    <ClInclude Include="Code\Window.h" />
+    <ClInclude Include="Code\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Code\Camera.cpp" />
+    <ClCompile Include="Code\Entity.cpp" />
+    <ClCompile Include="Code\EntityManager.cpp" />
+    <ClCompile Include="Code\Ground.cpp" />
+    <ClCompile Include="Code\InputManager.cpp" />
+    <ClCompile Include="Code\Keyboard.cpp" />
+    <ClCompile Include="Code\Model.cpp" />
+    <ClCompile Include="Code\ModelTexture.cpp" />
+    <ClCompile Include="Code\Mouse.cpp" />
+    <ClCompile Include="Code\Renderer.cpp" />
+    <ClCompile Include="Code\ResourceManager.cpp" />
+    <ClCompile Include="Code\Scene.cpp" />
+    <ClCompile Include="Code\SceneManager.cpp" />
+    <ClCompile Include="Code\Skybox.cpp" />
+    <ClCompile Include="Code\Texture.cpp" />
+    <ClCompile Include="Code\Window.cpp" />
+    <ClCompile Include="Code\WindowManager.cpp" />
     <ClCompile Include="Kernel.cpp" />
     <ClCompile Include="Logger.cpp" />
   </ItemGroup>
