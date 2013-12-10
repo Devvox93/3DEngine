@@ -1,24 +1,35 @@
-#include "logger.h"
+#include "Logger.h"
 #include <iostream>
 #include <windows.h>
+#include <ctime>
+#include <sstream>
 
 void Logger::log(LogLevel type, std::string message)
 {
+
+	time_t t = time(0);   // get time now
+	struct tm now;
+	localtime_s(&now, &t); //converteer tijdzone
+
 	if (!logfile.is_open())
 	{
-		logfile.open(__DATE__".txt", std::ios_base::app);
+		std::ostringstream oss;
+		oss << "Log " << now.tm_mday << "-" << (now.tm_mon + 1) << "-" << (now.tm_year + 1900) << ".txt";
+		logfile.open(oss.str(), std::ios_base::app);
 		if (!logfile.is_open())
 		{
 			throw(std::runtime_error("LOGGER: kan logbestand niet openen!"));
 		}
 	}
 
-	SYSTEMTIME time;
+	SYSTEMTIME time;//deze heeft dezelfde data als now+millis, zou mooi zijn als we hier 14:02:00.009 uit zouden kunnen krijgen, inclusief tijdzone
 	GetSystemTime(&time);
 	WORD millis = time.wMilliseconds;
 
-	logfile << __TIME__ << "." << millis << " ";
-	std::cout << __TIME__ << "." << millis << " ";
+	char timebuf[9];
+	strftime(timebuf, 9, "%H:%M:%S", &now);
+	logfile << timebuf << "." << millis << " ";
+	std::cout << timebuf << "." << millis << " ";
 
 
 	switch (type)
@@ -42,4 +53,5 @@ void Logger::log(LogLevel type, std::string message)
 	}
 	logfile << message.c_str() << std::endl;
 	std::cout << message.c_str() << std::endl;
+	
 }

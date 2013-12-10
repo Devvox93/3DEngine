@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Code\Camera.h" />
+    <ClInclude Include="Code\DirectXWindow.h" />
     <ClInclude Include="Code\Entity.h" />
     <ClInclude Include="Code\EntityManager.h" />
     <ClInclude Include="Code\Ground.h" />
@@ -103,6 +104,7 @@
     <ClCompile Include="Code\Texture.cpp" />
     <ClCompile Include="Code\Window.cpp" />
     <ClCompile Include="Code\WindowManager.cpp" />
+    <ClCompile Include="Code\DirectXWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

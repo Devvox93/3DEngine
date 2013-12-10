@@ -2,18 +2,20 @@
 #include <string>
 #include <sstream>
 #include "Logger.h"
+#include "WindowManager.h"
 
 int main()
 {
-	Logger::getInstance().log(INFO, "Hello World!");
-	for (int i = 0; i < 10; i++)
+	WindowManager *manager = new WindowManager();
+	for (int i = 5; i > 0; --i)
 	{
-		std::ostringstream oss;
-		oss << "Problem: " << i << "!";
-		Logger::getInstance().log(WARNING, oss.str());
+		manager->newWindow();
 	}
-	Logger::getInstance().log(CRITICAL, "Application end!");
-	system("pause");
+	while (manager->hasActiveWindow())
+	{
+		manager->updateWindows();
+	}
 
+	system("pause");
 	return 0;
 }
