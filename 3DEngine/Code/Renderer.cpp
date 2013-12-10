@@ -1,4 +1,6 @@
+/*
 #include "Renderer.h"
+#include "Camera.h"
 
 
 //-----------------------------------------------------------------------------
@@ -143,6 +145,7 @@ HRESULT InitGeometry()
 	pD3DXMtrlBuffer->Release();
 
 	return S_OK;
+	return 0;
 }
 
 
@@ -154,7 +157,6 @@ HRESULT InitGeometry()
 //-----------------------------------------------------------------------------
 VOID Cleanup()
 {
-/**																check for removal
 	if (g_pMeshMaterials != NULL)
 		delete[] g_pMeshMaterials;
 
@@ -169,7 +171,6 @@ VOID Cleanup()
 	}
 	if (g_pMesh != NULL)
 		g_pMesh->Release();
-*/
 	if (g_pd3dDevice != NULL)
 		g_pd3dDevice->Release();
 
@@ -278,6 +279,7 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 // Name: WinMain()
 // Desc: The application's entry point
 //-----------------------------------------------------------------------------
+
 INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 {
 	UNREFERENCED_PARAMETER(hInst);
@@ -325,6 +327,6 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 	UnregisterClass("D3D Tutorial", wc.hInstance);
 	return 0;
 }
-
+*/
 
 
