@@ -4,13 +4,16 @@
 #include <sstream>
 
 
-DirectXWindow::DirectXWindow()
+
+DirectXWindow::DirectXWindow(Renderer *directXRenderer)
 {
 	//Override class name and style attributes.
 	_pszClassName = "DirectXWindow";
 	_pszTitle = "YoloSwag Scherm";
 	_dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
 	_WndClass.style |= CS_HREDRAW | CS_VREDRAW;
+
+	renderer = directXRenderer;
 }
 
 LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
@@ -27,6 +30,10 @@ LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
 		break;
 	case WM_PAINT:
 		OnPaint(hwnd);
+		D3DDEVICE_CREATION_PARAMETERS creationParamaters;
+		renderer->g_pd3dDevice->GetCreationParameters(&creationParamaters);
+		creationParamaters.hFocusWindow = hwnd;
+		renderer->Render();
 		break;
 	default:
 		return DefWindowProc(hwnd, msg, wParam, lParam);

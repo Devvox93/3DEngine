@@ -11,7 +11,7 @@ WindowManager::~WindowManager()
 {
 }
 
-void WindowManager::newWindow()
+void WindowManager::newWindow(Renderer *renderer)
 {
 	static int x = 0;
 	static int y = 0;
@@ -20,9 +20,10 @@ void WindowManager::newWindow()
 	x += 10;
 	y += 10;
 
-	DirectXWindow *window = new DirectXWindow();
+	DirectXWindow *window = new DirectXWindow(renderer);
 	HWND hwnd = window->Create(x, y, 512, 256, NULL, NULL, NULL);
 
+	
 
 	if (hwnd == NULL)
 	{
@@ -33,6 +34,11 @@ void WindowManager::newWindow()
 	{
 		Logger::getInstance().log(INFO, "Could make window! :)");
 	}
+
+	if (renderer->g_pD3D == NULL)
+	{
+		renderer->Renderer::Initialize(hwnd);
+	};
 
 	Logger::getInstance().log(CRITICAL, "Hey! :)");
 
