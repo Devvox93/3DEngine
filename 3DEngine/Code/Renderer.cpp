@@ -122,7 +122,7 @@ VOID Renderer::SetupMatrices()
 // Name: Render()
 // Desc: Draws the scene
 //-----------------------------------------------------------------------------
-VOID Renderer::Render()
+VOID Renderer::Render(HWND hwnd)
 {
 	// Clear the backbuffer and the zbuffer
 	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
@@ -151,7 +151,7 @@ VOID Renderer::Render()
 	}
 
 	// Present the backbuffer contents to the display
-	g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
+	g_pd3dDevice->Present(NULL, NULL, hwnd, NULL);
 }
 
 

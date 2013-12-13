@@ -17,7 +17,7 @@ public:
 	Renderer();
 	~Renderer();
 	VOID Initialize(HWND hWnd);
-	VOID Render();
+	VOID Render(HWND hwnd);
 
 private:
 	HRESULT InitD3D(HWND hWnd);

@@ -19,6 +19,8 @@ DirectXWindow::DirectXWindow(Renderer *directXRenderer)
 LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
 	WPARAM wParam, LPARAM lParam)
 {
+	D3DDEVICE_CREATION_PARAMETERS *creationParamaters = new D3DDEVICE_CREATION_PARAMETERS;
+	
 	switch (msg)
 	{
 	case WM_CLOSE:
@@ -29,11 +31,11 @@ LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
 		PostQuitMessage(0);
 		break;
 	case WM_PAINT:
+		renderer->g_pd3dDevice->GetCreationParameters(creationParamaters);
+		creationParamaters->hFocusWindow = hwnd;
+		renderer->Render(hwnd);
 		OnPaint(hwnd);
-		D3DDEVICE_CREATION_PARAMETERS creationParamaters;
-		renderer->g_pd3dDevice->GetCreationParameters(&creationParamaters);
-		creationParamaters.hFocusWindow = hwnd;
-		renderer->Render();
+
 		break;
 	default:
 		return DefWindowProc(hwnd, msg, wParam, lParam);
