@@ -17,6 +17,7 @@ public:
 	void newWindow(Renderer *renderer);
 	void updateWindows();
 	bool hasActiveWindow();
+	DirectXWindow* getLastWindow();
 private:
 	WindowList* windows;
 };

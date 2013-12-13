@@ -98,3 +98,8 @@ bool WindowManager::hasActiveWindow()
 	Logger::getInstance().log(CRITICAL, "Er zijn geen windows!");
 	return false;
 }
+
+DirectXWindow* WindowManager::getLastWindow()
+{
+	return windows->window;
+}

@@ -8,8 +8,6 @@
 
 int main()
 {
-	InputManager *iManager = new InputManager();
-	iManager->assignWindowToKeyboard(/* Geef Window hier mee!! */);
 	Renderer *renderer = new Renderer();
 	WindowManager *manager = new WindowManager();
 	for (int i = 5; i > 0; --i)
@@ -20,6 +18,10 @@ int main()
 	{
 		manager->updateWindows();
 	}
+
+	InputManager *iManager = new InputManager();
+	
+	iManager->assignWindowToKeyboard(manager->getLastWindow()->_hwnd);
 
 	system("pause");
 	return 0;
