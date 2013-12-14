@@ -40,6 +40,7 @@ Keyboard::~Keyboard()
 */
 bool Keyboard::processKBInput(byte argKeyIsPressed)
 {
+	Logger::getInstance().log(INFO, "processKBInput");
 	if (!SUCCEEDED(dDevice->Poll()))
 	{
 		doAcquire();
@@ -91,6 +92,10 @@ bool Keyboard::assignWindow(HWND argHwnd)
 	{
 		saveReleaseDevice();
 		return false;
+	}
+	else
+	{
+		return true;
 	}
 }
 

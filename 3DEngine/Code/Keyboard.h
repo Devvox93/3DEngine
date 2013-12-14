@@ -1,3 +1,6 @@
+#ifndef _KEYBOARD_H_
+#define _KEYBOARD_H_
+
 #include "windows.h"
 #include "Dinput.h"
 
@@ -12,8 +15,9 @@ public:
 	bool assignWindow(HWND argHwnd);
 private:
 	IDirectInputDevice8 *dDevice;
-	char keyBuffer[255];
+	char keyBuffer[254];
 
 	void saveReleaseDevice();
 };
 
+#endif

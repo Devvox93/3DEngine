@@ -14,14 +14,15 @@ int main()
 	{
 		manager->newWindow(renderer);
 	}
+
+	InputManager *iManager = new InputManager();
+	iManager->assignWindowToKeyboard(manager->getLastWindow()->_hwnd);
+
 	while (manager->hasActiveWindow())
 	{
 		manager->updateWindows();
 	}
 
-	InputManager *iManager = new InputManager();
-	
-	iManager->assignWindowToKeyboard(manager->getLastWindow()->_hwnd);
 
 	system("pause");
 	return 0;

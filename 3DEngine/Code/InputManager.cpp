@@ -40,7 +40,7 @@ InputManager::~InputManager()
 */
 bool InputManager::assignWindowToKeyboard(HWND argHwnd)
 {
-	keyboard->assignWindow(argHwnd);
+	return keyboard->assignWindow(argHwnd);
 }
 
 /**

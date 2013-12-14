@@ -1,5 +1,6 @@
 #include "Dinput.h"
 #include "windows.h"
+#include "Keyboard.h"
 
 class InputManager
 {
@@ -12,7 +13,7 @@ public:
 private:
 	IDirectInput8 *dInput;
 	HWND hwnd;
-	Keyboard *keyboard;
+	Keyboard* keyboard;
 
 	void saveReleaseDevice();
 };
