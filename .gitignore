@@ -16,3 +16,9 @@
 *.opensdf
 *.sdf
 *.suo
+
+# Debugging files
+Debug/
+
+# Logging files
+Log*.txt
