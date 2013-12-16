@@ -69,6 +69,26 @@ LRESULT Window::WindowProc(HWND hwnd, UINT msg, WPARAM wParam,
 	LPARAM lParam)
 {
 	//This may be overridden to process messages.
-	
+	switch (msg)
+	{
+	case WM_PAINT:
+		render();
+		break;
+	default:
+		return NULL;
+	}
 	return NULL;
+}
+
+void Window::render()
+{
+	RECT rect;
+	HDC hDC = GetDC(_hwnd);
+	PAINTSTRUCT PaintStruct;
+	BeginPaint(_hwnd, &PaintStruct);
+	GetClientRect(_hwnd, &rect);
+	DrawText(hDC, "Hallo, scherm dat verdomd moeilijk te krijgen is!", 49, &rect,
+		DT_VCENTER | DT_CENTER | DT_SINGLELINE);
+	EndPaint(_hwnd, &PaintStruct);
+	ReleaseDC(_hwnd, hDC);
 }

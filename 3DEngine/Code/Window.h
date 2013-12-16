@@ -8,6 +8,7 @@ public:
 		HWND hParent, HMENU hMenu, HINSTANCE hInstance);
 	HWND _hwnd;
 	WindowState state;
+	virtual void render();
 
 protected:
 	static LRESULT CALLBACK BaseWndProc(HWND hwnd, UINT msg,
@@ -15,6 +16,7 @@ protected:
 
 	virtual LRESULT WindowProc(HWND hwnd, UINT msg,
 		WPARAM wParam, LPARAM lParam);
+
 
 	WNDCLASSEX _WndClass;
 	DWORD _dwExtendedStyle;
