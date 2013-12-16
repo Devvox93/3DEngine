@@ -16,7 +16,6 @@ int main()
 	}
 
 	InputManager *iManager = new InputManager();
-	iManager->assignWindowToKeyboard(manager->getLastWindow()->_hwnd);
 
 	while (manager->hasActiveWindow())
 	{
