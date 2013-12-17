@@ -31,11 +31,7 @@ typedef struct {
 
 } BITMAP_HEADER;
 
-typedef struct tagRGBPIXEL{
-	unsigned char b;
-	unsigned char g;
-	unsigned char r;
-} rgbPIXEL;
+
 
 
 
@@ -48,9 +44,7 @@ class BitmapLoader
 public:
 	BitmapLoader();
 	~BitmapLoader();
-	void loadBMP();
-	void loadBMP2();
-	
+	bool LoadBMP(char* argFileName);
 
 
 

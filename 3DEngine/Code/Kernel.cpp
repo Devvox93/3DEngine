@@ -13,7 +13,7 @@ int main()
 {
 	Renderer *renderer = new Renderer();
 	BitmapLoader *bmpManager = new BitmapLoader();
-	bmpManager->loadBMP();
+	bmpManager->LoadBMP("test.bmp");
 	WindowManager *manager = new WindowManager();
 	for (int i = 5; i > 0; --i)
 	{
