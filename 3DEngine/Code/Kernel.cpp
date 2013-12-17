@@ -3,19 +3,30 @@
 #include <sstream>
 #include "Logger.h"
 #include "WindowManager.h"
+#include "BitmapLoader.h"
+
+
 
 int main()
 {
-	WindowManager *manager = new WindowManager();
+	
+	
+	WindowManager *wManager = new WindowManager();
 	for (int i = 5; i > 0; --i)
 	{
-		manager->newWindow();
+		wManager->newWindow();
 	}
-	while (manager->hasActiveWindow())
+	while (wManager->hasActiveWindow())
 	{
-		manager->updateWindows();
+		wManager->updateWindows();
 	}
+	BitmapLoader *bmpManager = new BitmapLoader();
+	bmpManager->loadBMP();
+	
+	
 
 	system("pause");
 	return 0;
+
+	
 }
