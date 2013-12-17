@@ -3,27 +3,36 @@
 #include <sstream>
 #include "Logger.h"
 #include "WindowManager.h"
+#include "InputManager.h"
+#include "Renderer.h"
 #include "BitmapLoader.h"
 
 
 
 int main()
 {
-	
-	
-	WindowManager *wManager = new WindowManager();
-	for (int i = 5; i > 0; --i)
-	{
-		wManager->newWindow();
-	}
-	while (wManager->hasActiveWindow())
-	{
-		wManager->updateWindows();
-	}
+	Renderer *renderer = new Renderer();
 	BitmapLoader *bmpManager = new BitmapLoader();
 	bmpManager->loadBMP();
+	WindowManager *manager = new WindowManager();
+	for (int i = 5; i > 0; --i)
+	{
+		manager->newWindow(renderer);
+		
+	}
+	
+
+	InputManager *iManager = new InputManager();
+
+	while (manager->hasActiveWindow())
+	{
+		manager->updateWindows();
+
+	}
+
 	
 	
+
 
 	system("pause");
 	return 0;

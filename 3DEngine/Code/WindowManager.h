@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include "DirectXWindow.h"
+#include "Renderer.h"
 
 struct WindowList
 {
@@ -13,9 +14,10 @@ class WindowManager
 public:
 	WindowManager();
 	~WindowManager();
-	void newWindow();
+	void newWindow(Renderer *renderer);
 	void updateWindows();
 	bool hasActiveWindow();
+	DirectXWindow* getLastWindow();
 private:
 	WindowList* windows;
 };

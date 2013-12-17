@@ -36,7 +36,7 @@ typedef struct tagRGBPIXEL{
 	unsigned char g;
 	unsigned char r;
 } rgbPIXEL;
-#pragma pack(pop)
+
 
 
 

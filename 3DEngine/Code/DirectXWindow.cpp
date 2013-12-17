@@ -4,13 +4,16 @@
 #include <sstream>
 
 
-DirectXWindow::DirectXWindow()
+
+DirectXWindow::DirectXWindow(Renderer *directXRenderer)
 {
 	//Override class name and style attributes.
 	_pszClassName = "DirectXWindow";
 	_pszTitle = "YoloSwag Scherm";
 	_dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
 	_WndClass.style |= CS_HREDRAW | CS_VREDRAW;
+
+	renderer = directXRenderer;
 }
 
 LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
@@ -25,9 +28,10 @@ LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
 		state = closed;
 		PostQuitMessage(0);
 		break;
-	case WM_PAINT:
-		OnPaint(hwnd);
-		break;
+	/*case WM_PAINT:
+		render();
+
+		break;*/
 	default:
 		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
@@ -39,15 +43,7 @@ void DirectXWindow::OnDestroy(HWND hwnd)
 	PostQuitMessage(0);
 }
 
-void DirectXWindow::OnPaint(HWND hwnd)
+void DirectXWindow::render()
 {
-	RECT rect;
-	HDC hDC = GetDC(hwnd);
-	PAINTSTRUCT PaintStruct;
-	BeginPaint(hwnd, &PaintStruct);
-	GetClientRect(hwnd, &rect);
-	DrawText(hDC, "Hallo, scherm dat verdomd moeilijk te krijgen is!", 49, &rect,
-		DT_VCENTER | DT_CENTER | DT_SINGLELINE);
-	EndPaint(hwnd, &PaintStruct);
-	ReleaseDC(hwnd, hDC);
+	renderer->Render(_hwnd);
 }

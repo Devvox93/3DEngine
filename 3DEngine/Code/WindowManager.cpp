@@ -11,18 +11,22 @@ WindowManager::~WindowManager()
 {
 }
 
-void WindowManager::newWindow()
+void WindowManager::newWindow(Renderer *renderer)
 {
 	static int x = 0;
 	static int y = 0;
-	static int teller = 0;
-	++teller;
-	x += 10;
-	y += 10;
+	
 
-	DirectXWindow *window = new DirectXWindow();
+	DirectXWindow *window = new DirectXWindow(renderer);
 	HWND hwnd = window->Create(x, y, 512, 256, NULL, NULL, NULL);
 
+	x += 512;
+	if (x > 1500)
+	{
+		x = 0;
+		y += 256;
+	}
+	
 
 	if (hwnd == NULL)
 	{
@@ -33,6 +37,11 @@ void WindowManager::newWindow()
 	{
 		Logger::getInstance().log(INFO, "Could make window! :)");
 	}
+
+	if (renderer->g_pD3D == NULL)
+	{
+		renderer->Renderer::Initialize(hwnd);
+	};
 
 	Logger::getInstance().log(CRITICAL, "Hey! :)");
 
@@ -50,6 +59,12 @@ void WindowManager::updateWindows()
 	{
 			TranslateMessage(&Msg);
 			DispatchMessage(&Msg);
+	}
+	WindowList *list = windows;
+	while (list != NULL)
+	{
+		list->window->render();
+		list = list->next;
 	}
 }
 
@@ -91,4 +106,9 @@ bool WindowManager::hasActiveWindow()
 	
 	Logger::getInstance().log(CRITICAL, "Er zijn geen windows!");
 	return false;
+}
+
+DirectXWindow* WindowManager::getLastWindow()
+{
+	return windows->window;
 }
