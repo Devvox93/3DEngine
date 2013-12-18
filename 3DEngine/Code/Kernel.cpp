@@ -12,7 +12,7 @@
 int main()
 {
 	Renderer *renderer = new Renderer();
-	HeightmapResource *bla = new HeightmapResource("test.bmp");
+	HeightmapResource *bla = new HeightmapResource("tet.bmp");
 	WindowManager *manager = new WindowManager();
 	for (int i = 5; i > 0; --i)
 	{
