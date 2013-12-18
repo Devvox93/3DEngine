@@ -7,6 +7,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3DEngine", "3DEngine.vcxpro
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "KlassenDiagram", "..\KlassenDiagram\KlassenDiagram.modelproj", "{85839030-D815-46AA-B4A2-2B0FE5F3BCB3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "..\Game\Game.vcxproj", "{5F329199-7077-4384-B797-33414321F3D4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C779DEE8-D5CC-464C-A40C-0839D1159CC6} = {C779DEE8-D5CC-464C-A40C-0839D1159CC6}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +42,16 @@ Global
 		{85839030-D815-46AA-B4A2-2B0FE5F3BCB3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{85839030-D815-46AA-B4A2-2B0FE5F3BCB3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{85839030-D815-46AA-B4A2-2B0FE5F3BCB3}.Release|Win32.ActiveCfg = Release|Any CPU
+		{5F329199-7077-4384-B797-33414321F3D4}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{5F329199-7077-4384-B797-33414321F3D4}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{5F329199-7077-4384-B797-33414321F3D4}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{5F329199-7077-4384-B797-33414321F3D4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5F329199-7077-4384-B797-33414321F3D4}.Debug|Win32.Build.0 = Debug|Win32
+		{5F329199-7077-4384-B797-33414321F3D4}.Release|Any CPU.ActiveCfg = Release|Win32
+		{5F329199-7077-4384-B797-33414321F3D4}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{5F329199-7077-4384-B797-33414321F3D4}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{5F329199-7077-4384-B797-33414321F3D4}.Release|Win32.ActiveCfg = Release|Win32
+		{5F329199-7077-4384-B797-33414321F3D4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,6 @@
+#ifndef _WINDOW_H_
+#define _WINDOW_H_
+
 #include <Windows.h>
 enum WindowState { fullscreen, maximized, normal, minimized, closed };
 class Window
@@ -24,3 +27,5 @@ protected:
 	LPSTR _pszClassName;
 	LPSTR _pszTitle;
 };
+
+#endif

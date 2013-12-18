@@ -16,7 +16,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -41,6 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)lib\x86</LibraryPath>
+    <SourcePath>$(ProjectDir)\Code</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -72,19 +73,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Code\DirectXRenderer.h" />
     <ClInclude Include="Code\HeightmapResource.h" />
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
     <ClInclude Include="Code\Entity.h" />
-    <ClInclude Include="Code\EntityManager.h" />
-    <ClInclude Include="Code\Ground.h" />
+    <ClInclude Include="Code\Kernel.h" />
+    <ClInclude Include="Code\Renderer.h" />
+    <ClInclude Include="Code\Terrain.h" />
+    <ClInclude Include="Code\KeyboardListener.h" />
     <ClInclude Include="Code\InputManager.h" />
     <ClInclude Include="Code\Keyboard.h" />
     <ClInclude Include="Code\Logger.h" />
     <ClInclude Include="Code\Model.h" />
     <ClInclude Include="Code\ModelTexture.h" />
     <ClInclude Include="Code\Mouse.h" />
-    <ClInclude Include="Code\Renderer.h" />
+    <ClInclude Include="Code\MouseListener.h" />
     <ClInclude Include="Code\Resource.h" />
     <ClInclude Include="Code\ResourceManager.h" />
     <ClInclude Include="Code\Scene.h" />
@@ -95,11 +99,13 @@
     <ClInclude Include="Code\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Code\DirectXRenderer.cpp" />
     <ClCompile Include="Code\HeightmapResource.cpp" />
     <ClCompile Include="Code\Camera.cpp" />
     <ClCompile Include="Code\Entity.cpp" />
-    <ClCompile Include="Code\EntityManager.cpp" />
-    <ClCompile Include="Code\Ground.cpp" />
+    <ClCompile Include="Code\Renderer.cpp" />
+    <ClCompile Include="Code\Terrain.cpp" />
+    <ClCompile Include="Code\KeyboardListener.cpp" />
     <ClCompile Include="Code\InputManager.cpp" />
     <ClCompile Include="Code\Kernel.cpp" />
     <ClCompile Include="Code\Keyboard.cpp" />
@@ -107,7 +113,7 @@
     <ClCompile Include="Code\Model.cpp" />
     <ClCompile Include="Code\ModelTexture.cpp" />
     <ClCompile Include="Code\Mouse.cpp" />
-    <ClCompile Include="Code\Renderer.cpp" />
+    <ClCompile Include="Code\MouseListener.cpp" />
     <ClCompile Include="Code\Resource.cpp" />
     <ClCompile Include="Code\ResourceManager.cpp" />
     <ClCompile Include="Code\Scene.cpp" />

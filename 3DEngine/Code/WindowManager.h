@@ -1,3 +1,7 @@
+#ifndef _WINDOWMANAGER_H_
+#define _WINDOWMANAGER_H_
+
+
 #include <Windows.h>
 #include "DirectXWindow.h"
 #include "Renderer.h"
@@ -22,3 +26,4 @@ private:
 	WindowList* windows;
 };
 
+#endif
