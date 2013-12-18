@@ -38,10 +38,11 @@ void WindowManager::newWindow(Renderer *renderer)
 		Logger::getInstance().log(INFO, "Could make window! :)");
 	}
 
-	if (renderer->g_pD3D == NULL)
+	if (!renderer->alreadyInitialized())
 	{
-		renderer->Renderer::Initialize(hwnd);
+		renderer->Initialize(hwnd);
 	};
+
 
 	Logger::getInstance().log(CRITICAL, "Hey! :)");
 
