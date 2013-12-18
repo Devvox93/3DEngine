@@ -72,7 +72,10 @@
     <ClInclude Include="Code\DirectXWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Code\BitmapLoader.h">
+    <ClInclude Include="Code\Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\BitmapResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -137,7 +140,10 @@
     <ClCompile Include="Code\DirectXWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\BitmapLoader.cpp">
+    <ClCompile Include="Code\Resource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\BitmapResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
