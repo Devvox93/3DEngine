@@ -8,8 +8,6 @@
 
 Kernel::Kernel()
 {
-	Logger::getInstance().log(INFO, "Programma gestart :)");
-
 	renderer = new DirectXRenderer();
 	wManager = new WindowManager();
 	iManager = new InputManager();
@@ -25,10 +23,8 @@ void Kernel::run()
 	Renderer *renderer = new DirectXRenderer();
 	WindowManager *manager = new WindowManager();
 	HeightmapResource *bla = new HeightmapResource("test.bmp");
-	for (int i = 5; i > 0; --i)
-	{
-		wManager->newWindow(renderer);
-	}
+
+	wManager->newWindow(renderer, 10, 10, 512, 256);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
 
 	iManager->getKeyboard()->addKeyboardListener(this);

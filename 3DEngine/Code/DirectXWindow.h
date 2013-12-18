@@ -12,8 +12,7 @@ public:
 protected:
 	Renderer *renderer;
 
-	virtual LRESULT WindowProc(HWND hwnd, UINT msg,
-		WPARAM wParam, LPARAM lParam);
+	virtual LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	virtual void OnDestroy(HWND hwnd);
 };

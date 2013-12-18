@@ -15,8 +15,3 @@ void Renderer::Initialize(HWND hWnd)
 void Renderer::Render(HWND hwnd)
 {
 };
-
-bool Renderer::alreadyInitialized()
-{
-	return false;
-};

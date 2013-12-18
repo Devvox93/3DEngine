@@ -20,14 +20,11 @@ DirectXRenderer::~DirectXRenderer()
 
 void DirectXRenderer::Initialize(HWND hWnd)
 {
-	Logger::getInstance().log(INFO, "HOI, DIT IS EEN LOG");
-	if (!SUCCEEDED(InitD3D(hWnd)))
+	if (g_pd3dDevice == NULL && SUCCEEDED(InitD3D(hWnd)))
 	{
-		//Log initD3D failed
-		//critical error
-	};
-	//SetupMatrices();
-	InitGeometry("car.X");
+		InitGeometry("car.X");
+		//SetupMatrices();
+	}
 };
 
 
@@ -40,7 +37,9 @@ HRESULT DirectXRenderer::InitD3D(HWND hWnd)
 {
 	// Create the D3D object.
 	if (NULL == (g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
+	{
 		return E_FAIL;
+	}
 
 	// Set up the structure used to create the D3DDevice. Since we are now
 	// using more complex geometry, we will create a device with a zbuffer.
@@ -101,10 +100,14 @@ HRESULT DirectXRenderer::InitGeometry(std::string filename)
 	D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
 	g_pMeshMaterials = new D3DMATERIAL9[g_dwNumMaterials];
 	if (g_pMeshMaterials == NULL)
+	{
 		return E_OUTOFMEMORY;
+	}
 	g_pMeshTextures = new LPDIRECT3DTEXTURE9[g_dwNumMaterials];
 	if (g_pMeshTextures == NULL)
+	{
 		return E_OUTOFMEMORY;
+	}
 
 	for (DWORD i = 0; i < g_dwNumMaterials; i++)
 	{
@@ -153,10 +156,14 @@ HRESULT DirectXRenderer::InitGeometry(std::string filename)
 void DirectXRenderer::Cleanup()
 {
 	if (g_pd3dDevice != NULL)
+	{
 		g_pd3dDevice->Release();
+	}
 
 	if (g_pD3D != NULL)
+	{
 		g_pD3D->Release();
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -275,16 +282,3 @@ void DirectXRenderer::Render(HWND hwnd)
 	// Present the backbuffer contents to the display
 	g_pd3dDevice->Present(NULL, NULL, hwnd, NULL);
 }
-
-bool DirectXRenderer::alreadyInitialized()
-{
-
-	Logger::getInstance().log(INFO, "HOI, DIT IS EEN LOG NUMMER 2");
-	if (g_pd3dDevice == NULL)
-	{
-		return false;
-	};
-
-	return true;
-
-};

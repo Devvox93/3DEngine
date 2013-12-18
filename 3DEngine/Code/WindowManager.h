@@ -3,12 +3,13 @@
 
 
 #include <Windows.h>
+#include "Window.h"
 #include "DirectXWindow.h"
 #include "Renderer.h"
 
 struct WindowList
 {
-	DirectXWindow* window;
+	Window* window;
 	WindowList* next;
 };
 
@@ -18,10 +19,10 @@ class WindowManager
 public:
 	WindowManager();
 	~WindowManager();
-	void newWindow(Renderer *renderer);
+	void newWindow(Renderer *renderer, int x, int y, int width, int height);
 	void updateWindows();
 	bool hasActiveWindow();
-	DirectXWindow* getLastWindow();
+	Window* getLastWindow();
 private:
 	WindowList* windows;
 };

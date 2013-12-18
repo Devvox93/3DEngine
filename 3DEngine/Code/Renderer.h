@@ -10,7 +10,6 @@ public:
 	~Renderer();
 	virtual void Initialize(HWND hWnd) = 0;
 	virtual void Render(HWND hwnd) = 0;
-	virtual bool alreadyInitialized() = 0;
 private:
 
 };

@@ -11,40 +11,18 @@ WindowManager::~WindowManager()
 {
 }
 
-void WindowManager::newWindow(Renderer *renderer)
+void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int height)
 {
-	static int x = 0;
-	static int y = 0;
-	
-
 	DirectXWindow *window = new DirectXWindow(renderer);
-	HWND hwnd = window->Create(x, y, 512, 256, NULL, NULL, NULL);
-
-	x += 512;
-	if (x > 1500)
-	{
-		x = 0;
-		y += 256;
-	}
-	
+	HWND hwnd = window->Create(x, y, width, height, NULL, NULL, NULL);
 
 	if (hwnd == NULL)
 	{
 		Logger::getInstance().log(CRITICAL, "Could not make window!");
 		return;
 	}
-	else 
-	{
-		Logger::getInstance().log(INFO, "Could make window! :)");
-	}
 
-	if (!renderer->alreadyInitialized())
-	{
-		renderer->Initialize(hwnd);
-	};
-
-
-	Logger::getInstance().log(CRITICAL, "Hey! :)");
+	renderer->Initialize(hwnd);
 
 	WindowList *list = new WindowList();
 	list->window = window;
@@ -56,10 +34,10 @@ void WindowManager::newWindow(Renderer *renderer)
 void WindowManager::updateWindows()
 {
 	MSG Msg;
-	while (PeekMessage(&Msg, NULL, 0U, 0U, true) > 0)//mochten er meerdere messages beschikbaar zijn, handel ze allemaal af
+	while (PeekMessage(&Msg, NULL, 0U, 0U, true) > 0)//if there's more than one message, go through all of them.
 	{
-			TranslateMessage(&Msg);
-			DispatchMessage(&Msg);
+		TranslateMessage(&Msg);
+		DispatchMessage(&Msg);
 	}
 	WindowList *list = windows;
 	while (list != NULL)
@@ -71,14 +49,13 @@ void WindowManager::updateWindows()
 
 bool WindowManager::hasActiveWindow()
 {
-	//Logger::getInstance().log(INFO, "Er zijn nog windows!");
 	WindowList *previous = NULL;
 	WindowList *current = windows;
 	while (current != NULL)
 	{
 		if (current->window->state == closed)
 		{
-			if (current == windows)//het is de huidige root
+			if (current == windows)//it's the current root
 			{
 				previous = current;
 				current = current->next;
@@ -104,12 +81,11 @@ bool WindowManager::hasActiveWindow()
 	{
 		return true;
 	}
-	
-	Logger::getInstance().log(CRITICAL, "Er zijn geen windows!");
+
 	return false;
 }
 
-DirectXWindow* WindowManager::getLastWindow()
+Window* WindowManager::getLastWindow()
 {
 	return windows->window;
 }

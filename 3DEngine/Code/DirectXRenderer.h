@@ -23,7 +23,6 @@ public:
 	~DirectXRenderer();
 	void Initialize(HWND hWnd);
 	void Render(HWND hwnd);
-	bool alreadyInitialized();
 
 private:
 	HRESULT InitD3D(HWND hWnd);
