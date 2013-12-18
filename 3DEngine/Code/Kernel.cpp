@@ -22,13 +22,9 @@ Kernel::~Kernel()
 
 void Kernel::run()
 {
-<<<<<<< HEAD
-	Renderer *renderer = new Renderer();
-	HeightmapResource *bla = new HeightmapResource("tet.bmp");
+	Renderer *renderer = new DirectXRenderer();
 	WindowManager *manager = new WindowManager();
-=======
 	HeightmapResource *bla = new HeightmapResource("test.bmp");
->>>>>>> db374f474a56a10d56271b30594c386a528b30a6
 	for (int i = 5; i > 0; --i)
 	{
 		wManager->newWindow(renderer);
