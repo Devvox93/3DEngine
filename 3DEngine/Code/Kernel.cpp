@@ -1,28 +1,46 @@
-#include <iostream>
-#include <string>
-#include <sstream>
+#include "Kernel.h"
 #include "Logger.h"
-#include "WindowManager.h"
-#include "InputManager.h"
-#include "Renderer.h"
 
-int main()
+Kernel::Kernel()
 {
-	Renderer *renderer = new Renderer();
-	WindowManager *manager = new WindowManager();
+	Logger::getInstance().log(INFO, "Programma gestart :)");
+
+	renderer = new Renderer();
+	wManager = new WindowManager();
+	iManager = new InputManager();
+}
+
+Kernel::~Kernel()
+{
+
+}
+
+void Kernel::run()
+{
 	for (int i = 5; i > 0; --i)
 	{
-		manager->newWindow(renderer);
+		wManager->newWindow(renderer);
 	}
 
-	InputManager *iManager = new InputManager();
+	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
 
-	while (manager->hasActiveWindow())
+	iManager->getKeyboard()->addKeyboardListener(this);
+
+	while (wManager->hasActiveWindow())
 	{
-		manager->updateWindows();
+		wManager->updateWindows();
+		iManager->frame();
 	}
 
+}
 
-	system("pause");
-	return 0;
+void Kernel::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
+{
+	Logger::getInstance().log(INFO, "Input gebruikt ofzo");
+
+	if (keyboardState[DIK_ESCAPE] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "Afgesloten met Escape");
+		exit(EXIT_SUCCESS);
+	}
 }

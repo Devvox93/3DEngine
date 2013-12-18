@@ -14,7 +14,7 @@ void Logger::log(LogLevel type, std::string message)
 	if (!logfile.is_open())
 	{
 		std::ostringstream oss;
-		oss << "Log " << now.tm_mday << "-" << (now.tm_mon + 1) << "-" << (now.tm_year + 1900) << ".txt";
+		oss << /* Logmap "Logs\\" <<*/  "Log " << now.tm_mday << "-" << (now.tm_mon + 1) << "-" << (now.tm_year + 1900) << ".txt";
 		logfile.open(oss.str(), std::ios_base::app);
 		if (!logfile.is_open())
 		{

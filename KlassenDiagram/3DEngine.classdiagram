@@ -231,12 +231,6 @@
     <logicalClassDesignerModelHasTypes>
       <class Id="069dc390-317f-42b6-bc34-19292995b36a" name="Scene" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="0ee56785-6147-49e0-88de-f65263d1bf77" />
-        <suppliersInternal>
-          <dependency Id="6d109c42-8428-4c0d-901f-cc36b18b75ec">
-            <classMoniker Id="cfc9fbab-57f9-4b3c-a06e-8b8c140a89c6" LastKnownName="EntityManager" />
-            <elementDefinition Id="3c0c6e05-b54d-4063-985c-91adc8a5174f" />
-          </dependency>
-        </suppliersInternal>
         <targetEnds>
           <association Id="9e0f5e04-2252-4147-bc93-c8679acf257c" isDerived="false" sourceEndRoleName="Scene" targetEndRoleName="Skybox" isLeaf="false" isAbstract="false">
             <classMoniker Id="4a4aa826-7dff-47af-b414-b6dc567ce881" LastKnownName="Skybox" />
@@ -467,22 +461,6 @@
             </relationshipOwnedElementsInternal>
             <elementDefinition Id="cfcce29c-bdf4-457c-97d2-accdf756d5a3" />
           </association>
-          <association Id="458b68ea-fb56-4406-b527-65b580a0ca9e" isDerived="false" sourceEndRoleName="Kernel" targetEndRoleName="EntityManager" isLeaf="false" isAbstract="false">
-            <classMoniker Id="cfc9fbab-57f9-4b3c-a06e-8b8c140a89c6" LastKnownName="EntityManager" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="78d90ed5-0908-4a23-89ff-3a47f03e29d6" name="Kernel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="261d8178-5d68-4239-8b81-a4581a144a9f" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="2d28c19c-934e-4049-b31a-cec9fe6838ad" name="EntityManager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="e367bc6a-3ab0-4af0-965d-029b60e74977" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="c142d352-d824-4740-bd78-8c8578425c8d" />
-          </association>
           <association Id="d6371b8a-5e15-4614-91ce-cc7741c07351" isDerived="false" sourceEndRoleName="Kernel" targetEndRoleName="InputManager" isLeaf="false" isAbstract="false">
             <classMoniker Id="e3758a0d-e083-4ce5-a0c1-b562ac367ee8" LastKnownName="InputManager" />
             <relationshipOwnedElementsInternal>
@@ -587,11 +565,6 @@
             <elementDefinition Id="da694c2a-855e-4a1c-bf63-89e6d3ba127f" />
           </association>
         </targetEnds>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="cfc9fbab-57f9-4b3c-a06e-8b8c140a89c6" name="EntityManager" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="e3470090-5618-4866-9e2d-736db6d85339" />
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>

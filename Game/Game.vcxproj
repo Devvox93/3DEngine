@@ -11,22 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C779DEE8-D5CC-464C-A40C-0839D1159CC6}</ProjectGuid>
-    <RootNamespace>My3DEngine</RootNamespace>
+    <ProjectGuid>{5F329199-7077-4384-B797-33414321F3D4}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Game</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -39,84 +40,49 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)lib\x86</LibraryPath>
+    <LibraryPath>$(DXSDK_DIR)lib\x86;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)\Code</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\Mijn Documenten\School\3DEngine\Code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>3DEngine.lib;d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Code\Camera.h" />
-    <ClInclude Include="Code\DirectXWindow.h" />
-    <ClInclude Include="Code\Entity.h" />
-    <ClInclude Include="Code\Kernel.h" />
-    <ClInclude Include="Code\Terrain.h" />
-    <ClInclude Include="Code\KeyboardListener.h" />
-    <ClInclude Include="Code\InputManager.h" />
-    <ClInclude Include="Code\Keyboard.h" />
-    <ClInclude Include="Code\Logger.h" />
-    <ClInclude Include="Code\Model.h" />
-    <ClInclude Include="Code\ModelTexture.h" />
-    <ClInclude Include="Code\Mouse.h" />
-    <ClInclude Include="Code\MouseListener.h" />
-    <ClInclude Include="Code\Renderer.h" />
-    <ClInclude Include="Code\ResourceManager.h" />
-    <ClInclude Include="Code\Scene.h" />
-    <ClInclude Include="Code\SceneManager.h" />
-    <ClInclude Include="Code\Skybox.h" />
-    <ClInclude Include="Code\Texture.h" />
-    <ClInclude Include="Code\Window.h" />
-    <ClInclude Include="Code\WindowManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Code\Camera.cpp" />
-    <ClCompile Include="Code\Entity.cpp" />
-    <ClCompile Include="Code\Terrain.cpp" />
-    <ClCompile Include="Code\KeyboardListener.cpp" />
-    <ClCompile Include="Code\InputManager.cpp" />
-    <ClCompile Include="Code\Kernel.cpp" />
-    <ClCompile Include="Code\Keyboard.cpp" />
-    <ClCompile Include="Code\Logger.cpp" />
-    <ClCompile Include="Code\Model.cpp" />
-    <ClCompile Include="Code\ModelTexture.cpp" />
-    <ClCompile Include="Code\Mouse.cpp" />
-    <ClCompile Include="Code\MouseListener.cpp" />
-    <ClCompile Include="Code\Renderer.cpp" />
-    <ClCompile Include="Code\ResourceManager.cpp" />
-    <ClCompile Include="Code\Scene.cpp" />
-    <ClCompile Include="Code\SceneManager.cpp" />
-    <ClCompile Include="Code\Skybox.cpp" />
-    <ClCompile Include="Code\Texture.cpp" />
-    <ClCompile Include="Code\Window.cpp" />
-    <ClCompile Include="Code\WindowManager.cpp" />
-    <ClCompile Include="Code\DirectXWindow.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
