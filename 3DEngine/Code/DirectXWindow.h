@@ -1,3 +1,6 @@
+#ifndef _DIRECTXWINDOW_H_
+#define _DIRECTXWINDOW_H_
+
 #include "Window.h"
 #include "Renderer.h"
 
@@ -14,3 +17,5 @@ protected:
 
 	virtual void OnDestroy(HWND hwnd);
 };
+
+#endif

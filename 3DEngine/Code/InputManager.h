@@ -1,3 +1,7 @@
+#ifndef _INPUTMANAGER_H_
+#define _INPUTMANAGER_H_
+
+
 #include "Dinput.h"
 #include "windows.h"
 #include "Keyboard.h"
@@ -20,3 +24,5 @@ private:
 	Keyboard* myKeyboard;
 	Mouse* myMouse;
 };
+
+#endif

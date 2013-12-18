@@ -1,3 +1,7 @@
+#ifndef _MOUSE_H_
+#define _MOUSE_H_
+
+
 #include "dinput.h"
 #include "MouseListener.h"
 #include <vector>
@@ -24,3 +28,4 @@ private:
 	int screenHeight;
 };
 
+#endif
