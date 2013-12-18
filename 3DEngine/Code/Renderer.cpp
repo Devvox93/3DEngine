@@ -1,14 +1,15 @@
 #include "Renderer.h"
-
-
-//-----------------------------------------------------------------------------
-// Global variables
-//-----------------------------------------------------------------------------
-
+#include "Logger.h"
+#include <ctime>
 Renderer::Renderer()
 {
 	g_pD3D = NULL;
 	g_pd3dDevice = NULL;
+
+	g_pMesh = NULL; // Our mesh object in sysmem
+	g_pMeshMaterials = NULL; // Materials for our mesh
+	g_pMeshTextures = NULL; // Textures for our mesh
+	g_dwNumMaterials = 0L;   // Number of mesh materials
 };
 
 
@@ -24,7 +25,8 @@ VOID Renderer::Initialize(HWND hWnd)
 		//Log initD3D failed
 		//critical error
 	};
-	SetupMatrices();
+	//SetupMatrices();
+	InitGeometry("car.X");
 };
 
 
@@ -57,6 +59,9 @@ HRESULT Renderer::InitD3D(HWND hWnd)
 		return E_FAIL;
 	}
 
+	// Turn off culling, so we see the front and back of the triangle
+	g_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
 	// Turn on the zbuffer
 	g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
@@ -66,163 +71,26 @@ HRESULT Renderer::InitD3D(HWND hWnd)
 	return S_OK;
 }
 
-//-----------------------------------------------------------------------------
-// Name: Cleanup()
-// Desc: Releases all previously initialized objects
-//-----------------------------------------------------------------------------
-VOID Renderer::Cleanup()
-{
-	if (g_pd3dDevice != NULL)
-		g_pd3dDevice->Release();
-
-	if (g_pD3D != NULL)
-		g_pD3D->Release();
-}
-
-
-
-//-----------------------------------------------------------------------------
-// Name: SetupMatrices()
-// Desc: Sets up the world, view, and projection transform matrices.
-//-----------------------------------------------------------------------------
-VOID Renderer::SetupMatrices()
-{
-	// Set up world matrix
-	D3DXMATRIXA16 matWorld;
-	//D3DXMatrixRotationY(&matWorld, timeGetTime() / 1000.0f);
-	
-	//g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld);
-
-	// Set up our view matrix. A view matrix can be defined given an eye point,
-	// a point to lookat, and a direction for which way is up. Here, we set the
-	// eye five units back along the z-axis and up three units, look at the 
-	// origin, and define "up" to be in the y-direction.
-	D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
-	D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
-	D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
-	D3DXMATRIXA16 matView;
-	D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
-	g_pd3dDevice->SetTransform(D3DTS_VIEW, &matView);
-
-	// For the projection matrix, we set up a perspective transform (which
-	// transforms geometry from 3D view space to 2D viewport space, with
-	// a perspective divide making objects smaller in the distance). To build
-	// a perpsective transform, we need the field of view (1/4 pi is common),
-	// the aspect ratio, and the near and far clipping planes (which define at
-	// what distances geometry should be no longer be rendered).
-	D3DXMATRIXA16 matProj;
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f);
-	g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
-}
-
-
-
-
-//-----------------------------------------------------------------------------
-// Name: Render()
-// Desc: Draws the scene
-//-----------------------------------------------------------------------------
-VOID Renderer::Render(HWND hwnd)
-{
-	// Clear the backbuffer and the zbuffer
-	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(0, 127, 0), 1.0f, 0);
-
-	// Begin the scene
-	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
-	{
-		// Setup the world, view, and projection matrices
-																		//SetupMatrices();
-		/*
-		// Meshes are divided into subsets, one for each material. Render them in
-		// a loop
-		for (DWORD i = 0; i < g_dwNumMaterials; i++)
-		{
-		// Set the material and texture for this subset
-		g_pd3dDevice->SetMaterial(&g_pMeshMaterials[i]);
-		g_pd3dDevice->SetTexture(0, g_pMeshTextures[i]);
-
-		// Draw the mesh subset
-		g_pMesh->DrawSubset(i);
-		}
-		*/
-		// End the scene
-		g_pd3dDevice->EndScene();
-	}
-
-	// Present the backbuffer contents to the display
-	g_pd3dDevice->Present(NULL, NULL, hwnd, NULL);
-}
-
-
-
-
-
-/*
-INT initializeD3D(HINSTANCE hInst, HINSTANCE, LPWSTR, INT, HWND hWnd)
-{
-	UNREFERENCED_PARAMETER(hInst);
-
-	// Initialize Direct3D
-	if (SUCCEEDED(InitD3D(hWnd)))
-	{
-		// Create the scene geometry
-		//if (SUCCEEDED(InitGeometry()))
-		//{
-		// Show the window
-		ShowWindow(hWnd, SW_SHOWDEFAULT);
-		UpdateWindow(hWnd);
-
-		// Enter the message loop
-		MSG msg;
-		ZeroMemory(&msg, sizeof(msg));
-		while (msg.message != WM_QUIT)
-		{
-			if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-			{
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-			}
-			else
-				Render();
-		}
-		//}
-	}
-
-	//UnregisterClass("D3D Tutorial", wc.hInstance);
-	return 0;
-}
-*/
-
-
-
-
-
-//-----------------------------------------------------------------------------
-// Name: InitGeometry()
-// Desc: Load the mesh and build the material and texture arrays
-//
-//											 Complete method can be removed, has to be put in Model and/or Entity
-//
-//-----------------------------------------------------------------------------
-/*
-HRESULT InitGeometry()
+HRESULT Renderer::InitGeometry(std::string filename)
 {
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 
+	std::string stemp = std::string(filename.begin(), filename.end());
+	LPCSTR sw = stemp.c_str();
+
 	// Load the mesh from the specified file
-	if (FAILED(D3DXLoadMeshFromX("Tiger.x", D3DXMESH_SYSTEMMEM,
+	if (FAILED(D3DXLoadMeshFromX(sw, D3DXMESH_SYSTEMMEM,
 		g_pd3dDevice, NULL,
 		&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
 		&g_pMesh)))
 	{
 		// If model is not in current folder, try parent folder
-		if (FAILED(D3DXLoadMeshFromX("..\\Tiger.x", D3DXMESH_SYSTEMMEM,
+		if (FAILED(D3DXLoadMeshFromX(sw, D3DXMESH_SYSTEMMEM,
 			g_pd3dDevice, NULL,
 			&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
 			&g_pMesh)))
 		{
-			MessageBox(NULL, "Could not find tiger.x", "Meshes.exe", MB_OK);
+			Logger::getInstance().log(WARNING, "Could not find file: " + filename);
 			return E_FAIL;
 		}
 	}
@@ -264,7 +132,8 @@ HRESULT InitGeometry()
 					strTexture,
 					&g_pMeshTextures[i])))
 				{
-					MessageBox(NULL, "Could not find texture map", "Meshes.exe", MB_OK);
+					std::string lol = std::string(strTexture);
+					Logger::getInstance().log(WARNING, "Could not find texture: " + lol);
 				}
 			}
 		}
@@ -274,9 +143,134 @@ HRESULT InitGeometry()
 	pD3DXMtrlBuffer->Release();
 
 	return S_OK;
-	return 0;
 }
-*/
 
+//-----------------------------------------------------------------------------
+// Name: Cleanup()
+// Desc: Releases all previously initialized objects
+//-----------------------------------------------------------------------------
+VOID Renderer::Cleanup()
+{
+	if (g_pd3dDevice != NULL)
+		g_pd3dDevice->Release();
 
+	if (g_pD3D != NULL)
+		g_pD3D->Release();
+}
 
+//-----------------------------------------------------------------------------
+// Name: SetupMatrices()
+// Desc: Sets up the world, view, and projection transform matrices.
+//-----------------------------------------------------------------------------
+VOID Renderer::SetupMatrices()
+{
+	// Set up world matrix
+	D3DXMATRIXA16 matWorld;
+	//D3DXMatrixRotationY(&matWorld, timeGetTime() / 1000.0f);
+	
+	//g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld);
+
+	// Set up our view matrix. A view matrix can be defined given an eye point,
+	// a point to lookat, and a direction for which way is up. Here, we set the
+	// eye five units back along the z-axis and up three units, look at the 
+	// origin, and define "up" to be in the y-direction.
+	D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
+	D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
+	D3DXMATRIXA16 matView;
+	D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
+	g_pd3dDevice->SetTransform(D3DTS_VIEW, &matView);
+
+	// For the projection matrix, we set up a perspective transform (which
+	// transforms geometry from 3D view space to 2D viewport space, with
+	// a perspective divide making objects smaller in the distance). To build
+	// a perpsective transform, we need the field of view (1/4 pi is common),
+	// the aspect ratio, and the near and far clipping planes (which define at
+	// what distances geometry should be no longer be rendered).
+	D3DXMATRIXA16 matProj;
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f);
+	g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
+}
+
+void Renderer::WorldMatrix(bool right)
+{
+	// For our world matrix, we will just rotate the object about the y-axis.
+	D3DXMATRIXA16 matWorldFinal;
+	D3DXMATRIXA16 matWorldScaled;
+	D3DXMATRIXA16 matWorldTranslate;
+
+	// Set up the rotation matrix to generate 1 full rotation (2*PI radians) 
+	// every 1000 ms. To avoid the loss of precision inherent in very high 
+	// floating point numbers, the system time is modulated by the rotation 
+	// period before conversion to a radian angle.
+	UINT iTime = timeGetTime() / 10;
+	FLOAT fAngle = iTime * (2.0f * D3DX_PI) / 1000.0f;
+
+	if (right)
+	{
+		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, fAngle, fAngle, fAngle);
+		D3DXMatrixTranslation(&matWorldTranslate, 1.0f, 0.0f, 0.0f);
+		D3DXMatrixScaling(&matWorldScaled, 0.015f, 0.015f, 0.015f);
+	}
+	else
+	{
+		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, -fAngle, -fAngle, -fAngle);
+		D3DXMatrixTranslation(&matWorldTranslate, -1.0f, 0.0f, 0.0f);
+		D3DXMatrixScaling(&matWorldScaled, 0.03f, 0.03f, 0.03f);
+	}
+
+	D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &matWorldTranslate);
+	D3DXMatrixMultiply(&matWorldFinal, &matWorldScaled, &matWorldFinal);
+
+	g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
+}
+
+//-----------------------------------------------------------------------------
+// Name: Render()
+// Desc: Draws the scene
+//-----------------------------------------------------------------------------
+VOID Renderer::Render(HWND hwnd)
+{
+	// Clear the backbuffer and the zbuffer
+	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+		D3DCOLOR_XRGB(0, 127, 0), 1.0f, 0);
+
+	// Begin the scene
+	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
+	{
+		// Setup the world, view, and projection matrices
+		SetupMatrices();
+		
+		WorldMatrix(true);
+		// Meshes are divided into subsets, one for each material. Render them in
+		// a loop
+		for (DWORD i = 0; i < g_dwNumMaterials; i++)
+		{
+			// Set the material and texture for this subset
+			g_pd3dDevice->SetMaterial(&g_pMeshMaterials[i]);
+			g_pd3dDevice->SetTexture(0, g_pMeshTextures[i]);
+
+			// Draw the mesh subset
+			g_pMesh->DrawSubset(i);
+		}
+
+		WorldMatrix(false);
+		// Meshes are divided into subsets, one for each material. Render them in
+		// a loop
+		for (DWORD i = 0; i < g_dwNumMaterials; i++)
+		{
+			// Set the material and texture for this subset
+			g_pd3dDevice->SetMaterial(&g_pMeshMaterials[i]);
+			g_pd3dDevice->SetTexture(0, g_pMeshTextures[i]);
+
+			// Draw the mesh subset
+			g_pMesh->DrawSubset(i);
+		}
+		
+		// End the scene
+		g_pd3dDevice->EndScene();
+	}
+
+	// Present the backbuffer contents to the display
+	g_pd3dDevice->Present(NULL, NULL, hwnd, NULL);
+}

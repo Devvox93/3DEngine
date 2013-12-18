@@ -53,7 +53,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;User32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;Winmm.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
     </Link>
@@ -73,6 +73,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Code\HeightmapResource.h" />
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
     <ClInclude Include="Code\Entity.h" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Code\Mouse.h" />
     <ClInclude Include="Code\MouseListener.h" />
     <ClInclude Include="Code\Renderer.h" />
+    <ClInclude Include="Code\Resource.h" />
     <ClInclude Include="Code\ResourceManager.h" />
     <ClInclude Include="Code\Scene.h" />
     <ClInclude Include="Code\SceneManager.h" />
@@ -96,6 +98,7 @@
     <ClInclude Include="Code\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Code\HeightmapResource.cpp" />
     <ClCompile Include="Code\Camera.cpp" />
     <ClCompile Include="Code\Entity.cpp" />
     <ClCompile Include="Code\Terrain.cpp" />
@@ -109,6 +112,7 @@
     <ClCompile Include="Code\Mouse.cpp" />
     <ClCompile Include="Code\MouseListener.cpp" />
     <ClCompile Include="Code\Renderer.cpp" />
+    <ClCompile Include="Code\Resource.cpp" />
     <ClCompile Include="Code\ResourceManager.cpp" />
     <ClCompile Include="Code\Scene.cpp" />
     <ClCompile Include="Code\SceneManager.cpp" />
@@ -117,6 +121,9 @@
     <ClCompile Include="Code\Window.cpp" />
     <ClCompile Include="Code\WindowManager.cpp" />
     <ClCompile Include="Code\DirectXWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="test.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,8 +19,6 @@ DirectXWindow::DirectXWindow(Renderer *directXRenderer)
 LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
 	WPARAM wParam, LPARAM lParam)
 {
-	D3DDEVICE_CREATION_PARAMETERS *creationParamaters = new D3DDEVICE_CREATION_PARAMETERS;
-	
 	switch (msg)
 	{
 	case WM_CLOSE:
@@ -30,13 +28,10 @@ LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
 		state = closed;
 		PostQuitMessage(0);
 		break;
-	case WM_PAINT:
-		renderer->g_pd3dDevice->GetCreationParameters(creationParamaters);
-		creationParamaters->hFocusWindow = hwnd;
-		renderer->Render(hwnd);
-		OnPaint(hwnd);
+	/*case WM_PAINT:
+		render();
 
-		break;
+		break;*/
 	default:
 		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
@@ -48,15 +43,7 @@ void DirectXWindow::OnDestroy(HWND hwnd)
 	PostQuitMessage(0);
 }
 
-void DirectXWindow::OnPaint(HWND hwnd)
+void DirectXWindow::render()
 {
-	RECT rect;
-	HDC hDC = GetDC(hwnd);
-	PAINTSTRUCT PaintStruct;
-	BeginPaint(hwnd, &PaintStruct);
-	GetClientRect(hwnd, &rect);
-	DrawText(hDC, "Hallo, scherm dat verdomd moeilijk te krijgen is!", 49, &rect,
-		DT_VCENTER | DT_CENTER | DT_SINGLELINE);
-	EndPaint(hwnd, &PaintStruct);
-	ReleaseDC(hwnd, hDC);
+	renderer->Render(_hwnd);
 }

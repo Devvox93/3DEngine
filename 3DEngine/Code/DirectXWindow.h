@@ -5,6 +5,7 @@ class DirectXWindow : public Window
 {
 public:
 	DirectXWindow(Renderer *directXRenderer);
+	virtual void render();
 protected:
 	Renderer *renderer;
 
@@ -12,5 +13,4 @@ protected:
 		WPARAM wParam, LPARAM lParam);
 
 	virtual void OnDestroy(HWND hwnd);
-	virtual void OnPaint(HWND hwnd);
 };

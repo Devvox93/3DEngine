@@ -15,14 +15,17 @@ void WindowManager::newWindow(Renderer *renderer)
 {
 	static int x = 0;
 	static int y = 0;
-	static int teller = 0;
-	++teller;
-	x += 10;
-	y += 10;
+	
 
 	DirectXWindow *window = new DirectXWindow(renderer);
 	HWND hwnd = window->Create(x, y, 512, 256, NULL, NULL, NULL);
 
+	x += 512;
+	if (x > 1500)
+	{
+		x = 0;
+		y += 256;
+	}
 	
 
 	if (hwnd == NULL)
@@ -56,6 +59,12 @@ void WindowManager::updateWindows()
 	{
 			TranslateMessage(&Msg);
 			DispatchMessage(&Msg);
+	}
+	WindowList *list = windows;
+	while (list != NULL)
+	{
+		list->window->render();
+		list = list->next;
 	}
 }
 
