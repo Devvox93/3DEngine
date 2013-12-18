@@ -4,12 +4,13 @@
 #include "InputManager.h"
 #include "Renderer.h"
 #include "HeightmapResource.h"
+#include "DirectXRenderer.h"
 
 Kernel::Kernel()
 {
 	Logger::getInstance().log(INFO, "Programma gestart :)");
 
-	renderer = new Renderer();
+	renderer = new DirectXRenderer();
 	wManager = new WindowManager();
 	iManager = new InputManager();
 }

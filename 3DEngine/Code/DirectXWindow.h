@@ -2,7 +2,7 @@
 #define _DIRECTXWINDOW_H_
 
 #include "Window.h"
-#include "Renderer.h"
+#include "DirectXRenderer.h"
 
 class DirectXWindow : public Window
 {
