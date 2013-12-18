@@ -138,19 +138,25 @@
     <ClInclude Include="Code\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Code\WindowManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+>>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
     <ClInclude Include="Code\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Code\HeightmapResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
   </ItemGroup>
   <ItemGroup>
 <<<<<<< HEAD
     <Image Include="test.bmp" />
+=======
+>>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -232,6 +238,9 @@
     <Image Include="test.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+<<<<<<< HEAD
+>>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
+=======
 >>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
   </ItemGroup>
 </Project>

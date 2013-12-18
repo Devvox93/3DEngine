@@ -1,19 +1,9 @@
 #include "Kernel.h"
 #include "Logger.h"
-<<<<<<< HEAD
-=======
 #include "WindowManager.h"
 #include "InputManager.h"
 #include "Renderer.h"
 #include "HeightmapResource.h"
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
-
-
->>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
 
 Kernel::Kernel()
 {
@@ -31,38 +21,24 @@ Kernel::~Kernel()
 
 void Kernel::run()
 {
-<<<<<<< HEAD
-=======
-	Renderer *renderer = new Renderer();
 	HeightmapResource *bla = new HeightmapResource("test.bmp");
-	WindowManager *manager = new WindowManager();
->>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
 	for (int i = 5; i > 0; --i)
 	{
 		wManager->newWindow(renderer);
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
 
 	iManager->getKeyboard()->addKeyboardListener(this);
 
 	while (wManager->hasActiveWindow())
-=======
-=======
->>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
 	
 	InputManager *iManager = new InputManager();
-	while (manager->hasActiveWindow())
->>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
+	while (wManager->hasActiveWindow())
 	{
 		wManager->updateWindows();
 		iManager->frame();
 	}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
 
 void Kernel::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
@@ -74,10 +50,4 @@ void Kernel::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 		Logger::getInstance().log(INFO, "Afgesloten met Escape");
 		exit(EXIT_SUCCESS);
 	}
-=======
-=======
->>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
-	system("pause");
-	return 0;
->>>>>>> 613b652cfa98fd973394bae7e19bebddd64d1c7d
 }
