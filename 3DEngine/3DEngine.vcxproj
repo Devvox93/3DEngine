@@ -72,7 +72,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Code\BitmapResource.h" />
+    <ClInclude Include="Code\HeightmapResource.h" />
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
     <ClInclude Include="Code\Entity.h" />
@@ -95,7 +95,7 @@
     <ClInclude Include="Code\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Code\BitmapResource.cpp" />
+    <ClCompile Include="Code\HeightmapResource.cpp" />
     <ClCompile Include="Code\Camera.cpp" />
     <ClCompile Include="Code\Entity.cpp" />
     <ClCompile Include="Code\EntityManager.cpp" />

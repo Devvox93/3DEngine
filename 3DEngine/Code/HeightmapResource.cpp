@@ -1,12 +1,12 @@
-#include "BitmapResource.h"
+#include "HeightmapResource.h"
 #include <Windows.h>
 #include <iostream>
 #include "Logger.h"
 #include <sstream>
 
-BitmapResource::BitmapResource(char* path)
+HeightmapResource::HeightmapResource(char* path)
 {
-	pixelData = NULL;
+	data = new Heightmap();
 	HDC lhdcDest;	//Handle to Device Context (Windows GDI)
 	HANDLE hbmp;	//Handle to an object (standard handle)
 	//HINSTANCE hInst;//Handle to an instance (instance of the window)
@@ -37,34 +37,34 @@ BitmapResource::BitmapResource(char* path)
 	GetObject(hbmp, sizeof(BITMAP), (void*)&bm);
 
 	//Store the width and height of the heightmap
-	int width = bm.bmWidth;
-	int height = bm.bmHeight;
+	data->width = bm.bmWidth;
+	data->height = bm.bmHeight;
 	std::stringstream sstm;
-	sstm << "width:" << width << " Height:" << height;
+	sstm << "width:" << data->width << " Height:" << data->height;
 	Logger::getInstance().log(INFO, sstm.str());
 
 	//Create an array to hold all the heightdata
 	//WHY is a BYTE array used, and not e.g. a INT array?
 	//WHY "*3"?
-	pixelData = new BYTE[width*height * 3];
+	data->pixelData = new BYTE[data->width*data->height * 3];
 
 	//Iterate through the BMP-file and fill the heightdata-array
-	for (int lHeight = 0; lHeight < height; lHeight++)
+	for (int lHeight = 0; lHeight < data->height; lHeight++)
 	{
-		for (int lWidth = 0; lWidth < width; lWidth++)
+		for (int lWidth = 0; lWidth < data->width; lWidth++)
 		{
-			pixelData[(lHeight*width * 3) + lWidth * 3 + 0] = GetRValue(GetPixel(lhdcDest, lWidth, lHeight));
-			pixelData[(lHeight*width * 3) + lWidth * 3 + 1] = GetGValue(GetPixel(lhdcDest, lWidth, lHeight));
-			pixelData[(lHeight*width * 3) + lWidth * 3 + 2] = GetBValue(GetPixel(lhdcDest, lWidth, lHeight));
+			data->pixelData[(lHeight*data->width * 3) + lWidth * 3 + 0] = GetRValue(GetPixel(lhdcDest, lWidth, lHeight));
+			data->pixelData[(lHeight*data->width * 3) + lWidth * 3 + 1] = GetGValue(GetPixel(lhdcDest, lWidth, lHeight));
+			data->pixelData[(lHeight*data->width * 3) + lWidth * 3 + 2] = GetBValue(GetPixel(lhdcDest, lWidth, lHeight));
 		}
 	}
 
-	for (int i = 0; i < width*height * 3; i += 3)
+	for (int i = 0; i < data->width*data->height * 3; i += 3)
 	{
 		static int x = 0;
-		int test = pixelData[i + 0];
-		int test2 = pixelData[i + 1];
-		int test3 = pixelData[i + 2];
+		int test = data->pixelData[i + 0];
+		int test2 = data->pixelData[i + 1];
+		int test3 = data->pixelData[i + 2];
 		x++;
 
 		std::stringstream sstm;
@@ -76,6 +76,6 @@ BitmapResource::BitmapResource(char* path)
 }
 
 
-BitmapResource::~BitmapResource()
+HeightmapResource::~HeightmapResource()
 {
 }

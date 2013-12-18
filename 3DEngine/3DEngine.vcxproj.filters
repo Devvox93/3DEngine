@@ -75,7 +75,7 @@
     <ClInclude Include="Code\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Code\BitmapResource.h">
+    <ClInclude Include="Code\HeightmapResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,7 +143,7 @@
     <ClCompile Include="Code\Resource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\BitmapResource.cpp">
+    <ClCompile Include="Code\HeightmapResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
