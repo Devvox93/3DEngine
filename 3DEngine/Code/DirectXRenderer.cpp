@@ -1,6 +1,19 @@
 #include "DirectXRenderer.h"
 #include "Logger.h"
 #include <ctime>
+#include <sstream>
+#include "InputManager.h"
+
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ | D3DFVF_TEX1)
+struct D3DVERTEX
+{
+	float x,
+	y,
+	z,
+	u,//texture x
+	v;//texture y
+};
+
 DirectXRenderer::DirectXRenderer()
 {
 	g_pD3D = NULL;
@@ -10,6 +23,9 @@ DirectXRenderer::DirectXRenderer()
 	g_pMeshMaterials = NULL; // Materials for our mesh
 	g_pMeshTextures = NULL; // Textures for our mesh
 	g_dwNumMaterials = 0L;   // Number of mesh materials
+	camX = 0.0f;
+	camY = 0.0f;
+	camZ = -5.0f;
 };
 
 
@@ -23,11 +39,167 @@ void DirectXRenderer::Initialize(HWND hWnd)
 	if (g_pd3dDevice == NULL && SUCCEEDED(InitD3D(hWnd)))
 	{
 		InitGeometry("car.X");
+		initHeightmap();
 		//SetupMatrices();
 	}
 };
 
+void DirectXRenderer::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
+{
+	Logger::getInstance().log(INFO, "DirectXInput gebruikt ofzo");
 
+	if (keyboardState[DIK_UPARROW] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "Up arrow");
+		up = true;
+
+	}
+	else
+	{
+		up = false;
+	}
+	if (keyboardState[DIK_DOWNARROW] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "Down arrow");
+		down = true;
+	}
+	else
+	{
+		down = false;
+	}
+	if (keyboardState[DIK_LEFTARROW] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "Left arrow");
+
+		left = true;
+	}
+	else
+	{
+		left = false;
+	}
+	if (keyboardState[DIK_RIGHTARROW] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "Right arrow");
+		right = true;
+	}
+	else
+	{
+		right = false;
+	}
+
+	if (keyboardState[DIK_PGUP] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "Page up");
+		forward = true;
+	}
+	else
+	{
+		forward = false;
+	}
+
+	if (keyboardState[DIK_PGDN] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "Page down");
+		back = true;
+	}
+	else
+	{
+		back = false;
+	}
+}
+
+void DirectXRenderer::initHeightmap()
+{
+	std::string yolo = std::string("test.bmp");
+	std::string stemp = std::string(yolo.begin(), yolo.end());
+	LPCSTR sw = stemp.c_str();
+	// Use D3DX to create a texture from a file based image
+	if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, sw, &hmrTexture)))
+	{
+		Logger::getInstance().log(INFO, "well shit!");
+	}
+
+
+	hmr = new HeightmapResource("test.bmp");
+	D3DVERTEX* heightmapVertices = new D3DVERTEX[hmr->data->width * hmr->data->height];
+	for (int i = 0; i < hmr->data->height; i++)
+	{
+		for (int j = 0; j < hmr->data->width; j++)
+		{
+			heightmapVertices[(i*hmr->data->width) + j] = { (float)j, ((float)hmr->data->pixelData[(i*hmr->data->width) + j] / 255.0f), (float)i, (1.0f / (hmr->data->width - 1)) * j, (1.0f / (hmr->data->height - 1)) * i };
+			/*std::stringstream ss;
+			ss << "x: " << heightmapVertices[(i*hmr->data->width) + j].x 
+				<< " y: " << heightmapVertices[(i*hmr->data->width) + j].y 
+				<< " z: " << heightmapVertices[(i*hmr->data->width) + j].z 
+				<< " u: " << heightmapVertices[(i*hmr->data->width) + j].u 
+				<< " v: " << heightmapVertices[(i*hmr->data->width) + j].v;
+			Logger::getInstance().log(INFO, ss.str());*/
+		}
+	}
+	
+	int amountOfIndices = (hmr->data->width - 1) * (hmr->data->height - 1) * 2 * 3;
+	int* aCubeIndices = new int[amountOfIndices];
+
+	std::stringstream ss2;
+	ss2 << "amount of planes: " << amountOfIndices / 3;
+	Logger::getInstance().log(INFO, ss2.str());
+
+	int offset = 0;
+	for (int i = 0; i < amountOfIndices; i+=6)
+	{
+		if (i != 0 && (i - 0) % ((hmr->data->width - 1) * 6) == 0)
+		{
+			/*std::stringstream ss;
+			ss << "end!: " << i;
+			Logger::getInstance().log(INFO, ss.str());*/
+			offset+=1;
+		}
+		aCubeIndices[i + 0] = i / 6 + offset;
+		aCubeIndices[i + 1] = i / 6 + 1 + offset;
+		aCubeIndices[i + 2] = i / 6 + hmr->data->width + offset;
+		aCubeIndices[i + 3] = i / 6 + 1 + offset;
+		aCubeIndices[i + 4] = i / 6 + hmr->data->width + offset;
+		aCubeIndices[i + 5] = i / 6 + hmr->data->width + 1 + offset;
+	}
+
+	/*for (int i = 0; i < amountOfIndices; i ++)
+	{
+		std::stringstream ss;
+		ss << "yolos: " << aCubeIndices[i];
+		if ((i+1) % 6 == 0)
+		{
+			ss << std::endl;
+		}
+		
+		Logger::getInstance().log(INFO, ss.str());
+	}*/
+
+	/*std::stringstream ss;
+	ss << "sizeof: " << sizeof(heightmapVertices) << ", mewo: " << sizeof(D3DVERTEX) << " beep: " << (hmr->data->width - 1) * (hmr->data->height - 1) * 2;
+	Logger::getInstance().log(INFO, ss.str());*/
+
+	g_pd3dDevice->CreateVertexBuffer(hmr->data->width * hmr->data->height * sizeof(D3DVERTEX),
+		D3DUSAGE_WRITEONLY,
+		D3DFVF_CUSTOMVERTEX,
+		D3DPOOL_MANAGED,
+		&g_pHeightmapVertexBuffer,
+		NULL);
+	g_pd3dDevice->CreateIndexBuffer(amountOfIndices * sizeof(int),
+		D3DUSAGE_WRITEONLY,
+		D3DFMT_INDEX32,
+		D3DPOOL_MANAGED,
+		&g_pHeightmapIndexBuffer,
+		NULL);
+
+	VOID* pVertices;
+	g_pHeightmapVertexBuffer->Lock(0, hmr->data->width * hmr->data->height * sizeof(D3DVERTEX), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, heightmapVertices, hmr->data->width * hmr->data->height * sizeof(D3DVERTEX)); //copy data
+	g_pHeightmapVertexBuffer->Unlock();                                 //unlock buffer
+
+	g_pHeightmapIndexBuffer->Lock(0, amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, aCubeIndices, amountOfIndices * sizeof(int));   //copy data
+	g_pHeightmapIndexBuffer->Unlock();                                 //unlock buffer
+}
 
 //-----------------------------------------------------------------------------
 // Name: InitD3D()
@@ -182,7 +354,34 @@ void DirectXRenderer::SetupMatrices()
 	// a point to lookat, and a direction for which way is up. Here, we set the
 	// eye five units back along the z-axis and up three units, look at the 
 	// origin, and define "up" to be in the y-direction.
-	D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
+
+	if (up)
+	{
+		camY += 0.1f;
+	}
+	if (down)
+	{
+		camY -= 0.1f;
+	}
+	if (right)
+	{
+		camX += 0.1f;
+	}
+	if (left)
+	{
+		camX -= 0.1f;
+	}
+
+	if (forward)
+	{
+		camZ += 0.1f;
+	}
+	if (back)
+	{
+		camZ -= 0.1f;
+	}
+
+	D3DXVECTOR3 vEyePt(camX, camY, camZ);
 	D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 	D3DXMATRIXA16 matView;
@@ -200,7 +399,7 @@ void DirectXRenderer::SetupMatrices()
 	g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 }
 
-void DirectXRenderer::WorldMatrix(bool right)
+void DirectXRenderer::WorldMatrix(int type)
 {
 	// For our world matrix, we will just rotate the object about the y-axis.
 	D3DXMATRIXA16 matWorldFinal;
@@ -214,17 +413,27 @@ void DirectXRenderer::WorldMatrix(bool right)
 	UINT iTime = timeGetTime() / 10;
 	FLOAT fAngle = iTime * (2.0f * D3DX_PI) / 1000.0f;
 
-	if (right)
+	if (type==0)
 	{
-		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, fAngle, fAngle, fAngle);
+		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0, 0, 0);
 		D3DXMatrixTranslation(&matWorldTranslate, 1.0f, 0.0f, 0.0f);
+		D3DXMatrixScaling(&matWorldScaled, 0.015f, 0.015f, 0.015f);
+	}
+	else if (type==1)
+	{
+		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, -0, -0, -0);
+		D3DXMatrixTranslation(&matWorldTranslate, -1.0f, 0.0f, 0.0f);
+		//D3DXMatrixScaling(&matWorldScaled, 0.03f, 0.03f, 0.03f);
 		D3DXMatrixScaling(&matWorldScaled, 0.015f, 0.015f, 0.015f);
 	}
 	else
 	{
-		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, -fAngle, -fAngle, -fAngle);
-		D3DXMatrixTranslation(&matWorldTranslate, -1.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 0.03f, 0.03f, 0.03f);
+		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0.0f, -45.0f, 0.0f);
+		D3DXMatrixTranslation(&matWorldTranslate, -2.5f, -2.0f, 1.0f);
+		D3DXMatrixScaling(&matWorldScaled, 0.0125f, 1.0f, 0.0125f);
+		/*std::stringstream ss;
+		ss << "angle; " << fAngle;
+		Logger::getInstance().log(INFO, ss.str());*/
 	}
 
 	D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &matWorldTranslate);
@@ -249,7 +458,7 @@ void DirectXRenderer::Render(HWND hwnd)
 		// Setup the world, view, and projection matrices
 		SetupMatrices();
 
-		WorldMatrix(true);
+		WorldMatrix(0);
 		// Meshes are divided into subsets, one for each material. Render them in
 		// a loop
 		for (DWORD i = 0; i < g_dwNumMaterials; i++)
@@ -262,7 +471,7 @@ void DirectXRenderer::Render(HWND hwnd)
 			g_pMesh->DrawSubset(i);
 		}
 
-		WorldMatrix(false);
+		WorldMatrix(1);
 		// Meshes are divided into subsets, one for each material. Render them in
 		// a loop
 		for (DWORD i = 0; i < g_dwNumMaterials; i++)
@@ -274,6 +483,13 @@ void DirectXRenderer::Render(HWND hwnd)
 			// Draw the mesh subset
 			g_pMesh->DrawSubset(i);
 		}
+
+		WorldMatrix(2);
+		g_pd3dDevice->SetTexture(0, hmrTexture);
+		g_pd3dDevice->SetStreamSource(0, g_pHeightmapVertexBuffer, 0, sizeof(D3DVERTEX));
+		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
+		g_pd3dDevice->SetIndices(g_pHeightmapIndexBuffer);
+		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, hmr->data->width * hmr->data->height/*numvertices*/, 0, (hmr->data->width - 1) * (hmr->data->height - 1) * 2/*primitives count*/);
 
 		// End the scene
 		g_pd3dDevice->EndScene();

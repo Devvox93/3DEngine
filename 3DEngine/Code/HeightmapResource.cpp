@@ -24,7 +24,7 @@ HeightmapResource::HeightmapResource(char* path)
 	hbmp = LoadImage(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	if (hbmp == NULL)	//Give a visual warning if the loading of the image failed
 	{
-		Logger::getInstance().log(CRITICAL, "Could not load BMP from path: " + std::string(path));
+		Logger::getInstance().log(WARNING, "Could not load BMP from path: " + std::string(path));
 		return;		//Jump out of the function
 	}
 	//At this point it is sure that lhdcDest & hbmp are valid.
@@ -50,6 +50,9 @@ HeightmapResource::HeightmapResource(char* path)
 		for (int lWidth = 0; lWidth < data->width; lWidth++)
 		{
 			data->pixelData[(lHeight*data->width) + lWidth] = GetRValue(GetPixel(lhdcDest, lWidth, lHeight));
+			/*std::stringstream ss;
+			ss << "X: " << lWidth << " Y: " << lHeight << " Height: " << (int)GetRValue(GetPixel(lhdcDest, lWidth, lHeight));
+			Logger::getInstance().log(INFO, ss.str());*/
 		}
 	}
 }

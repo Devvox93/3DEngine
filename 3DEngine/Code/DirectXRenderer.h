@@ -6,9 +6,10 @@
 #include <d3dx9.h>
 #include <strsafe.h>
 #include <string>
+#include "HeightmapResource.h"
+#include "KeyboardListener.h"
 
-
-class DirectXRenderer : public Renderer
+class DirectXRenderer : public Renderer , public KeyboardListener
 {
 public:
 	LPDIRECT3D9         g_pD3D;
@@ -24,12 +25,23 @@ public:
 	void Initialize(HWND hWnd);
 	void Render(HWND hwnd);
 
+	void useKeyboardInput(std::array<unsigned char, 256> keyboardState);
+
 private:
 	HRESULT InitD3D(HWND hWnd);
 	void Cleanup();
 	void SetupMatrices();
 	HRESULT InitGeometry(std::string filename);
-	void WorldMatrix(bool right);
+	void WorldMatrix(int type);
+	void initHeightmap();
+
+	LPDIRECT3DVERTEXBUFFER9 g_pHeightmapVertexBuffer = NULL; // Buffer to hold vertices
+	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;
+	HeightmapResource *hmr;
+	LPDIRECT3DTEXTURE9 hmrTexture;
+
+	bool up, down, left, right, forward, back;
+	float camX, camY, camZ;
 };
 
 #endif
