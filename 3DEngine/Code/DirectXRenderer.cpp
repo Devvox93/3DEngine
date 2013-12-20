@@ -87,9 +87,9 @@ void DirectXRenderer::useKeyboardInput(std::array<unsigned char, 256> keyboardSt
 		right = false;
 	}
 
-	if (keyboardState[DIK_PGUP] & 0x80)
+	if (keyboardState[DIK_INSERT] & 0x80)
 	{
-		Logger::getInstance().log(INFO, "Page up");
+		Logger::getInstance().log(INFO, "Insert");
 		forward = true;
 	}
 	else
@@ -97,9 +97,9 @@ void DirectXRenderer::useKeyboardInput(std::array<unsigned char, 256> keyboardSt
 		forward = false;
 	}
 
-	if (keyboardState[DIK_PGDN] & 0x80)
+	if (keyboardState[DIK_DELETE] & 0x80)
 	{
-		Logger::getInstance().log(INFO, "Page down");
+		Logger::getInstance().log(INFO, "Delete");
 		back = true;
 	}
 	else
@@ -126,7 +126,11 @@ void DirectXRenderer::initHeightmap()
 	{
 		for (int j = 0; j < hmr->data->width; j++)
 		{
-			heightmapVertices[(i*hmr->data->width) + j] = { (float)j, ((float)hmr->data->pixelData[(i*hmr->data->width) + j] / 255.0f), (float)i, (1.0f / (hmr->data->width - 1)) * j, (1.0f / (hmr->data->height - 1)) * i };
+			heightmapVertices[(i*hmr->data->width) + j] = { - (hmr->data->width / 2) + (float)j, //x
+															-0.5 + ((float)hmr->data->pixelData[(i*hmr->data->width) + j] / 255.0f), //y
+															-(hmr->data->width / 2) + (float)i, //z
+															(1.0f / (hmr->data->width - 1)) * j, //u
+															(1.0f / (hmr->data->height - 1)) * i }; //v
 			/*std::stringstream ss;
 			ss << "x: " << heightmapVertices[(i*hmr->data->width) + j].x 
 				<< " y: " << heightmapVertices[(i*hmr->data->width) + j].y 
@@ -382,7 +386,7 @@ void DirectXRenderer::SetupMatrices()
 	}
 
 	D3DXVECTOR3 vEyePt(camX, camY, camZ);
-	D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 vLookatPt(camX, camY, camZ+5.0f);
 	D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 	D3DXMATRIXA16 matView;
 	D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
@@ -428,8 +432,8 @@ void DirectXRenderer::WorldMatrix(int type)
 	}
 	else
 	{
-		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0.0f, -45.0f, 0.0f);
-		D3DXMatrixTranslation(&matWorldTranslate, -2.5f, -2.0f, 1.0f);
+		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0.0f, fAngle, 0.0f);
+		D3DXMatrixTranslation(&matWorldTranslate, 0.0f, 0.0f, 0.0f);
 		D3DXMatrixScaling(&matWorldScaled, 0.0125f, 1.0f, 0.0125f);
 		/*std::stringstream ss;
 		ss << "angle; " << fAngle;
