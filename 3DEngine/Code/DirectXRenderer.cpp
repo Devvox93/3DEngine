@@ -41,7 +41,8 @@ void DirectXRenderer::Initialize(HWND hWnd)
 	{
 		InitGeometry("car.X");
 		initHeightmap();
-		//SetupMatrices();
+		// Setup the world, view, and projection matrices
+		SetupMatrices();
 	}
 };
 
@@ -370,8 +371,7 @@ void DirectXRenderer::Render(HWND hwnd)
 	// Begin the scene
 	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
 	{
-		// Setup the world, view, and projection matrices
-		SetupMatrices();
+		
 
 		WorldMatrix(0);
 		// Meshes are divided into subsets, one for each material. Render them in
