@@ -15,3 +15,7 @@ void Renderer::Initialize(HWND hWnd)
 void Renderer::Render(HWND hwnd)
 {
 };
+
+void Renderer::setActiveCamera(Camera* camera)
+{
+};

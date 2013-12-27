@@ -23,16 +23,17 @@ DirectXRenderer::DirectXRenderer()
 	g_pMeshMaterials = NULL; // Materials for our mesh
 	g_pMeshTextures = NULL; // Textures for our mesh
 	g_dwNumMaterials = 0L;   // Number of mesh materials
-	camX = 0.0f;
-	camY = 0.0f;
-	camZ = -5.0f;
 };
-
 
 DirectXRenderer::~DirectXRenderer()
 {
 	Cleanup();
 };
+
+void DirectXRenderer::setActiveCamera(Camera* camera)
+{
+	activeCamera = camera;
+}
 
 void DirectXRenderer::Initialize(HWND hWnd)
 {
@@ -44,73 +45,10 @@ void DirectXRenderer::Initialize(HWND hWnd)
 	}
 };
 
-void DirectXRenderer::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
-{
-	Logger::getInstance().log(INFO, "DirectXInput gebruikt ofzo");
-
-	if (keyboardState[DIK_UPARROW] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Up arrow");
-		up = true;
-
-	}
-	else
-	{
-		up = false;
-	}
-	if (keyboardState[DIK_DOWNARROW] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Down arrow");
-		down = true;
-	}
-	else
-	{
-		down = false;
-	}
-	if (keyboardState[DIK_LEFTARROW] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Left arrow");
-
-		left = true;
-	}
-	else
-	{
-		left = false;
-	}
-	if (keyboardState[DIK_RIGHTARROW] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Right arrow");
-		right = true;
-	}
-	else
-	{
-		right = false;
-	}
-
-	if (keyboardState[DIK_INSERT] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Insert");
-		forward = true;
-	}
-	else
-	{
-		forward = false;
-	}
-
-	if (keyboardState[DIK_DELETE] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Delete");
-		back = true;
-	}
-	else
-	{
-		back = false;
-	}
-}
 
 void DirectXRenderer::initHeightmap()
 {
-	std::string yolo = std::string("test.bmp");
+	std::string yolo = std::string("clouds.bmp");
 	std::string stemp = std::string(yolo.begin(), yolo.end());
 	LPCSTR sw = stemp.c_str();
 	// Use D3DX to create a texture from a file based image
@@ -120,7 +58,7 @@ void DirectXRenderer::initHeightmap()
 	}
 
 
-	hmr = new HeightmapResource("test.bmp");
+	hmr = new HeightmapResource("clouds.bmp");
 	D3DVERTEX* heightmapVertices = new D3DVERTEX[hmr->data->width * hmr->data->height];
 	for (int i = 0; i < hmr->data->height; i++)
 	{
@@ -359,34 +297,8 @@ void DirectXRenderer::SetupMatrices()
 	// eye five units back along the z-axis and up three units, look at the 
 	// origin, and define "up" to be in the y-direction.
 
-	if (up)
-	{
-		camY += 0.1f;
-	}
-	if (down)
-	{
-		camY -= 0.1f;
-	}
-	if (right)
-	{
-		camX += 0.1f;
-	}
-	if (left)
-	{
-		camX -= 0.1f;
-	}
-
-	if (forward)
-	{
-		camZ += 0.1f;
-	}
-	if (back)
-	{
-		camZ -= 0.1f;
-	}
-
-	D3DXVECTOR3 vEyePt(camX, camY, camZ);
-	D3DXVECTOR3 vLookatPt(camX, camY, camZ+5.0f);
+	D3DXVECTOR3 vEyePt(0, 0, 0);
+	D3DXVECTOR3 vLookatPt(0, 0, 1.0f);
 	D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 	D3DXMATRIXA16 matView;
 	D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
@@ -403,9 +315,9 @@ void DirectXRenderer::SetupMatrices()
 	g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 }
 
-void DirectXRenderer::WorldMatrix(int type)
+void DirectXRenderer::WorldMatrix(int type) //moet worden vervangen door een for-loop per entity, 
+											//die de entity matrix multiplied met camera.
 {
-	// For our world matrix, we will just rotate the object about the y-axis.
 	D3DXMATRIXA16 matWorldFinal;
 	D3DXMATRIXA16 matWorldScaled;
 	D3DXMATRIXA16 matWorldTranslate;
@@ -427,21 +339,19 @@ void DirectXRenderer::WorldMatrix(int type)
 	{
 		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, -0, -0, -0);
 		D3DXMatrixTranslation(&matWorldTranslate, -1.0f, 0.0f, 0.0f);
-		//D3DXMatrixScaling(&matWorldScaled, 0.03f, 0.03f, 0.03f);
 		D3DXMatrixScaling(&matWorldScaled, 0.015f, 0.015f, 0.015f);
 	}
 	else
 	{
-		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0.0f, fAngle, 0.0f);
+		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0.0f, 0.0f, 0.0f);
 		D3DXMatrixTranslation(&matWorldTranslate, 0.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 0.0125f, 1.0f, 0.0125f);
-		/*std::stringstream ss;
-		ss << "angle; " << fAngle;
-		Logger::getInstance().log(INFO, ss.str());*/
+		D3DXMatrixScaling(&matWorldScaled, 0.025f, 2.0f, 0.025f);
 	}
 
 	D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &matWorldTranslate);
 	D3DXMatrixMultiply(&matWorldFinal, &matWorldScaled, &matWorldFinal);
+
+	D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &activeCamera->finalMatrix);
 
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
 }
@@ -452,6 +362,7 @@ void DirectXRenderer::WorldMatrix(int type)
 //-----------------------------------------------------------------------------
 void DirectXRenderer::Render(HWND hwnd)
 {
+	activeCamera->update();//DIT MOET IN SCENE GEBEUREN!
 	// Clear the backbuffer and the zbuffer
 	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 		D3DCOLOR_XRGB(0, 127, 0), 1.0f, 0);

@@ -9,7 +9,7 @@
 #include "HeightmapResource.h"
 #include "KeyboardListener.h"
 
-class DirectXRenderer : public Renderer , public KeyboardListener
+class DirectXRenderer : public Renderer
 {
 public:
 	LPDIRECT3D9         g_pD3D;
@@ -24,8 +24,7 @@ public:
 	~DirectXRenderer();
 	void Initialize(HWND hWnd);
 	void Render(HWND hwnd);
-
-	void useKeyboardInput(std::array<unsigned char, 256> keyboardState);
+	void setActiveCamera(Camera* camera);
 
 private:
 	HRESULT InitD3D(HWND hWnd);
@@ -40,8 +39,7 @@ private:
 	HeightmapResource *hmr;
 	LPDIRECT3DTEXTURE9 hmrTexture;
 
-	bool up, down, left, right, forward, back;
-	float camX, camY, camZ;
+	Camera* activeCamera;
 };
 
 #endif

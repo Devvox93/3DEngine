@@ -3,6 +3,7 @@
 #include "WindowManager.h"
 #include "InputManager.h"
 #include "Renderer.h"
+#include "Camera.h"
 
 Kernel::Kernel()
 {
@@ -20,12 +21,14 @@ void Kernel::run()
 {
 	Renderer *renderer = new DirectXRenderer();
 	WindowManager *manager = new WindowManager();
+	Camera* cam = new Camera();
+	renderer->setActiveCamera(cam);
 
 	wManager->newWindow(renderer, 10, 10, 1024, 1024);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
 
 	iManager->getKeyboard()->addKeyboardListener(this);
-	iManager->getKeyboard()->addKeyboardListener((DirectXRenderer *)renderer);
+	iManager->getKeyboard()->addKeyboardListener(cam);
 
 
 	while (wManager->hasActiveWindow())
