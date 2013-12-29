@@ -6,8 +6,8 @@ class ResourceManager
 public:
 	ResourceManager();
 	~ResourceManager();
-	void loadBMP();
-	void loadBMP2();
+	void storeBMP(char *path);
+
 	
 	
 

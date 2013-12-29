@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "HeightmapResource.h"
 #include "DirectXRenderer.h"
+#include "ResourceManager.h"
 
 Kernel::Kernel()
 {
@@ -24,7 +25,9 @@ void Kernel::run()
 {
 	Renderer *renderer = new DirectXRenderer();
 	WindowManager *manager = new WindowManager();
-	HeightmapResource *bla = new HeightmapResource("test.bmp");
+	ResourceManager *rsManager = new ResourceManager();
+	rsManager->storeBMP("test.bmp");
+	//HeightmapResource *bla = new HeightmapResource("test.bmp");
 	for (int i = 5; i > 0; --i)
 	{
 		wManager->newWindow(renderer);
