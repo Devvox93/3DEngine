@@ -1,9 +1,15 @@
 #include <dinput.h>
 #include "Camera.h"
 #include "Logger.h"
+#include <sstream>
+
+#define PI 3.14159265
 
 Camera::Camera()
 {
+	xMovement = 0.0f;
+	yMovement = 0.0f;
+	zMovement = 0.0f;
 }
 
 
@@ -14,30 +20,9 @@ Camera::~Camera()
 void Camera::update()
 {
 	TripleFloat tf = getPosition();
-	if (right)
-	{
-		tf.x += 0.1f;
-	}
-	if (left)
-	{
-		tf.x -= 0.1f;
-	}
-	if (up)
-	{
-		tf.y += 0.1f;
-	}
-	if (down)
-	{
-		tf.y -= 0.1f;
-	}
-	if (forward)
-	{
-		tf.z += 0.1f;
-	}
-	if (back)
-	{
-		tf.z -= 0.1f;
-	}
+	tf.x += xMovement;
+	tf.y += yMovement;
+	tf.z += zMovement;
 	setPosition(tf.x, tf.y, tf.z);
 }
 
@@ -90,59 +75,116 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	if (keyboardState[DIK_UPARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Up arrow");
-		up = true;
+		yMovement = 0.1f;
 
 	}
-	else
-	{
-		up = false;
-	}
-	if (keyboardState[DIK_DOWNARROW] & 0x80)
+	else if (keyboardState[DIK_DOWNARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Down arrow");
-		down = true;
+		yMovement = -0.1f;
 	}
 	else
 	{
-		down = false;
+		yMovement = 0.0f;
 	}
 	if (keyboardState[DIK_LEFTARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Left arrow");
 
-		left = true;
+		xMovement = -0.1f;
 	}
-	else
-	{
-		left = false;
-	}
-	if (keyboardState[DIK_RIGHTARROW] & 0x80)
+	else if (keyboardState[DIK_RIGHTARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Right arrow");
-		right = true;
+		xMovement = 0.1f;
 	}
 	else
 	{
-		right = false;
+		xMovement = 0.0f;
 	}
 
 	if (keyboardState[DIK_INSERT] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Insert");
-		forward = true;
+		zMovement = 0.1f;
 	}
-	else
-	{
-		forward = false;
-	}
-
-	if (keyboardState[DIK_DELETE] & 0x80)
+	else if (keyboardState[DIK_DELETE] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Delete");
-		back = true;
+		zMovement = -0.1f;
 	}
 	else
 	{
-		back = false;
+		zMovement = 0.0f;
 	}
+}
+
+void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
+{
+	/*Logger::getInstance().log(INFO, "JoystickInput gebruikt ofzo");
+	std::ostringstream oss;
+	oss << "Data: lARx: " << joystickState.lARx << ", lARy: " << joystickState.lARy << ", lARz: " << joystickState.lARz << std::endl
+		<< "lAX: " << joystickState.lAX << ", lAY: " << joystickState.lAY << ", lAZ: " << joystickState.lAZ << std::endl
+		<< "lFTx: " << joystickState.lFRx << ", lFTy: " << joystickState.lFRy << ", lFTz: " << joystickState.lFRz << std::endl
+		<< "lFX: " << joystickState.lFX << ", lFY: " << joystickState.lFY << ", lFZ: " << joystickState.lFZ << std::endl
+		<< "lRx: " << joystickState.lRx << ", lRy: " << joystickState.lRy << ", lRz: " << joystickState.lRz << std::endl
+		<< "lVRx: " << joystickState.lVRx << ", lVRy: " << joystickState.lVRy << ", lVRz: " << joystickState.lVRz << std::endl
+		<< "lVX: " << joystickState.lVX << ", lVY: " << joystickState.lVY << ", lVZ: " << joystickState.lVZ << std::endl
+		<< "lX: " << joystickState.lX << ", lY: " << joystickState.lY << ", lZ: " << joystickState.lZ << std::endl
+		<< "Buttons:" << std::endl;
+	//<< ", lX: " << joystickState.rgbButtons;
+	for (int i = 0; i < 128; i++)
+	{
+		if (joystickState.rgbButtons[i] & 0x80) {
+			oss << i << " ";
+		}
+	}
+	oss << std::endl;
+
+	oss << "More data: rgdwPOV[0]: " << joystickState.rgdwPOV[0] << ", rgdwPOV[1]: " << joystickState.rgdwPOV[1] << ", rgdwPOV[2]: " << joystickState.rgdwPOV[2] << ", rgdwPOV[3]: " << joystickState.rgdwPOV[3] << std::endl;
+	oss << "rglASlider[0]: " << joystickState.rglASlider[0] << ", rglASlider[1]: " << joystickState.rglASlider[1] << std::endl;
+	oss << "rglFSlider[0]: " << joystickState.rglFSlider << ", rglFSlider[1]: " << joystickState.rglFSlider[1] << std::endl;
+	oss << "rglSlider[0]: " << joystickState.rglSlider[0] << ", rglSlider[1]: " << joystickState.rglSlider[1] << std::endl;
+	oss << "rglVSlider[0]: " << joystickState.rglVSlider[0] << ", rglVSlider[1]: " << joystickState.rglVSlider[1] << std::endl;
+	Logger::getInstance().log(INFO, oss.str());*/
+	
+
+	if (joystickState.rgdwPOV[0] < 4294967295 )
+	{
+		float degrees = joystickState.rgdwPOV[0] / 100;
+		float radians = degrees*PI / 180;
+		xMovement = sin(radians) * 0.1f;
+		yMovement = cos(radians) * 0.1f;
+	}
+	else 
+	{
+		xMovement = 0.0f;
+		yMovement = 0.0f;
+	}
+	
+	long deadzone = 3000;
+	//32767
+	long xAxis = joystickState.lX - 32767;
+	if (xMovement == 0.0f && ((xAxis + deadzone < -deadzone) || (xAxis - deadzone > deadzone)))
+	{
+		xMovement = (xAxis / 32767.0f) * 0.1f;
+	}
+
+	long yAxis = joystickState.lY - 32767;
+	if (yMovement == 0.0f && ((yAxis + deadzone < -deadzone) || (yAxis - deadzone > deadzone)))
+	{
+		yMovement = (-yAxis / 32767.0f) * 0.1f;
+	}
+	
+	long deadzoneZ = 100;
+	//32767
+	long zAxis = joystickState.lZ - 32767;
+	if ((zAxis + deadzoneZ < -deadzoneZ) || (zAxis - deadzoneZ > deadzoneZ))
+	{
+		zMovement = (-zAxis / 32767.0f) * 0.1f;
+	}
+	else {
+		zMovement = 0.0f;
+	}
+
 }

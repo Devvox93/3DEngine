@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "Renderer.h"
 #include "Camera.h"
+#include <sstream>
 
 Kernel::Kernel()
 {
@@ -24,11 +25,12 @@ void Kernel::run()
 	Camera* cam = new Camera();
 	renderer->setActiveCamera(cam);
 
-	wManager->newWindow(renderer, 10, 10, 1024, 1024);
+	wManager->newWindow(renderer, 10, 10, 512, 512);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
 
 	iManager->getKeyboard()->addKeyboardListener(this);
 	iManager->getKeyboard()->addKeyboardListener(cam);
+	iManager->getJoystick()->addJoystickListener(cam);
 
 
 	while (wManager->hasActiveWindow())
