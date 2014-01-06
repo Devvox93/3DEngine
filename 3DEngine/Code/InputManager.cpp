@@ -114,10 +114,15 @@ bool InputManager::frame()
 	bool result;
 
 	// Read the current state of the joystick.
-	result = myJoystick->read();
-	if (!result)
+	if (myJoystick->available)
 	{
-		return false;
+		Logger::getInstance().log(INFO, "Miauw");
+		result = myJoystick->read();
+		if (!result)
+		{
+			return false;
+		}
+		myJoystick->processInput();
 	}
 
 	// Read the current state of the keyboard.
@@ -135,7 +140,6 @@ bool InputManager::frame()
 	}
 
 	// Process the changes in the mouse and keyboard.
-	myJoystick->processInput();
 	myKeyboard->processInput();
 	//myMouse->processInput();
 

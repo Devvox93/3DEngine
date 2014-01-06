@@ -38,6 +38,7 @@ Joystick::Joystick(IDirectInput8* argInterface, HWND hDlg)
 	}
 
 	joystickListeners = std::vector<JoystickListener*>();
+	available = true;
 }
 
 

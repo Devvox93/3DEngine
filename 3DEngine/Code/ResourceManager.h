@@ -8,7 +8,6 @@ public:
 	~ResourceManager();
 	void storeResource(char *path);
 	void PrintMap();
-
 	
 	
 

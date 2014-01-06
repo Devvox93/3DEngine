@@ -5,7 +5,6 @@
 
 #define PI 3.14159265
 
-
 Camera::Camera()
 {
 	xMovement = 0.0f;

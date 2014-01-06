@@ -16,6 +16,7 @@ public:
 	bool read();
 	void processInput();
 	void updateListeners();
+	bool available;
 private:
 	IDirectInputDevice8* joystick;
 	DIJOYSTATE2 joystickState;

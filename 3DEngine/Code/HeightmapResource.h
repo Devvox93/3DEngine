@@ -1,8 +1,4 @@
-#ifndef _HEIGHTMAPRESOURCE_H_
-#define _HEIGHTMAPRESOURCE_H_
 #include "Resource.h"
-
-
 
 typedef unsigned char BYTE;
 
@@ -22,4 +18,3 @@ public:
 private:
 };
 
-#endif

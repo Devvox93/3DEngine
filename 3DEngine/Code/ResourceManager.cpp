@@ -1,13 +1,10 @@
 #include "ResourceManager.h"
-#include "windows.h"
 #include "HeightmapResource.h"
-#include "logger.h"
-#include <sstream>
+#include "Logger.h"
 #include <map>
-#include <string>
-#include <string.h>
-
-
+#include "windows.h"
+#include <sstream>
+  
 std::map<char*, HeightmapResource> ResourceMap;
 
 
@@ -22,7 +19,7 @@ void ResourceManager::storeResource(char *path)
 		std::stringstream sstm;
 		sstm << "Already exist in the map!";
 		Logger::getInstance().log(INFO, sstm.str());
-	}	
+	}
 }
 
 void ResourceManager::PrintMap()
@@ -36,7 +33,6 @@ void ResourceManager::PrintMap()
 		Logger::getInstance().log(INFO, sstm.str());
 	}
 }
-
 
 ResourceManager::ResourceManager()
 {
