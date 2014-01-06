@@ -28,10 +28,6 @@ LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
 		state = closed;
 		PostQuitMessage(0);
 		break;
-	/*case WM_PAINT:
-		render();
-
-		break;*/
 	default:
 		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}

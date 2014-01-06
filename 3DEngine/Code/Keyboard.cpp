@@ -62,7 +62,7 @@ bool Keyboard::read()
 
 void Keyboard::processInput()
 {
-	Logger::getInstance().log(INFO, "Processing keyboard input");
+	//Logger::getInstance().log(INFO, "Processing keyboard input");
 	if (keyboardStateOld != keyboardState)
 	{
 		updateListeners();

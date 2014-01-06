@@ -6,11 +6,10 @@
 #include "HeightmapResource.h"
 #include "DirectXRenderer.h"
 #include "ResourceManager.h"
+#include "Camera.h"
 
 Kernel::Kernel()
 {
-	Logger::getInstance().log(INFO, "Programma gestart :)");
-
 	renderer = new DirectXRenderer();
 	wManager = new WindowManager();
 	iManager = new InputManager();
@@ -25,16 +24,25 @@ void Kernel::run()
 {
 	Renderer *renderer = new DirectXRenderer();
 	WindowManager *manager = new WindowManager();
+	Camera* cam = new Camera();
+	renderer->setActiveCamera(cam);
+
+	wManager->newWindow(renderer, 10, 10, 1024, 1024);
 	ResourceManager *rsManager = new ResourceManager();
-	rsManager->storeBMP("test.bmp");
-	//HeightmapResource *bla = new HeightmapResource("test.bmp");
-	for (int i = 5; i > 0; --i)
-	{
-		wManager->newWindow(renderer);
-	}
+	HeightmapResource *bla = new HeightmapResource("test.bmp");
+
+	rsManager->storeResource("test.bmp");
+	rsManager->storeResource("clouds.bmp");
+	rsManager->storeResource("test.bmp");
+
+	
+	rsManager->PrintMap();
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
 
 	iManager->getKeyboard()->addKeyboardListener(this);
+	iManager->getKeyboard()->addKeyboardListener(cam);
+
+
 	while (wManager->hasActiveWindow())
 	{
 		wManager->updateWindows();

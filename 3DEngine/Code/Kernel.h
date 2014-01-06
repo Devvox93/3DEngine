@@ -16,4 +16,5 @@ private:
 	Renderer *renderer;
 	WindowManager *wManager;
 	InputManager *iManager;
+	
 };

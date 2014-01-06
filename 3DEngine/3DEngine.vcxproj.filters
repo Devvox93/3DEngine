@@ -54,5 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.bmp" />
+    <Image Include="..\..\..\..\Documents\clouds.bmp" />
   </ItemGroup>
 </Project>

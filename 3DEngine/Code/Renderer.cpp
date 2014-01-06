@@ -16,7 +16,6 @@ void Renderer::Render(HWND hwnd)
 {
 };
 
-bool Renderer::alreadyInitialized()
+void Renderer::setActiveCamera(Camera* camera)
 {
-	return false;
 };

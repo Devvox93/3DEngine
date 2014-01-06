@@ -2,6 +2,7 @@
 #define _RENDERER_H_
 
 #include <Windows.h>
+#include "Camera.h"
 
 class Renderer
 {
@@ -10,9 +11,9 @@ public:
 	~Renderer();
 	virtual void Initialize(HWND hWnd) = 0;
 	virtual void Render(HWND hwnd) = 0;
-	virtual bool alreadyInitialized() = 0;
+	virtual void setActiveCamera(Camera* camera) = 0;
 private:
-
+	Camera* activeCamera;
 };
 
 #endif // !_RENDERER_H_

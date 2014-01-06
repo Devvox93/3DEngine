@@ -3,29 +3,38 @@
 #include "HeightmapResource.h"
 #include "logger.h"
 #include <sstream>
+#include <map>
+#include <string>
+#include <string.h>
 
-  
-void ResourceManager::storeBMP(char *path)
+
+std::map<char*, HeightmapResource> ResourceMap;
+
+
+void ResourceManager::storeResource(char *path)
 {
-	
-	
-		Logger::getInstance().log(INFO, "Valid path found! Loading...");
+	if (ResourceMap.find(path) == ResourceMap.end()){
 		HeightmapResource *hmprsrc = new HeightmapResource(path);
-		if (hmprsrc != NULL)
-		{
-			std::stringstream sstm;
-			sstm << "BMP:" <<path << " loaded!";
-			Logger::getInstance().log(INFO, sstm.str());
+		ResourceMap.insert(std::make_pair(path, *hmprsrc));
+	}
+	else
+	{
+		std::stringstream sstm;
+		sstm << "Already exist in the map!";
+		Logger::getInstance().log(INFO, sstm.str());
+	}	
+}
 
-		}
-		else
-		{
-			std::stringstream sstm;
-			sstm << "BMP:" << path << " Couldn't load :(";
-			Logger::getInstance().log(INFO, sstm.str());
-		}
-	
-	
+void ResourceManager::PrintMap()
+{
+
+	for (std::map<char*, HeightmapResource>::const_iterator it = ResourceMap.begin(); it != ResourceMap.end(); it++)
+	{
+		std::stringstream sstm;
+		char* key = it->first;
+		sstm << "Saved in Map = " << key;
+		Logger::getInstance().log(INFO, sstm.str());
+	}
 }
 
 

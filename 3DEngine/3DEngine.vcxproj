@@ -125,6 +125,7 @@
     <ClCompile Include="Code\DirectXWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Documents\clouds.bmp" />
     <Image Include="test.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
