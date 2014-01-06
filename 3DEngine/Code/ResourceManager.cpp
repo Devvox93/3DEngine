@@ -4,7 +4,7 @@
 #include <map>
 #include "windows.h"
 #include <sstream>
-
+  
 std::map<char*, HeightmapResource> ResourceMap;
 
 
