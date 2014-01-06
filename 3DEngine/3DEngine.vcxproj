@@ -78,6 +78,8 @@
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
     <ClInclude Include="Code\Entity.h" />
+    <ClInclude Include="Code\Joystick.h" />
+    <ClInclude Include="Code\JoystickListener.h" />
     <ClInclude Include="Code\Kernel.h" />
     <ClInclude Include="Code\Renderer.h" />
     <ClInclude Include="Code\Terrain.h" />
@@ -103,6 +105,8 @@
     <ClCompile Include="Code\HeightmapResource.cpp" />
     <ClCompile Include="Code\Camera.cpp" />
     <ClCompile Include="Code\Entity.cpp" />
+    <ClCompile Include="Code\Joystick.cpp" />
+    <ClCompile Include="Code\JoystickListener.cpp" />
     <ClCompile Include="Code\Renderer.cpp" />
     <ClCompile Include="Code\Terrain.cpp" />
     <ClCompile Include="Code\KeyboardListener.cpp" />

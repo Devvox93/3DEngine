@@ -7,6 +7,7 @@
 #include "DirectXRenderer.h"
 #include "ResourceManager.h"
 #include "Camera.h"
+#include <sstream>
 
 Kernel::Kernel()
 {
@@ -41,6 +42,7 @@ void Kernel::run()
 
 	iManager->getKeyboard()->addKeyboardListener(this);
 	iManager->getKeyboard()->addKeyboardListener(cam);
+	iManager->getJoystick()->addJoystickListener(cam);
 
 
 	while (wManager->hasActiveWindow())

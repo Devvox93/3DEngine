@@ -41,6 +41,8 @@ bool InputManager::initialize(HINSTANCE hinstance, HWND hwnd, int argScreenWidth
 		return false;
 	}
 
+	myJoystick = new Joystick(directInput, hwnd);
+
 #pragma region keyboard
 	// Initialize the direct input interface for the keyboard.
 	result = directInput->CreateDevice(GUID_SysKeyboard, &keyboard, NULL);
@@ -111,6 +113,13 @@ bool InputManager::frame()
 {
 	bool result;
 
+	// Read the current state of the joystick.
+	result = myJoystick->read();
+	if (!result)
+	{
+		return false;
+	}
+
 	// Read the current state of the keyboard.
 	result = myKeyboard->read();
 	if (!result)
@@ -126,6 +135,7 @@ bool InputManager::frame()
 	}
 
 	// Process the changes in the mouse and keyboard.
+	myJoystick->processInput();
 	myKeyboard->processInput();
 	//myMouse->processInput();
 
@@ -135,4 +145,9 @@ bool InputManager::frame()
 Keyboard* InputManager::getKeyboard()
 {
 	return myKeyboard;
+}
+
+Joystick* InputManager::getJoystick()
+{
+	return myJoystick;
 }

@@ -25,6 +25,8 @@
     <ClCompile Include="Code\DirectXWindow.cpp" />
     <ClCompile Include="Code\Renderer.cpp" />
     <ClCompile Include="Code\DirectXRenderer.cpp" />
+    <ClCompile Include="Code\Joystick.cpp" />
+    <ClCompile Include="Code\JoystickListener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\HeightmapResource.h" />
@@ -51,6 +53,8 @@
     <ClInclude Include="Code\WindowManager.h" />
     <ClInclude Include="Code\DirectXRenderer.h" />
     <ClInclude Include="Code\Renderer.h" />
+    <ClInclude Include="Code\Joystick.h" />
+    <ClInclude Include="Code\JoystickListener.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.bmp" />

@@ -49,7 +49,7 @@ void DirectXRenderer::Initialize(HWND hWnd)
 
 void DirectXRenderer::initHeightmap()
 {
-	std::string yolo = std::string("clouds.bmp");
+	std::string yolo = std::string("test.bmp");
 	std::string stemp = std::string(yolo.begin(), yolo.end());
 	LPCSTR sw = stemp.c_str();
 	// Use D3DX to create a texture from a file based image
@@ -59,7 +59,7 @@ void DirectXRenderer::initHeightmap()
 	}
 
 
-	hmr = new HeightmapResource("clouds.bmp");
+	hmr = new HeightmapResource("test.bmp");
 	D3DVERTEX* heightmapVertices = new D3DVERTEX[hmr->data->width * hmr->data->height];
 	for (int i = 0; i < hmr->data->height; i++)
 	{

@@ -6,6 +6,7 @@
 #include "windows.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Joystick.h"
 
 class InputManager
 {
@@ -16,6 +17,7 @@ public:
 	bool initialize(HINSTANCE, HWND, int screenWidth, int screenHeight);
 	bool frame();
 	Keyboard* getKeyboard();
+	Joystick* getJoystick();
 private:
 
 	IDirectInput8* directInput;
@@ -23,6 +25,7 @@ private:
 	IDirectInputDevice8* mouse;
 	Keyboard* myKeyboard;
 	Mouse* myMouse;
+	Joystick* myJoystick;
 };
 
 #endif
