@@ -17,7 +17,7 @@ void ResourceManager::storeResource(char *path)
 	else
 	{
 		std::stringstream sstm;
-		sstm << "Already exist in the map!";
+		sstm << "Already exist in the map!!";
 		Logger::getInstance().log(INFO, sstm.str());
 	}
 }
