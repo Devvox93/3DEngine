@@ -4,9 +4,6 @@
 #include "Logger.h"
 #include <sstream>
 #include <string>
-#include <map>
-
-
 
 HeightmapResource::HeightmapResource(char* path)
 {
@@ -58,9 +55,6 @@ HeightmapResource::HeightmapResource(char* path)
 			Logger::getInstance().log(INFO, ss.str());*/
 		}
 	}
-	
-	
-	
 }
 
 

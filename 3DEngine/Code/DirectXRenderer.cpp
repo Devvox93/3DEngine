@@ -23,7 +23,7 @@ DirectXRenderer::DirectXRenderer()
 	g_pMeshMaterials = NULL; // Materials for our mesh
 	g_pMeshTextures = NULL; // Textures for our mesh
 	g_dwNumMaterials = 0L;   // Number of mesh materials
-}; 
+};
 
 DirectXRenderer::~DirectXRenderer()
 {
