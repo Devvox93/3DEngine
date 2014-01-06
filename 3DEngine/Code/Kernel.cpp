@@ -25,7 +25,7 @@ void Kernel::run()
 	Camera* cam = new Camera();
 	renderer->setActiveCamera(cam);
 
-	wManager->newWindow(renderer, 10, 10, 512, 512);
+	wManager->newWindow(renderer, 10, 10, 1920, 1080);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
 
 	iManager->getKeyboard()->addKeyboardListener(this);
