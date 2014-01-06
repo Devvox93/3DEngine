@@ -30,8 +30,8 @@ void Kernel::run()
 
 	iManager->getKeyboard()->addKeyboardListener(this);
 	iManager->getKeyboard()->addKeyboardListener(cam);
-	//iManager->getJoystick()->addJoystickListener(cam);
-
+	iManager->getJoystick()->addJoystickListener(cam);
+	
 	while (wManager->hasActiveWindow())
 	{
 		wManager->updateWindows();

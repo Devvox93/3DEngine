@@ -49,85 +49,25 @@ void DirectXRenderer::Initialize(HWND hWnd)
 
 void DirectXRenderer::initHeightmap()
 {
-	std::string yolo = std::string("test.bmp");
+	std::string yolo = std::string("clouds.bmp");
 	std::string stemp = std::string(yolo.begin(), yolo.end());
 	LPCSTR sw = stemp.c_str();
 	// Use D3DX to create a texture from a file based image
-	if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, sw, &hmrTexture)))
+	if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, sw, &groundTexture)))
 	{
 		Logger::getInstance().log(INFO, "well shit!");
 	}
 
 
-	hmr = new HeightmapResource("test.bmp");
-	D3DVERTEX* heightmapVertices = new D3DVERTEX[hmr->data->width * hmr->data->height];
-	for (int i = 0; i < hmr->data->height; i++)
-	{
-		for (int j = 0; j < hmr->data->width; j++)
-		{
-			heightmapVertices[(i*hmr->data->width) + j] = { - (hmr->data->width / 2) + (float)j, //x
-															-0.5 + ((float)hmr->data->pixelData[(i*hmr->data->width) + j] / 255.0f), //y
-															-(hmr->data->width / 2) + (float)i, //z
-															(1.0f / (hmr->data->width - 1)) * j, //u
-															(1.0f / (hmr->data->height - 1)) * i }; //v
-			/*std::stringstream ss;
-			ss << "x: " << heightmapVertices[(i*hmr->data->width) + j].x 
-				<< " y: " << heightmapVertices[(i*hmr->data->width) + j].y 
-				<< " z: " << heightmapVertices[(i*hmr->data->width) + j].z 
-				<< " u: " << heightmapVertices[(i*hmr->data->width) + j].u 
-				<< " v: " << heightmapVertices[(i*hmr->data->width) + j].v;
-			Logger::getInstance().log(INFO, ss.str());*/
-		}
-	}
-	
-	int amountOfIndices = (hmr->data->width - 1) * (hmr->data->height - 1) * 2 * 3;
-	int* aCubeIndices = new int[amountOfIndices];
+	ground = new Ground("clouds.bmp");
 
-	std::stringstream ss2;
-	ss2 << "amount of planes: " << amountOfIndices / 3;
-	Logger::getInstance().log(INFO, ss2.str());
-
-	int offset = 0;
-	for (int i = 0; i < amountOfIndices; i+=6)
-	{
-		if (i != 0 && (i - 0) % ((hmr->data->width - 1) * 6) == 0)
-		{
-			/*std::stringstream ss;
-			ss << "end!: " << i;
-			Logger::getInstance().log(INFO, ss.str());*/
-			offset+=1;
-		}
-		aCubeIndices[i + 0] = i / 6 + offset;
-		aCubeIndices[i + 1] = i / 6 + 1 + offset;
-		aCubeIndices[i + 2] = i / 6 + hmr->data->width + offset;
-		aCubeIndices[i + 3] = i / 6 + 1 + offset;
-		aCubeIndices[i + 4] = i / 6 + hmr->data->width + offset;
-		aCubeIndices[i + 5] = i / 6 + hmr->data->width + 1 + offset;
-	}
-
-	/*for (int i = 0; i < amountOfIndices; i ++)
-	{
-		std::stringstream ss;
-		ss << "yolos: " << aCubeIndices[i];
-		if ((i+1) % 6 == 0)
-		{
-			ss << std::endl;
-		}
-		
-		Logger::getInstance().log(INFO, ss.str());
-	}*/
-
-	/*std::stringstream ss;
-	ss << "sizeof: " << sizeof(heightmapVertices) << ", mewo: " << sizeof(D3DVERTEX) << " beep: " << (hmr->data->width - 1) * (hmr->data->height - 1) * 2;
-	Logger::getInstance().log(INFO, ss.str());*/
-
-	g_pd3dDevice->CreateVertexBuffer(hmr->data->width * hmr->data->height * sizeof(D3DVERTEX),
+	g_pd3dDevice->CreateVertexBuffer(ground->data->width * ground->data->height * sizeof(Vertex),
 		D3DUSAGE_WRITEONLY,
 		D3DFVF_CUSTOMVERTEX,
 		D3DPOOL_MANAGED,
 		&g_pHeightmapVertexBuffer,
 		NULL);
-	g_pd3dDevice->CreateIndexBuffer(amountOfIndices * sizeof(int),
+	g_pd3dDevice->CreateIndexBuffer(ground->amountOfIndices * sizeof(int),
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX32,
 		D3DPOOL_MANAGED,
@@ -135,12 +75,12 @@ void DirectXRenderer::initHeightmap()
 		NULL);
 
 	VOID* pVertices;
-	g_pHeightmapVertexBuffer->Lock(0, hmr->data->width * hmr->data->height * sizeof(D3DVERTEX), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, heightmapVertices, hmr->data->width * hmr->data->height * sizeof(D3DVERTEX)); //copy data
+	g_pHeightmapVertexBuffer->Lock(0, ground->data->width * ground->data->height * sizeof(D3DVERTEX), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, ground->aGroundVertices, ground->data->width * ground->data->height * sizeof(D3DVERTEX)); //copy data
 	g_pHeightmapVertexBuffer->Unlock();                                 //unlock buffer
 
-	g_pHeightmapIndexBuffer->Lock(0, amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, aCubeIndices, amountOfIndices * sizeof(int));   //copy data
+	g_pHeightmapIndexBuffer->Lock(0, ground->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, ground->aGroundIndices, ground->amountOfIndices * sizeof(int));   //copy data
 	g_pHeightmapIndexBuffer->Unlock();                                 //unlock buffer
 }
 
@@ -400,11 +340,11 @@ void DirectXRenderer::Render(HWND hwnd)
 		}
 
 		WorldMatrix(2);
-		g_pd3dDevice->SetTexture(0, hmrTexture);
+		g_pd3dDevice->SetTexture(0, groundTexture);
 		g_pd3dDevice->SetStreamSource(0, g_pHeightmapVertexBuffer, 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(g_pHeightmapIndexBuffer);
-		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, hmr->data->width * hmr->data->height/*numvertices*/, 0, (hmr->data->width - 1) * (hmr->data->height - 1) * 2/*primitives count*/);
+		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, ground->data->width * ground->data->height/*numvertices*/, 0, (ground->data->width - 1) * (ground->data->height - 1) * 2/*primitives count*/);
 
 		// End the scene
 		g_pd3dDevice->EndScene();

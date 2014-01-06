@@ -74,7 +74,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Code\DirectXRenderer.h" />
-    <ClInclude Include="Code\HeightmapResource.h" />
+    <ClInclude Include="Code\Ground.h" />
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
     <ClInclude Include="Code\Entity.h" />
@@ -102,7 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\DirectXRenderer.cpp" />
-    <ClCompile Include="Code\HeightmapResource.cpp" />
+    <ClCompile Include="Code\Ground.cpp" />
     <ClCompile Include="Code\Camera.cpp" />
     <ClCompile Include="Code\Entity.cpp" />
     <ClCompile Include="Code\Joystick.cpp" />
