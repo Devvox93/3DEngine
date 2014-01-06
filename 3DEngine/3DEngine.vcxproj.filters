@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Code\HeightmapResource.cpp" />
     <ClCompile Include="Code\Camera.cpp" />
     <ClCompile Include="Code\Entity.cpp" />
     <ClCompile Include="Code\Terrain.cpp" />
@@ -27,9 +26,9 @@
     <ClCompile Include="Code\DirectXRenderer.cpp" />
     <ClCompile Include="Code\Joystick.cpp" />
     <ClCompile Include="Code\JoystickListener.cpp" />
+    <ClCompile Include="Code\Ground.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Code\HeightmapResource.h" />
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
     <ClInclude Include="Code\Entity.h" />
@@ -55,6 +54,7 @@
     <ClInclude Include="Code\Renderer.h" />
     <ClInclude Include="Code\Joystick.h" />
     <ClInclude Include="Code\JoystickListener.h" />
+    <ClInclude Include="Code\Ground.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.bmp" />

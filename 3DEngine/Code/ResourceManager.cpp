@@ -1,17 +1,17 @@
 #include "ResourceManager.h"
-#include "HeightmapResource.h"
+#include "Resource.h"
 #include "Logger.h"
 #include <map>
 #include "windows.h"
 #include <sstream>
   
-std::map<char*, HeightmapResource> ResourceMap;
+std::map<char*, Resource> ResourceMap;
 
 
 void ResourceManager::storeResource(char *path)
 {
 	if (ResourceMap.find(path) == ResourceMap.end()){
-		HeightmapResource *hmprsrc = new HeightmapResource(path);
+		Resource *hmprsrc = new Resource(path);
 		ResourceMap.insert(std::make_pair(path, *hmprsrc));
 	}
 	else
@@ -24,7 +24,7 @@ void ResourceManager::storeResource(char *path)
 
 void ResourceManager::PrintMap()
 {
-	for (std::map<char*, HeightmapResource>::const_iterator it = ResourceMap.begin(); it != ResourceMap.end(); it++)
+	for (std::map<char*, Resource>::const_iterator it = ResourceMap.begin(); it != ResourceMap.end(); it++)
 	{
 		std::stringstream sstm;
 		char* key = it->first;

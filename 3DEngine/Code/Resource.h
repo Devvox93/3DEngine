@@ -2,7 +2,7 @@
 class Resource
 {
 public:
-	Resource();
+	Resource(char* path);
 	~Resource();
 };
 
