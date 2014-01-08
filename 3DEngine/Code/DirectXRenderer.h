@@ -6,7 +6,7 @@
 #include <d3dx9.h>
 #include <strsafe.h>
 #include <string>
-#include "Ground.h"
+#include "Terrain.h"
 #include "KeyboardListener.h"
 
 class DirectXRenderer : public Renderer
@@ -36,8 +36,8 @@ private:
 
 	LPDIRECT3DVERTEXBUFFER9 g_pHeightmapVertexBuffer = NULL; // Buffer to hold vertices
 	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;
-	Ground *ground;
-	LPDIRECT3DTEXTURE9 groundTexture;
+	Terrain *terrain;
+	LPDIRECT3DTEXTURE9 terrainTexture;
 
 	Camera* activeCamera;
 };
