@@ -7,7 +7,7 @@
 
 enum Entities
 {
-	Camera, Model
+	CAMERA, MODEL
 };
 
 class Scene
@@ -20,7 +20,7 @@ public:
 	void deleteEntity(Entity* entity);
 	std::vector<Entity> getEntities();
 private:
-	Terrain terrain;
+	Terrain* terrain;
 	std::vector<Entity> entities;
 };
 

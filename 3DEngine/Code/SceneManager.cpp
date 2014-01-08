@@ -14,7 +14,7 @@ SceneManager::~SceneManager()
 void SceneManager::createScene(){
 	Scene *newScene = new Scene;
 
-	scenes.push_back(newScene);
+	scenes.push_back(*newScene);
 };
 
 void deleteScene(){

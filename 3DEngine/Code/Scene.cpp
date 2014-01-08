@@ -19,10 +19,10 @@ void Scene::createEntity(Entities sort){
 
 	switch (sort)
 	{
-	case(Camera) :
+	case(CAMERA) :
 		newEntity = new Camera();
 		break;
-	case(Model) :
+	case(MODEL) :
 		newEntity = new Model();
 		break;
 	default:
