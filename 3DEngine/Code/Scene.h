@@ -2,8 +2,13 @@
 #define _SCENE_
 
 #include "Entity.h"
-#include "Ground.h"
+#include "Terrain.h"
 #include <vector>
+
+enum Entities
+{
+	Camera, Model
+};
 
 class Scene
 {
@@ -15,7 +20,7 @@ public:
 	void deleteEntity(Entity* entity);
 	std::vector<Entity> getEntities();
 private:
-	Ground ground;
+	Terrain terrain;
 	std::vector<Entity> entities;
 };
 

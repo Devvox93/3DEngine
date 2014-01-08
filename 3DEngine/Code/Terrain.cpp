@@ -1,13 +1,13 @@
-#include "Ground.h"
+#include "Terrain.h"
 #include <Windows.h>
 #include <iostream>
 #include "Logger.h"
 #include <sstream>
 #include <string>
 
-Ground::Ground(char* path)
+Terrain::Terrain(char* path)
 {
-	data = new GroundData();
+	data = new TerrainData();
 	HDC lhdcDest;	//Handle to Device Context (Windows GDI)
 	HANDLE hbmp;	//Handle to an object (standard handle)
 	//HINSTANCE hInst;//Handle to an instance (instance of the window)
@@ -42,14 +42,14 @@ Ground::Ground(char* path)
 	data->height = bm.bmHeight;
 
 	//Create an array to hold all the heightdata
-	aGroundVertices = new Vertex[data->width * data->height];
+	aTerrainVertices = new Vertex[data->width * data->height];
 
 	//Iterate through the BMP-file and fill the heightdata-array
 	for (int lHeight = 0; lHeight < data->height; lHeight++)
 	{
 		for (int lWidth = 0; lWidth < data->width; lWidth++)
 		{
-			aGroundVertices[(lHeight*data->width) + lWidth] = { -(data->width / 2) + (float)lWidth, //x
+			aTerrainVertices[(lHeight*data->width) + lWidth] = { -(data->width / 2) + (float)lWidth, //x
 																-0.5 + ((float)GetRValue(GetPixel(lhdcDest, lWidth, lHeight)) / 255.0f), //y
 																-(data->width / 2) + (float)lHeight, //z
 																(1.0f / (data->width - 1)) * lWidth, //u
@@ -58,7 +58,7 @@ Ground::Ground(char* path)
 	}
 
 	amountOfIndices = (data->width - 1) * (data->height - 1) * 2 * 3;
-	aGroundIndices = new int[amountOfIndices];
+	aTerrainIndices = new int[amountOfIndices];
 
 	std::stringstream ss2;
 	ss2 << "Amount of planes: " << amountOfIndices / 3 << std::endl << "Amount of vertices: " << data->width * data->height << std::endl << "Amount of indices: " << amountOfIndices << std::endl;
@@ -72,16 +72,16 @@ Ground::Ground(char* path)
 		{
 			offset += 1;
 		}
-		aGroundIndices[i + 0] = i / 6 + offset;
-		aGroundIndices[i + 1] = i / 6 + 1 + offset;
-		aGroundIndices[i + 2] = i / 6 + data->width + offset;
-		aGroundIndices[i + 3] = i / 6 + 1 + offset;
-		aGroundIndices[i + 4] = i / 6 + data->width + offset;
-		aGroundIndices[i + 5] = i / 6 + data->width + 1 + offset;
+		aTerrainIndices[i + 0] = i / 6 + offset;
+		aTerrainIndices[i + 1] = i / 6 + 1 + offset;
+		aTerrainIndices[i + 2] = i / 6 + data->width + offset;
+		aTerrainIndices[i + 3] = i / 6 + 1 + offset;
+		aTerrainIndices[i + 4] = i / 6 + data->width + offset;
+		aTerrainIndices[i + 5] = i / 6 + data->width + 1 + offset;
 	}
 }
 
 
-Ground::~Ground()
+Terrain::~Terrain()
 {
 }

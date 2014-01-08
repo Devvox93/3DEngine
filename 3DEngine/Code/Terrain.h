@@ -1,6 +1,6 @@
 typedef unsigned char BYTE;
 
-struct GroundData
+struct TerrainData
 {
 	int width;
 	int height;
@@ -15,15 +15,15 @@ struct Vertex
 	v;//texture coordinate y
 };
 
-class Ground
+class Terrain
 {
 public:
-	Ground(char* path);
-	~Ground();
-	GroundData* data;
-	Vertex* aGroundVertices;
+	Terrain(char* path);
+	~Terrain();
+	TerrainData* data;
+	Vertex* aTerrainVertices;
 	int amountOfIndices;
-	int* aGroundIndices;
+	int* aTerrainIndices;
 private:
 };
 

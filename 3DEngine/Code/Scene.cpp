@@ -1,11 +1,12 @@
 #include "Scene.h"
 #include "Model.h"
 #include "Camera.h"
+#include "Logger.h"
 
 Scene::Scene()
 {
 	entities = std::vector<Entity>();
-	ground = NULL; // Terrain moet ingeladen worden
+	terrain = new Terrain("clouds.bmp"); // Terrain moet ingeladen worden
 }
 
 
@@ -25,7 +26,7 @@ void Scene::createEntity(Entities sort){
 		newEntity = new Model();
 		break;
 	default:
-		newEntity = new Entity;
+		Logger::getInstance().log(WARNING, "Entity fout");
 		break;
 	}
 

@@ -53,21 +53,21 @@ void DirectXRenderer::initHeightmap()
 	std::string stemp = std::string(yolo.begin(), yolo.end());
 	LPCSTR sw = stemp.c_str();
 	// Use D3DX to create a texture from a file based image
-	if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, sw, &groundTexture)))
+	if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, sw, &terrainTexture)))
 	{
 		Logger::getInstance().log(INFO, "well shit!");
 	}
 
 
-	ground = new Ground("clouds.bmp");
+	terrain = new Terrain("clouds.bmp");
 
-	g_pd3dDevice->CreateVertexBuffer(ground->data->width * ground->data->height * sizeof(Vertex),
+	g_pd3dDevice->CreateVertexBuffer(terrain->data->width * terrain->data->height * sizeof(Vertex),
 		D3DUSAGE_WRITEONLY,
 		D3DFVF_CUSTOMVERTEX,
 		D3DPOOL_MANAGED,
 		&g_pHeightmapVertexBuffer,
 		NULL);
-	g_pd3dDevice->CreateIndexBuffer(ground->amountOfIndices * sizeof(int),
+	g_pd3dDevice->CreateIndexBuffer(terrain->amountOfIndices * sizeof(int),
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX32,
 		D3DPOOL_MANAGED,
@@ -75,12 +75,12 @@ void DirectXRenderer::initHeightmap()
 		NULL);
 
 	VOID* pVertices;
-	g_pHeightmapVertexBuffer->Lock(0, ground->data->width * ground->data->height * sizeof(D3DVERTEX), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, ground->aGroundVertices, ground->data->width * ground->data->height * sizeof(D3DVERTEX)); //copy data
+	g_pHeightmapVertexBuffer->Lock(0, terrain->data->width * terrain->data->height * sizeof(D3DVERTEX), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, terrain->aTerrainVertices, terrain->data->width * terrain->data->height * sizeof(D3DVERTEX)); //copy data
 	g_pHeightmapVertexBuffer->Unlock();                                 //unlock buffer
 
-	g_pHeightmapIndexBuffer->Lock(0, ground->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, ground->aGroundIndices, ground->amountOfIndices * sizeof(int));   //copy data
+	g_pHeightmapIndexBuffer->Lock(0, terrain->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, terrain->aTerrainIndices, terrain->amountOfIndices * sizeof(int));   //copy data
 	g_pHeightmapIndexBuffer->Unlock();                                 //unlock buffer
 }
 
@@ -340,11 +340,11 @@ void DirectXRenderer::Render(HWND hwnd)
 		}
 
 		WorldMatrix(2);
-		g_pd3dDevice->SetTexture(0, groundTexture);
+		g_pd3dDevice->SetTexture(0, terrainTexture);
 		g_pd3dDevice->SetStreamSource(0, g_pHeightmapVertexBuffer, 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(g_pHeightmapIndexBuffer);
-		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, ground->data->width * ground->data->height/*numvertices*/, 0, (ground->data->width - 1) * (ground->data->height - 1) * 2/*primitives count*/);
+		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->data->width * terrain->data->height/*numvertices*/, 0, (terrain->data->width - 1) * (terrain->data->height - 1) * 2/*primitives count*/);
 
 		// End the scene
 		g_pd3dDevice->EndScene();
