@@ -18,10 +18,10 @@ public:
 
 	void createEntity(Entities sort);
 	void deleteEntity(Entity* entity);
-	std::vector<Entity> getEntities();
+	std::vector<Entity*> getEntities();
 private:
 	Terrain* terrain;
-	std::vector<Entity> entities;
+	std::vector<Entity*> entities;
 };
 
 #endif

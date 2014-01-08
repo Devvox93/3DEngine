@@ -6,6 +6,6 @@ public:
 	Model();
 	~Model();
 
-	void Model::update();
+	void update();
 };
 

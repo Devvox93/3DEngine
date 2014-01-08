@@ -5,7 +5,7 @@
 
 Scene::Scene()
 {
-	entities = std::vector<Entity>();
+	entities = std::vector<Entity*>();
 	terrain = new Terrain("clouds.bmp"); // Terrain moet ingeladen worden
 }
 
@@ -30,13 +30,13 @@ void Scene::createEntity(Entities sort){
 		break;
 	}
 
-	entities.push_back(*newEntity);
+	entities.push_back(newEntity);
 };
 
 void deleteEntity(Entity* entity){
 	// destroy en delete meegegeven entity uit lijst
 };
 
-std::vector<Entity> Scene::getEntities(){
+std::vector<Entity*> Scene::getEntities(){
 	return entities;
 };
