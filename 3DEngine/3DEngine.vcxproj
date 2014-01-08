@@ -74,7 +74,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Code\DirectXRenderer.h" />
-    <ClInclude Include="Code\Ground.h" />
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
     <ClInclude Include="Code\Entity.h" />
@@ -130,6 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
