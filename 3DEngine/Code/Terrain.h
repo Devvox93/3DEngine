@@ -1,8 +1,29 @@
+typedef unsigned char BYTE;
 
-class Terrain
+struct GroundData
+{
+	int width;
+	int height;
+};
+
+struct Vertex
+{
+	float x,
+	y,
+	z,
+	u,//texture coordinate x
+	v;//texture coordinate y
+};
+
+class Ground
 {
 public:
-	Terrain();
-	~Terrain();
+	Ground(char* path);
+	~Ground();
+	GroundData* data;
+	Vertex* aGroundVertices;
+	int amountOfIndices;
+	int* aGroundIndices;
+private:
 };
 
