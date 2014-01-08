@@ -22,14 +22,14 @@ public:
 
 	DirectXRenderer();
 	~DirectXRenderer();
-	void Initialize(HWND hWnd);
+	void Initialize(HWND hWnd, int width, int height);
 	void Render(HWND hwnd);
 	void setActiveCamera(Camera* camera);
+	void setRenderSize(int width, int height);
 
 private:
-	HRESULT InitD3D(HWND hWnd);
+	HRESULT InitD3D(HWND hWnd, int width, int height);
 	void Cleanup();
-	void SetupMatrices();
 	HRESULT InitGeometry(std::string filename);
 	void WorldMatrix(int type);
 	void initHeightmap();

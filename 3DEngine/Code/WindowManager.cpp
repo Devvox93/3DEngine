@@ -22,7 +22,7 @@ void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int h
 		return;
 	}
 
-	renderer->Initialize(hwnd);
+	renderer->Initialize(hwnd, width, height);
 
 	WindowList *list = new WindowList();
 	list->window = window;

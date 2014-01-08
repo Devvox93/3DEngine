@@ -15,6 +15,8 @@ protected:
 	virtual LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	virtual void OnDestroy(HWND hwnd);
+private:
+	void resize();
 };
 
 #endif

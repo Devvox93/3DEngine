@@ -14,6 +14,7 @@ DirectXWindow::DirectXWindow(Renderer *directXRenderer)
 	_WndClass.style |= CS_HREDRAW | CS_VREDRAW;
 
 	renderer = directXRenderer;
+	resize();
 }
 
 LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
@@ -28,10 +29,24 @@ LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
 		state = closed;
 		PostQuitMessage(0);
 		break;
+	case WM_SIZE:
+		resize();
+		break;
 	default:
 		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
 	return 0;
+}
+
+void DirectXWindow::resize()
+{
+	RECT rect;
+	if (GetWindowRect(_hwnd, &rect))
+	{
+		int width = rect.right - rect.left;
+		int height = rect.bottom - rect.top;
+		renderer->setRenderSize(width, height);
+	}
 }
 
 void DirectXWindow::OnDestroy(HWND hwnd)

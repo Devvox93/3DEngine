@@ -59,7 +59,4 @@
   <ItemGroup>
     <Image Include="test.bmp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
 </Project>
