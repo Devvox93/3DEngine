@@ -54,6 +54,7 @@
     <ClInclude Include="Code\Renderer.h" />
     <ClInclude Include="Code\Joystick.h" />
     <ClInclude Include="Code\JoystickListener.h" />
+    <ClInclude Include="Code\Ground.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.bmp" />
