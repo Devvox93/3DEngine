@@ -50,7 +50,7 @@ Terrain::Terrain(char* path)
 		for (int lWidth = 0; lWidth < data->width; lWidth++)
 		{
 			aTerrainVertices[(lHeight*data->width) + lWidth] = { -(data->width / 2) + (float)lWidth, //x
-																-0.5 + ((float)GetRValue(GetPixel(lhdcDest, lWidth, lHeight)) / 255.0f), //y
+																-0.5f + ((float)GetRValue(GetPixel(lhdcDest, lWidth, lHeight)) / 255.0f), //y
 																-(data->width / 2) + (float)lHeight, //z
 																(1.0f / (data->width - 1)) * lWidth, //u
 																(1.0f / (data->height - 1)) * lHeight }; //v
@@ -73,8 +73,8 @@ Terrain::Terrain(char* path)
 			offset += 1;
 		}
 		aTerrainIndices[i + 0] = i / 6 + offset;
-		aTerrainIndices[i + 1] = i / 6 + 1 + offset;
-		aTerrainIndices[i + 2] = i / 6 + data->width + offset;
+		aTerrainIndices[i + 1] = i / 6 + data->width + offset;
+		aTerrainIndices[i + 2] = i / 6 + 1 + offset;
 		aTerrainIndices[i + 3] = i / 6 + 1 + offset;
 		aTerrainIndices[i + 4] = i / 6 + data->width + offset;
 		aTerrainIndices[i + 5] = i / 6 + data->width + 1 + offset;

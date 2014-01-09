@@ -116,7 +116,6 @@ bool InputManager::frame()
 	// Read the current state of the joystick.
 	if (myJoystick->available)
 	{
-		Logger::getInstance().log(INFO, "Miauw");
 		result = myJoystick->read();
 		if (!result)
 		{

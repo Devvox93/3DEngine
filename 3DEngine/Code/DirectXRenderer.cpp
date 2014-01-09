@@ -50,17 +50,6 @@ void DirectXRenderer::setRenderSize(int width, int height)
 	d3dpp.BackBufferHeight = height;
 	g_pd3dDevice->Reset(&d3dpp);
 
-	// Set up our view matrix. A view matrix can be defined given an eye point,
-	// a point to lookat, and a direction for which way is up. Here, we set the
-	// eye five units back along the z-axis and up three units, look at the 
-	// origin, and define "up" to be in the y-direction.
-	D3DXVECTOR3 vEyePt(0, 0, 0);
-	D3DXVECTOR3 vLookatPt(0, 0, 1.0f);
-	D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
-	D3DXMATRIXA16 matView;
-	D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
-	g_pd3dDevice->SetTransform(D3DTS_VIEW, &matView);
-
 	// For the projection matrix, we set up a perspective transform (which
 	// transforms geometry from 3D view space to 2D viewport space, with
 	// a perspective divide making objects smaller in the distance). To build
@@ -157,6 +146,16 @@ HRESULT DirectXRenderer::InitD3D(HWND hWnd, int width, int height)
 	{
 		return E_FAIL;
 	}
+	// Set up our view matrix. A view matrix can be defined given an eye point,
+	// a point to lookat, and a direction for which way is up. Here, we set the
+	// eye five units back along the z-axis and up three units, look at the 
+	// origin, and define "up" to be in the y-direction.
+	D3DXVECTOR3 vEyePt(0, 0, 0);
+	D3DXVECTOR3 vLookatPt(0, 0, 1.0f);
+	D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
+	D3DXMATRIXA16 matView;
+	D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
+	g_pd3dDevice->SetTransform(D3DTS_VIEW, &matView);
 	setRenderSize(width, height);
 
 	return S_OK;
