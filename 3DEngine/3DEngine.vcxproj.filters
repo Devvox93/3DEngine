@@ -54,7 +54,4 @@
     <ClInclude Include="Code\JoystickListener.h" />
     <ClInclude Include="Code\Terrain.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="test.bmp" />
-  </ItemGroup>
 </Project>
