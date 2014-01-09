@@ -10,6 +10,10 @@ Camera::Camera()
 	xMovement = 0.0f;
 	yMovement = 0.0f;
 	zMovement = 0.0f;
+
+	yawMovement = 0.0f;
+	pitchMovement = 0.0f;
+	//roll = 0.0f;
 }
 
 
@@ -24,6 +28,11 @@ void Camera::update()
 	tf.y += yMovement;
 	tf.z += zMovement;
 	setPosition(tf.x, tf.y, tf.z);
+
+	TripleFloat tf2 = getRotation();
+	tf2.x += yawMovement;
+	tf2.y += pitchMovement;
+	setRotation(tf2.x, tf2.y, tf2.z);
 }
 
 void Camera::setPosition(float _x, float _y, float _z)
@@ -174,6 +183,27 @@ void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 	if (yMovement == 0.0f && ((yAxis + deadzone < -deadzone) || (yAxis - deadzone > deadzone)))
 	{
 		yMovement = (-yAxis / 32767.0f) * 0.1f;
+	}
+
+	//32767
+	long yawAxis = joystickState.lRx - 32767;
+	if ( ((yawAxis + deadzone < -deadzone) || (yawAxis - deadzone > deadzone)))
+	{
+		yawMovement = (yawAxis / 32767.0f) * 0.1f;
+	}
+	else
+	{
+		yawMovement = 0.0f;
+	}
+
+	long pitchAxis = joystickState.lRy - 32767;
+	if ( ((pitchAxis + deadzone < -deadzone) || (pitchAxis - deadzone > deadzone)))
+	{
+		pitchMovement = (-pitchAxis / 32767.0f) * 0.1f;
+	}
+	else
+	{
+		pitchMovement = 0.0f;
 	}
 	
 	long deadzoneZ = 100;
