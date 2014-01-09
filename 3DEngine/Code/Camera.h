@@ -19,6 +19,6 @@ public:
 	TripleFloat getScale();
 	void useJoystickInput(DIJOYSTATE2 joystickState);
 private:
-	float xMovement, yMovement, zMovement;
+	float xMovement, yMovement, zMovement, yawMovement, pitchMovement, rollMovement;
 };
 #endif

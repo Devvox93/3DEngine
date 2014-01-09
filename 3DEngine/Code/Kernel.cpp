@@ -21,8 +21,8 @@ Kernel::~Kernel()
 
 void Kernel::run()
 {
-	int width = 1920;
-	int height = 1080;
+	int width = 1280;
+	int height = 720;
 
 	Renderer *renderer = new DirectXRenderer();
 	WindowManager *manager = new WindowManager();
