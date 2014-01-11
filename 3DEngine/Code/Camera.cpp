@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include <sstream>
 
-#define PI 3.14159265
+#define PI 3.14159265f
 
 Camera::Camera()
 {
@@ -126,6 +126,38 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		zMovement = 0.0f;
 	}
+
+	if (keyboardState[DIK_W] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "W key");
+
+		pitchMovement = -0.1f;
+	}
+	else if (keyboardState[DIK_S] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "S key");
+		pitchMovement = 0.1f;
+	}
+	else
+	{
+		pitchMovement = 0.0f;
+	}
+
+	if (keyboardState[DIK_A] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "A key");
+
+		yawMovement = -0.1f;
+	}
+	else if (keyboardState[DIK_D] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "D key");
+		yawMovement = 0.1f;
+	}
+	else
+	{
+		yawMovement = 0.0f;
+	}
 }
 
 void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
@@ -161,7 +193,7 @@ void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 	if (joystickState.rgdwPOV[0] < 4294967295 )
 	{
 		float degrees = joystickState.rgdwPOV[0] / 100;
-		float radians = degrees*PI / 180;
+		float radians = degrees*PI / 180.0f;
 		xMovement = sin(radians) * 0.1f;
 		yMovement = cos(radians) * 0.1f;
 	}
@@ -187,23 +219,15 @@ void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 
 	//32767
 	long yawAxis = joystickState.lRx - 32767;
-	if ( ((yawAxis + deadzone < -deadzone) || (yawAxis - deadzone > deadzone)))
+	if (yawMovement == 0 ((yawAxis + deadzone < -deadzone) || (yawAxis - deadzone > deadzone)))
 	{
 		yawMovement = (yawAxis / 32767.0f) * 0.1f;
 	}
-	else
-	{
-		yawMovement = 0.0f;
-	}
 
 	long pitchAxis = joystickState.lRy - 32767;
-	if ( ((pitchAxis + deadzone < -deadzone) || (pitchAxis - deadzone > deadzone)))
+	if (pitchMovement == 0 ((pitchAxis + deadzone < -deadzone) || (pitchAxis - deadzone > deadzone)))
 	{
 		pitchMovement = (-pitchAxis / 32767.0f) * 0.1f;
-	}
-	else
-	{
-		pitchMovement = 0.0f;
 	}
 	
 	long deadzoneZ = 100;
