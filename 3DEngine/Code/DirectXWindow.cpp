@@ -3,7 +3,10 @@
 #include "Logger.h"
 #include <sstream>
 
+DirectXWindow::DirectXWindow()
+{
 
+}
 
 DirectXWindow::DirectXWindow(Renderer *directXRenderer)
 {
@@ -56,5 +59,5 @@ void DirectXWindow::OnDestroy(HWND hwnd)
 
 void DirectXWindow::render()
 {
-	renderer->Render(_hwnd);
+	renderer->Render(_hwnd, sceneManager->returnScene());
 }

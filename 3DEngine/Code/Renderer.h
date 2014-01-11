@@ -3,14 +3,15 @@
 
 #include <Windows.h>
 #include "Camera.h"
+#include "Scene.h"
 
 class Renderer
 {
 public:
 	Renderer();
 	~Renderer();
-	virtual void Initialize(HWND hWnd, int width, int height) = 0;
-	virtual void Render(HWND hwnd) = 0;
+	virtual void Initialize(int width, int height) = 0;
+	virtual void Render(HWND hwnd, Scene scene) = 0;
 	virtual void setActiveCamera(Camera* camera) = 0;
 	virtual void setRenderSize(int width, int height) = 0;
 private:

@@ -7,6 +7,7 @@
 class DirectXWindow : public Window
 {
 public:
+	DirectXWindow();
 	DirectXWindow(Renderer *directXRenderer);
 	virtual void render();
 protected:

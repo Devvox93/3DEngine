@@ -1,3 +1,6 @@
+#ifndef _TERRAIN_H_
+#define _TERRAIN_H_
+
 typedef unsigned char BYTE;
 
 struct TerrainData
@@ -27,3 +30,4 @@ public:
 private:
 };
 
+#endif

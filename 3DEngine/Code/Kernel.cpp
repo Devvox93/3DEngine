@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "Camera.h"
 #include <sstream>
+#include "SceneManager.h"
 
 Kernel::Kernel()
 {
@@ -20,12 +21,19 @@ Kernel::~Kernel()
 
 void Kernel::run()
 {
+	int width = 1280;
+	int height = 720;
+
 	Renderer *renderer = new DirectXRenderer();
 	WindowManager *manager = new WindowManager();
+	SceneManager *sceneManager = new SceneManager();
 	Camera* cam = new Camera();
+
+	renderer->Initialize(width, height);
+
 	renderer->setActiveCamera(cam);
 
-	wManager->newWindow(renderer, 10, 10, 1280, 720);
+	wManager->newWindow(renderer, 10, 10, width, height);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
 
 	iManager->getKeyboard()->addKeyboardListener(this);

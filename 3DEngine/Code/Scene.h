@@ -1,5 +1,5 @@
-#ifndef _SCENE_
-#define _SCENE_
+#ifndef _SCENE_H_
+#define _SCENE_H_
 
 #include "Entity.h"
 #include "Terrain.h"
@@ -20,7 +20,7 @@ public:
 	void deleteEntity(Entity* entity);
 	std::vector<Entity*> getEntities();
 private:
-	Terrain* terrain;
+	Terrain *terrain;
 	std::vector<Entity*> entities;
 };
 

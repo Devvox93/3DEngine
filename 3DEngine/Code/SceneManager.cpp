@@ -17,6 +17,11 @@ void SceneManager::createScene(){
 	scenes.push_back(*newScene);
 };
 
-void deleteScene(){
+void SceneManager::deleteScene(){
+
+};
+
+Scene SceneManager::returnScene()
+{
 
 };

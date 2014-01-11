@@ -9,6 +9,7 @@ public:
 
 	void createScene();
 	void deleteScene();
+	Scene returnScene();
 private:
 	std::vector<Scene> scenes;
 };

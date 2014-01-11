@@ -2,6 +2,7 @@
 #define _WINDOW_H_
 
 #include <Windows.h>
+#include "SceneManager.h"
 enum WindowState { fullscreen, maximized, normal, minimized, closed };
 class Window
 {
@@ -20,7 +21,7 @@ protected:
 	virtual LRESULT WindowProc(HWND hwnd, UINT msg,
 		WPARAM wParam, LPARAM lParam);
 
-
+	SceneManager *sceneManager;
 	WNDCLASSEX _WndClass;
 	DWORD _dwExtendedStyle;
 	DWORD _dwStyle;

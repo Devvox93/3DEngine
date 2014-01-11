@@ -70,8 +70,11 @@ void DirectXRenderer::setRenderSize(int width, int height)
 	g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
 }
 
-void DirectXRenderer::Initialize(HWND hWnd, int width, int height)
+void DirectXRenderer::Initialize(int width, int height)
 {
+	DirectXWindow *window = new DirectXWindow();
+	HWND hWnd = window->Create(10, 10, width, height, NULL, NULL, NULL);
+
 	if (g_pd3dDevice == NULL && SUCCEEDED(InitD3D(hWnd, width, height)))
 	{
 		InitGeometry("car.X");
@@ -301,7 +304,7 @@ void DirectXRenderer::WorldMatrix(int type) //moet worden vervangen door een for
 // Name: Render()
 // Desc: Draws the scene
 //-----------------------------------------------------------------------------
-void DirectXRenderer::Render(HWND hwnd)
+void DirectXRenderer::Render(HWND hwnd, Scene scene)
 {
 	activeCamera->update();//DIT MOET IN SCENE GEBEUREN!
 	// Clear the backbuffer and the zbuffer

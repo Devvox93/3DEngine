@@ -8,6 +8,7 @@
 #include <string>
 #include "Terrain.h"
 #include "KeyboardListener.h"
+#include "DirectXWindow.h"
 
 class DirectXRenderer : public Renderer
 {
@@ -22,8 +23,8 @@ public:
 
 	DirectXRenderer();
 	~DirectXRenderer();
-	void Initialize(HWND hWnd, int width, int height);
-	void Render(HWND hwnd);
+	void Initialize(int width, int height);
+	void Render(HWND hwnd, Scene scene);
 	void setActiveCamera(Camera* camera);
 	void setRenderSize(int width, int height);
 
