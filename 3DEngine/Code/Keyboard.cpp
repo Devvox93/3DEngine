@@ -12,10 +12,39 @@
 * Function:	Keyboard::Keyboard(...)
 * Description:	Keyboard constructor
 */
-Keyboard::Keyboard(IDirectInputDevice8* argDevice)
+Keyboard::Keyboard(IDirectInput8* directInput, HWND hwnd)
 {
-	keyboard = argDevice;
 	keyboardListeners = std::vector<KeyboardListener*>();
+
+	HRESULT result;
+
+	// Initialize the direct input interface for the keyboard.
+	result = directInput->CreateDevice(GUID_SysKeyboard, &keyboard, NULL);
+	if (FAILED(result))
+	{
+		return;
+	}
+
+	// Set the data format.  In this case since it is a keyboard we can use the predefined data format.
+	result = keyboard->SetDataFormat(&c_dfDIKeyboard);
+	if (FAILED(result))
+	{
+		return;
+	}
+
+	// Set the cooperative level of the keyboard to not share with other programs.
+	result = keyboard->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
+	if (FAILED(result))
+	{
+		return;
+	}
+
+	// Now acquire the keyboard.
+	result = keyboard->Acquire();
+	if (FAILED(result))
+	{
+		return;
+	}
 }
 
 

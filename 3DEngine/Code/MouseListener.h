@@ -9,7 +9,7 @@ public:
 	MouseListener();
 	virtual ~MouseListener();
 
-	virtual void useMouseInput(DIMOUSESTATE mouseState);
+	virtual void useMouseInput(DIMOUSESTATE mouseState) = 0;
 };
 
 #endif

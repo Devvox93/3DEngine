@@ -4,10 +4,11 @@
 * Function:	Mouse::Mouse()
 * Description:	Empty mouse constructor
 */
-Mouse::Mouse(IDirectInputDevice8* argDevice, int argScreenWidth, int argScreenHeight)
+Mouse::Mouse(IDirectInput8* directInput, HWND hwnd, int argScreenWidth, int argScreenHeight)
 {
-	mouse = argDevice;
 	mouseListeners = std::vector<MouseListener*>();
+
+	HRESULT result;
 
 	// Store the screen size which will be used for positioning the mouse cursor.
 	screenWidth = argScreenWidth;
@@ -16,6 +17,34 @@ Mouse::Mouse(IDirectInputDevice8* argDevice, int argScreenWidth, int argScreenHe
 	// Initialize the location of the mouse on the screen.
 	mouseX = 0;
 	mouseY = 0;
+
+	// Initialize the direct input interface for the mouse.
+	result = directInput->CreateDevice(GUID_SysMouse, &mouse, NULL);
+	if (FAILED(result))
+	{
+		return;
+	}
+
+	// Set the data format for the mouse using the pre-defined mouse data format.
+	result = mouse->SetDataFormat(&c_dfDIMouse);
+	if (FAILED(result))
+	{
+		return;
+	}
+
+	// Set the cooperative level of the mouse to share with other programs.
+	result = mouse->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+	if (FAILED(result))
+	{
+		return;
+	}
+
+	// Acquire the mouse.
+	result = mouse->Acquire();
+	if (FAILED(result))
+	{
+		return;
+	}
 }
 
 /**
@@ -40,7 +69,6 @@ void Mouse::addMouseListener(MouseListener* argMouseListener)
 bool Mouse::read()
 {
 	HRESULT result;
-
 
 	// Read the mouse device.
 	result = mouse->GetDeviceState(sizeof(DIMOUSESTATE), (LPVOID)&mouseState);
@@ -84,14 +112,13 @@ void Mouse::processInput()
 		mouseY = screenHeight;
 	}
 
-	return;
+	updateListeners();
 }
 
 void Mouse::updateListeners()
 {
 	for each (MouseListener* current in mouseListeners)
 	{
-		// TODO mouse state, nieuwe mouse location of mouseveranderingen meegeven
-		//current->useMouseInput();
+		current->useMouseInput(mouseState);
 	}
 }

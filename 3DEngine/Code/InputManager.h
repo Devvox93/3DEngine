@@ -17,12 +17,11 @@ public:
 	bool initialize(HINSTANCE, HWND, int screenWidth, int screenHeight);
 	bool frame();
 	Keyboard* getKeyboard();
+	Mouse* getMouse();
 	Joystick* getJoystick();
 private:
 
 	IDirectInput8* directInput;
-	IDirectInputDevice8* keyboard;
-	IDirectInputDevice8* mouse;
 	Keyboard* myKeyboard;
 	Mouse* myMouse;
 	Joystick* myJoystick;

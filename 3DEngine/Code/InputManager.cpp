@@ -7,10 +7,9 @@
 InputManager::InputManager()
 {
 	directInput = 0;
-	keyboard = 0;
-	mouse = 0;
 	myKeyboard = 0;
 	myMouse = 0;
+	myJoystick = 0;
 }
 
 
@@ -21,6 +20,9 @@ InputManager::~InputManager()
 	
 	// Release the keyboard.
 	myKeyboard->~Keyboard();
+
+	// Release the joystick.
+	myJoystick->~Joystick();
 
 	// Release the main interface to direct input.
 	if (directInput)
@@ -41,70 +43,9 @@ bool InputManager::initialize(HINSTANCE hinstance, HWND hwnd, int argScreenWidth
 		return false;
 	}
 
+	myKeyboard = new Keyboard(directInput, hwnd);
+	myMouse = new Mouse(directInput, hwnd, argScreenWidth, argScreenHeight);
 	myJoystick = new Joystick(directInput, hwnd);
-
-#pragma region keyboard
-	// Initialize the direct input interface for the keyboard.
-	result = directInput->CreateDevice(GUID_SysKeyboard, &keyboard, NULL);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	// Set the data format.  In this case since it is a keyboard we can use the predefined data format.
-	result = keyboard->SetDataFormat(&c_dfDIKeyboard);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	// Set the cooperative level of the keyboard to not share with other programs.
-	result = keyboard->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	// Now acquire the keyboard.
-	result = keyboard->Acquire();
-	if (FAILED(result))
-	{
-		return false;
-	}
-#pragma endregion
-
-#pragma region mouse
-	// Initialize the direct input interface for the mouse.
-	result = directInput->CreateDevice(GUID_SysMouse, &mouse, NULL);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	// Set the data format for the mouse using the pre-defined mouse data format.
-	result = mouse->SetDataFormat(&c_dfDIMouse);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	// Set the cooperative level of the mouse to share with other programs.
-	result = mouse->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	// Acquire the mouse.
-	result = mouse->Acquire();
-	if (FAILED(result))
-	{
-		return false;
-	}
-#pragma endregion
-
-	myKeyboard = new Keyboard(keyboard);
-	myMouse = new Mouse(mouse, argScreenWidth, argScreenHeight);
 
 	return true;
 }
