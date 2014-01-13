@@ -57,7 +57,7 @@ void DirectXWindow::OnDestroy(HWND hwnd)
 	PostQuitMessage(0);
 }
 
-void DirectXWindow::render()
+void DirectXWindow::render(Scene *scene)
 {
-	renderer->Render(_hwnd, sceneManager->returnScene());
+	renderer->Render(_hwnd, scene);
 }

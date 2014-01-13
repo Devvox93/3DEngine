@@ -12,7 +12,7 @@ void Renderer::Initialize(int width, int height)
 {
 };
 
-void Renderer::Render(HWND hwnd, Scene scene)
+void Renderer::Render(HWND hwnd, Scene* scene)
 {
 };
 

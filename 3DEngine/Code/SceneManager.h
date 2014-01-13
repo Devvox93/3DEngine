@@ -11,8 +11,8 @@ public:
 
 	void createScene();
 	void deleteScene();
-	Scene returnScene();
+	Scene* returnScene();
 private:
-	std::vector<Scene> scenes;
+	std::vector<Scene*> scenes;
 };
 #endif

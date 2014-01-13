@@ -9,7 +9,7 @@ Joystick::Joystick(IDirectInput8* argInterface, HWND hDlg)
 	result = argInterface->CreateDevice(GUID_Joystick, &joystick, NULL);
 	if (FAILED(result))
 	{
-		Logger::getInstance().log(CRITICAL, "There is no joystick!");
+		Logger::getInstance().log(INFO, "There is no joystick!");
 		return;
 	}
 

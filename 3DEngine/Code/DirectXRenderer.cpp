@@ -304,7 +304,7 @@ void DirectXRenderer::WorldMatrix(int type) //moet worden vervangen door een for
 // Name: Render()
 // Desc: Draws the scene
 //-----------------------------------------------------------------------------
-void DirectXRenderer::Render(HWND hwnd, Scene scene)
+void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 {
 	activeCamera->update();//DIT MOET IN SCENE GEBEUREN!
 	// Clear the backbuffer and the zbuffer

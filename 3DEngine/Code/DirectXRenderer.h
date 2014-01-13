@@ -24,7 +24,7 @@ public:
 	DirectXRenderer();
 	~DirectXRenderer();
 	void Initialize(int width, int height);
-	void Render(HWND hwnd, Scene scene);
+	void Render(HWND hwnd, Scene* scene);
 	void setActiveCamera(Camera* camera);
 	void setRenderSize(int width, int height);
 

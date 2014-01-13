@@ -3,25 +3,33 @@
 
 SceneManager::SceneManager()
 {
-	scenes = std::vector<Scene>();
-}
+	scenes = std::vector<Scene*>();
+};
 
 
 SceneManager::~SceneManager()
 {
-}
-
-void SceneManager::createScene(){
-	Scene *newScene = new Scene;
-
-	scenes.push_back(*newScene);
 };
 
-void SceneManager::deleteScene(){
-
-};
-
-Scene SceneManager::returnScene()
+void SceneManager::createScene()
 {
-	return scenes[0];
+	Scene *newScene = new Scene();
+
+	scenes.push_back(newScene);
+};
+
+void SceneManager::deleteScene()
+{
+
+};
+
+Scene* SceneManager::returnScene()
+{
+	for each (Scene* current in scenes)
+	{
+		return current;
+	}
+	//Scene *scene = scenes.front();
+	Scene *scene = new Scene();
+	return scene;
 };

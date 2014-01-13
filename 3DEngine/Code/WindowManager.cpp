@@ -3,8 +3,9 @@
 #include "Logger.h"
 #include <sstream>
 
-WindowManager::WindowManager()
+WindowManager::WindowManager(SceneManager *sManager)
 {
+	sceneManager = sManager;
 }
 
 WindowManager::~WindowManager()
@@ -42,7 +43,7 @@ void WindowManager::updateWindows()
 	WindowList *list = windows;
 	while (list != NULL)
 	{
-		list->window->render();
+		list->window->render(sceneManager->returnScene());
 		list = list->next;
 	}
 }
