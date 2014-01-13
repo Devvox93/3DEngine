@@ -140,7 +140,7 @@ bool InputManager::frame()
 
 	// Process the changes in the mouse and keyboard.
 	myKeyboard->processInput();
-	//myMouse->processInput();
+	myMouse->processInput();
 
 	return true;
 }
@@ -148,6 +148,11 @@ bool InputManager::frame()
 Keyboard* InputManager::getKeyboard()
 {
 	return myKeyboard;
+}
+
+Mouse* InputManager::getMouse()
+{
+	return myMouse;
 }
 
 Joystick* InputManager::getJoystick()

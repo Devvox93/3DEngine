@@ -13,7 +13,7 @@ Camera::Camera()
 
 	yawMovement = 0.0f;
 	pitchMovement = 0.0f;
-	//roll = 0.0f;
+	rollMovement = 0.0f;
 }
 
 
@@ -79,7 +79,7 @@ TripleFloat Camera::getScale()
 
 void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 {
-	Logger::getInstance().log(INFO, "Camera input gebruikt");
+	Logger::getInstance().log(INFO, "Camera KEYBOARD input gebruikt");
 
 	if (keyboardState[DIK_UPARROW] & 0x80)
 	{
@@ -158,6 +158,33 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		yawMovement = 0.0f;
 	}
+}
+
+void Camera::useMouseInput(DIMOUSESTATE mouseState)
+{
+	Logger::getInstance().log(INFO, "Camera MOUSE input gebruikt");
+
+	TripleFloat rot = getRotation();
+
+	if (mouseState.lX < 0)
+	{
+		rot.x -= 0.1f;
+	}
+	else if (mouseState.lX > 0)
+	{
+		rot.x += 0.1f;
+	}
+
+	if (mouseState.lY < 0)
+	{
+		rot.y -= 0.1f;
+	}
+	else if (mouseState.lY > 0)
+	{
+		rot.y += 0.1f;
+	}
+
+	setRotation(rot.x, rot.y, rot.z);
 }
 
 void Camera::useJoystickInput(DIJOYSTATE2 joystickState)

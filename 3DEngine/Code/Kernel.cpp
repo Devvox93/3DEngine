@@ -39,6 +39,7 @@ void Kernel::run()
 
 	iManager->getKeyboard()->addKeyboardListener(this);
 	iManager->getKeyboard()->addKeyboardListener(cam);
+	iManager->getMouse()->addMouseListener(cam);
 	iManager->getJoystick()->addJoystickListener(cam);
 	
 	while (wManager->hasActiveWindow())
@@ -50,8 +51,6 @@ void Kernel::run()
 
 void Kernel::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 {
-	Logger::getInstance().log(INFO, "Input gebruikt ofzo");
-
 	if (keyboardState[DIK_ESCAPE] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Afgesloten met Escape");
