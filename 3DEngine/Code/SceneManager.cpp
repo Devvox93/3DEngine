@@ -23,7 +23,7 @@ void SceneManager::deleteScene()
 
 };
 
-Scene* SceneManager::returnScene()
+Scene* SceneManager::getScene()
 {
 	for each (Scene* current in scenes)
 	{

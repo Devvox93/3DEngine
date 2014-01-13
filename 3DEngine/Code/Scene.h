@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Terrain.h"
+#include "Skybox.h"
 #include <vector>
 
 enum Entities
@@ -18,9 +19,13 @@ public:
 
 	void createEntity(Entities sort);
 	void deleteEntity(Entity* entity);
+	void loadEntities();
+	void render();
+	void updateEntities();
 	std::vector<Entity*> getEntities();
 private:
 	Terrain *terrain;
+	Skybox *skybox;
 	std::vector<Entity*> entities;
 };
 
