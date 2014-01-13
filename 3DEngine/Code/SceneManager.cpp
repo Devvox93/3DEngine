@@ -23,5 +23,5 @@ void SceneManager::deleteScene(){
 
 Scene SceneManager::returnScene()
 {
-
+	return scenes[0];
 };
