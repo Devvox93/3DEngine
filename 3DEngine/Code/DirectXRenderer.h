@@ -27,6 +27,7 @@ public:
 	void Render(HWND hwnd, Scene* scene);
 	void setActiveCamera(Camera* camera);
 	void setRenderSize(int width, int height);
+	void initSkybox();
 
 private:
 	HRESULT InitD3D(HWND hWnd, int width, int height);
@@ -37,8 +38,13 @@ private:
 
 	LPDIRECT3DVERTEXBUFFER9 g_pHeightmapVertexBuffer = NULL; // Buffer to hold vertices
 	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;
+
+	LPDIRECT3DVERTEXBUFFER9 g_pSkyboxVertexBuffer = NULL; // Buffer to hold vertices
+	LPDIRECT3DINDEXBUFFER9 g_pSkyboxIndexBuffer = NULL;
+
 	Terrain *terrain;
 	LPDIRECT3DTEXTURE9 terrainTexture;
+	LPDIRECT3DTEXTURE9 skyboxTexture;
 
 	Camera* activeCamera;
 };

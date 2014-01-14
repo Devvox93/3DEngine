@@ -23,8 +23,6 @@ void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int h
 		return;
 	}
 
-	
-
 	WindowList *list = new WindowList();
 	list->window = window;
 	list->next = windows;
@@ -43,7 +41,7 @@ void WindowManager::updateWindows()
 	WindowList *list = windows;
 	while (list != NULL)
 	{
-		list->window->render(sceneManager->returnScene());
+		list->window->render(sceneManager->getScene());
 		list = list->next;
 	}
 }
@@ -82,7 +80,6 @@ bool WindowManager::hasActiveWindow()
 	{
 		return true;
 	}
-
 	return false;
 }
 

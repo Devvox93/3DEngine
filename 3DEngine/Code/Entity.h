@@ -21,11 +21,12 @@ public:
 	TripleFloat getRotation();
 	TripleFloat getScale();
 	D3DXMATRIXA16 finalMatrix;
+	D3DXMATRIXA16 rotationMatrix;
 protected:
 	float x, y, z;
 	float yaw, pitch, roll;
 	float scaleX, scaleY, scaleZ;
-	D3DXMATRIXA16 positionMatrix, rotationMatrix, scaleMatrix;
+	D3DXMATRIXA16 positionMatrix, scaleMatrix;
 	void multiplyMatrices();
 private:
 };

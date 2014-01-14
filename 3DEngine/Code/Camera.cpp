@@ -162,7 +162,7 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 
 void Camera::useMouseInput(DIMOUSESTATE mouseState)
 {
-	Logger::getInstance().log(INFO, "Camera MOUSE input gebruikt");
+	//Logger::getInstance().log(INFO, "Camera MOUSE input gebruikt");
 
 	TripleFloat rot = getRotation();
 

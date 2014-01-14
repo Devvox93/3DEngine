@@ -7,7 +7,7 @@ Scene::Scene()
 {
 	entities = std::vector<Entity*>();
 	terrain = new Terrain("clouds.bmp"); // Terrain moet ingeladen worden
-	skybox = new Skybox();
+	//skybox = new Skybox();
 }
 
 
