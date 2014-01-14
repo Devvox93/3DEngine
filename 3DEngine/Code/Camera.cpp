@@ -166,23 +166,8 @@ void Camera::useMouseInput(DIMOUSESTATE mouseState)
 
 	TripleFloat rot = getRotation();
 
-	if (mouseState.lX < 0)
-	{
-		rot.x -= 0.1f;
-	}
-	else if (mouseState.lX > 0)
-	{
-		rot.x += 0.1f;
-	}
-
-	if (mouseState.lY < 0)
-	{
-		rot.y -= 0.1f;
-	}
-	else if (mouseState.lY > 0)
-	{
-		rot.y += 0.1f;
-	}
+	rot.x += (mouseState.lX / 100.0f);
+	rot.y += (mouseState.lY / 100.0f);
 
 	setRotation(rot.x, rot.y, rot.z);
 }

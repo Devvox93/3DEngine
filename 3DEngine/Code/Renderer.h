@@ -15,6 +15,7 @@ public:
 	virtual void setActiveCamera(Camera* camera) = 0;
 	virtual void setRenderSize(int width, int height) = 0;
 	virtual void initSkybox() = 0;
+	virtual void initTerrain(Terrain *terrain) = 0;
 private:
 	Camera* activeCamera;
 };

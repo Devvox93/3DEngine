@@ -24,9 +24,14 @@ void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int h
 	}
 
 	WindowList *list = new WindowList();
+
+	renderer->initTerrain(sceneManager->getScene()->getTerrain());
+
 	list->window = window;
 	list->next = windows;
 	windows = list;
+
+	
 }
 
 

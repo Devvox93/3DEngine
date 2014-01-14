@@ -78,13 +78,13 @@ void DirectXRenderer::Initialize(int width, int height)
 	if (g_pd3dDevice == NULL && SUCCEEDED(InitD3D(hWnd, width, height)))
 	{
 		InitGeometry("car.X");
-		initHeightmap();
+		//initHeightmap();
 		initSkybox();
 	}
 };
 
 
-void DirectXRenderer::initHeightmap()
+void DirectXRenderer::initTerrain(Terrain *terrain)
 {
 	std::string yolo = std::string("clouds.bmp");
 	std::string stemp = std::string(yolo.begin(), yolo.end());
@@ -95,8 +95,7 @@ void DirectXRenderer::initHeightmap()
 		Logger::getInstance().log(INFO, "well shit!");
 	}
 
-
-	terrain = new Terrain("clouds.bmp");
+	terrainTextures[terrain] = &terrainTexture;
 
 	g_pd3dDevice->CreateVertexBuffer(terrain->data->width * terrain->data->height * sizeof(Vertex),
 		D3DUSAGE_WRITEONLY,
@@ -213,16 +212,9 @@ HRESULT DirectXRenderer::InitGeometry(std::string filename)
 		&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
 		&g_pMesh)))
 	{
-		// If model is not in current folder, try parent folder
-		if (FAILED(D3DXLoadMeshFromX(sw, D3DXMESH_SYSTEMMEM,
-			g_pd3dDevice, NULL,
-			&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
-			&g_pMesh)))
-		{
 			Logger::getInstance().log(WARNING, "Could not find file: " + filename);
 			return E_FAIL;
 		}
-	}
 
 	// We need to extract the material properties and texture names from the 
 	// pD3DXMtrlBuffer
@@ -348,6 +340,10 @@ void DirectXRenderer::WorldMatrix(int type) //moet worden vervangen door een for
 //-----------------------------------------------------------------------------
 void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 {
+	LPDIRECT3DTEXTURE9 *terrainTexture;
+
+	terrainTexture = terrainTextures[scene->getTerrain()];
+		
 	activeCamera->update();//DIT MOET IN SCENE GEBEUREN!
 	// Clear the backbuffer and the zbuffer
 	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
@@ -369,6 +365,14 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		WorldMatrix(0);
 		// Meshes are divided into subsets, one for each material. Render them in
 		// a loop
+		terrain = scene->getTerrain();
+
+		std::vector<Entity*> entities = scene->getEntities();
+		for each(Entity *currentEntity in entities)
+		{
+
+		}
+
 		for (DWORD i = 0; i < g_dwNumMaterials; i++)
 		{
 			// Set the material and texture for this subset
@@ -392,7 +396,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			g_pMesh->DrawSubset(i);
 		}
 		WorldMatrix(2);
-		g_pd3dDevice->SetTexture(0, terrainTexture);
+		g_pd3dDevice->SetTexture(0, *terrainTexture);
 		g_pd3dDevice->SetStreamSource(0, g_pHeightmapVertexBuffer, 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(g_pHeightmapIndexBuffer);

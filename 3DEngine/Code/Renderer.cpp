@@ -23,3 +23,8 @@ void Renderer::setActiveCamera(Camera* camera)
 void Renderer::setRenderSize(int width, int height)
 {
 };
+
+
+void Renderer::initTerrain(Terrain *terrain)
+{
+};

@@ -6,6 +6,7 @@
 #include <d3dx9.h>
 #include <strsafe.h>
 #include <string>
+#include <map>
 #include "Terrain.h"
 #include "KeyboardListener.h"
 #include "DirectXWindow.h"
@@ -27,6 +28,7 @@ public:
 	void Render(HWND hwnd, Scene* scene);
 	void setActiveCamera(Camera* camera);
 	void setRenderSize(int width, int height);
+	void initTerrain(Terrain *terrain);
 	void initSkybox();
 
 private:
@@ -34,7 +36,6 @@ private:
 	void Cleanup();
 	HRESULT InitGeometry(std::string filename);
 	void WorldMatrix(int type);
-	void initHeightmap();
 
 	LPDIRECT3DVERTEXBUFFER9 g_pHeightmapVertexBuffer = NULL; // Buffer to hold vertices
 	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;
@@ -46,6 +47,7 @@ private:
 	LPDIRECT3DTEXTURE9 terrainTexture;
 	LPDIRECT3DTEXTURE9 skyboxTexture;
 
+	std::map <Terrain*, LPDIRECT3DTEXTURE9*> terrainTextures;
 	Camera* activeCamera;
 };
 
