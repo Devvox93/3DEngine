@@ -34,25 +34,30 @@ void Scene::createEntity(Entities sort){
 	entities.push_back(newEntity);
 };
 
-void deleteEntity(Entity* entity){
+void Scene::deleteEntity(Entity* entity){
 	// destroy en delete meegegeven entity uit lijst
 };
 
-void render()
+void Scene::render()
 {
 
 };
 
-void loadEntities()
+void Scene::loadEntities()
 {
 
 };
 
-void updateEntities()
+void Scene::updateEntities()
 {
 
 };
 
 std::vector<Entity*> Scene::getEntities(){
 	return entities;
+};
+
+Terrain* Scene::getTerrain()
+{
+	return terrain;
 };
