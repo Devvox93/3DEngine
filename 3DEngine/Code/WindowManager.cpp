@@ -43,7 +43,7 @@ void WindowManager::updateWindows()
 	WindowList *list = windows;
 	while (list != NULL)
 	{
-		list->window->render(sceneManager->returnScene());
+		list->window->render(sceneManager->getScene());
 		list = list->next;
 	}
 }

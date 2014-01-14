@@ -29,10 +29,10 @@ void Camera::update()
 	tf.z += zMovement;
 	setPosition(tf.x, tf.y, tf.z);
 
-	TripleFloat tf2 = getRotation();
+	/*TripleFloat tf2 = getRotation();
 	tf2.x += yawMovement;
 	tf2.y += pitchMovement;
-	setRotation(tf2.x, tf2.y, tf2.z);
+	setRotation(tf2.x, tf2.y, tf2.z);*/
 }
 
 void Camera::setPosition(float _x, float _y, float _z)
@@ -162,27 +162,16 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 
 void Camera::useMouseInput(DIMOUSESTATE mouseState)
 {
+	int Number = mouseState.lX;
+	std::string string = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
+
 	Logger::getInstance().log(INFO, "Camera MOUSE input gebruikt");
+	Logger::getInstance().log(INFO, string);
 
 	TripleFloat rot = getRotation();
 
-	if (mouseState.lX < 0)
-	{
-		rot.x -= 0.1f;
-	}
-	else if (mouseState.lX > 0)
-	{
-		rot.x += 0.1f;
-	}
-
-	if (mouseState.lY < 0)
-	{
-		rot.y -= 0.1f;
-	}
-	else if (mouseState.lY > 0)
-	{
-		rot.y += 0.1f;
-	}
+	rot.x += (mouseState.lX / 100.0f);
+	rot.y += (mouseState.lY / 100.0f);
 
 	setRotation(rot.x, rot.y, rot.z);
 }
