@@ -29,10 +29,10 @@ void Camera::update()
 	tf.z += zMovement;
 	setPosition(tf.x, tf.y, tf.z);
 
-	/*TripleFloat tf2 = getRotation();
+	TripleFloat tf2 = getRotation();
 	tf2.x += yawMovement;
 	tf2.y += pitchMovement;
-	setRotation(tf2.x, tf2.y, tf2.z);*/
+	setRotation(tf2.x, tf2.y, tf2.z);
 }
 
 void Camera::setPosition(float _x, float _y, float _z)

@@ -112,7 +112,10 @@ void Mouse::processInput()
 		mouseY = screenHeight;
 	}
 
-	updateListeners();
+	if (mouseState.lX != 0 || mouseState.lY != 0)
+	{
+		updateListeners();
+	}
 }
 
 void Mouse::updateListeners()
