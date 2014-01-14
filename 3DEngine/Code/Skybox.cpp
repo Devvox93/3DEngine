@@ -32,16 +32,16 @@ Skybox::Skybox()
 	aSkyboxVertices[23] = { -50.0f, -50.0f, -50.0f, 0.25f, 1.0f };
 
 	aSkyboxIndices = new int[36];
-	aSkyboxIndices[0] = 0; aSkyboxIndices[1] = 1; aSkyboxIndices[2] = 2;//front
-	aSkyboxIndices[3] = 0; aSkyboxIndices[4] = 2; aSkyboxIndices[5] = 3;
-	aSkyboxIndices[6] = 4; aSkyboxIndices[7] = 5; aSkyboxIndices[8] = 6;//right
-	aSkyboxIndices[9] = 4; aSkyboxIndices[10] = 6; aSkyboxIndices[11] = 7;
-	aSkyboxIndices[12] = 8; aSkyboxIndices[13] = 9; aSkyboxIndices[14] = 10;//back
-	aSkyboxIndices[15] = 8; aSkyboxIndices[16] = 10; aSkyboxIndices[17] = 11;
-	aSkyboxIndices[18] = 12; aSkyboxIndices[19] = 13; aSkyboxIndices[20] = 14;//left
-	aSkyboxIndices[21] = 12; aSkyboxIndices[22] = 14; aSkyboxIndices[23] = 15;
-	aSkyboxIndices[24] = 16; aSkyboxIndices[25] = 17; aSkyboxIndices[26] = 18;//top
-	aSkyboxIndices[27] = 16; aSkyboxIndices[28] = 18; aSkyboxIndices[29] = 19;
+	aSkyboxIndices[0] = 0; aSkyboxIndices[2] = 1; aSkyboxIndices[1] = 2;//front
+	aSkyboxIndices[3] = 0; aSkyboxIndices[5] = 2; aSkyboxIndices[4] = 3;
+	aSkyboxIndices[6] = 4; aSkyboxIndices[8] = 5; aSkyboxIndices[7] = 6;//right
+	aSkyboxIndices[9] = 4; aSkyboxIndices[11] = 6; aSkyboxIndices[10] = 7;
+	aSkyboxIndices[12] = 8; aSkyboxIndices[14] = 9; aSkyboxIndices[13] = 10;//back
+	aSkyboxIndices[15] = 8; aSkyboxIndices[17] = 10; aSkyboxIndices[16] = 11;
+	aSkyboxIndices[18] = 12; aSkyboxIndices[20] = 13; aSkyboxIndices[19] = 14;//left
+	aSkyboxIndices[21] = 12; aSkyboxIndices[23] = 14; aSkyboxIndices[22] = 15;
+	aSkyboxIndices[24] = 16; aSkyboxIndices[26] = 17; aSkyboxIndices[25] = 18;//top
+	aSkyboxIndices[27] = 16; aSkyboxIndices[29] = 18; aSkyboxIndices[28] = 19;
 	aSkyboxIndices[30] = 20; aSkyboxIndices[31] = 21; aSkyboxIndices[32] = 22;//bottom
 	aSkyboxIndices[33] = 20; aSkyboxIndices[34] = 22; aSkyboxIndices[35] = 23;
 }
