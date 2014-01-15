@@ -24,6 +24,7 @@ BMPresource::BMPresource(char *path)
 	if (hbmp == NULL)	//Give a visual warning if the loading of the image failed
 	{
 		Logger::getInstance().log(WARNING, "Could not load BMP from path: " + std::string(path));
+		isLoaded = false;
 		return;		//Jump out of the function
 	}
 	//At this point it is sure that lhdcDest & hbmp are valid.
@@ -34,6 +35,7 @@ BMPresource::BMPresource(char *path)
 	//The GetObject function retrieves information for the specified graphics object
 	//bm is cast to a "void*" because GetObject function doesn't 'know' it's format 
 	//(don't know what it is, but just put it in that buffer)
+	isLoaded = true;
 
 }
 BMPresource::BMPresource()

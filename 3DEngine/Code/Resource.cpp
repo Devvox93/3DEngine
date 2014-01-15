@@ -3,6 +3,7 @@
 
 Resource::Resource(char *path)
 {
+	isLoaded = false;
 }
 
 Resource::Resource()

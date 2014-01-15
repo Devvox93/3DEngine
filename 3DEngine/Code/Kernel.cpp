@@ -30,13 +30,6 @@ void Kernel::run()
 	rsManager->storeResource("clouds.bmp");
 	rsManager->storeResource("btest.bmp");
 	rsManager->storeResource("test.bmp");
-	rsManager->storeResource("clouds3s.bmp");
-	rsManager->storeResource("clouds.bmp");
-	rsManager->storeResource("clouds.bmp");
-	rsManager->storeResource("car2.x");
-	rsManager->storeResource("car.x");
-	rsManager->storeResource("car.x");
-	rsManager->storeResource("car.x");
 	rsManager->storeResource("car.x");
 
 	rsManager->PrintMap();

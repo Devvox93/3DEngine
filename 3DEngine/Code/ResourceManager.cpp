@@ -22,7 +22,7 @@ void ResourceManager::storeResource(char *path)
 
 		if (sstm.str().substr(sstm.str().find_last_of(".") + 1) == "bmp"&&"BMP") {
 			Resource *bmprsrc = new BMPresource(path);
-			if (bmprsrc != NULL){				
+			if (bmprsrc->isLoaded){				
 				ResourceMap.insert(std::make_pair(path, bmprsrc));
 				}
 			else
@@ -34,7 +34,7 @@ void ResourceManager::storeResource(char *path)
 		}
 		if (sstm.str().substr(sstm.str().find_last_of(".") + 1) == "x"&&"X") {
 			Resource *xrsrc = new XResource(path);
-			if (xrsrc != NULL){
+			if (xrsrc->isLoaded){
 				ResourceMap.insert(std::make_pair(path, xrsrc));
 			}
 			else

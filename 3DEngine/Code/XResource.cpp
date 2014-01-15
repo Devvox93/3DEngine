@@ -38,6 +38,7 @@ XResource::XResource(char *path)
 			Logger::getInstance().log(WARNING, "Could not load X from path: " + std::string(path));
 			return;		//Jump out of the function
 		}
+		isLoaded = false;
 	}
 }
 XResource::XResource()
