@@ -84,17 +84,17 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	if (keyboardState[DIK_UPARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Up arrow");
-		yMovement = 0.1f;
+		zMovement = 0.1f;
 
 	}
 	else if (keyboardState[DIK_DOWNARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Down arrow");
-		yMovement = -0.1f;
+		zMovement = -0.1f;
 	}
 	else
 	{
-		yMovement = 0.0f;
+		zMovement = 0.0f;
 	}
 	if (keyboardState[DIK_LEFTARROW] & 0x80)
 	{
@@ -115,16 +115,16 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	if (keyboardState[DIK_INSERT] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Insert");
-		zMovement = 0.1f;
+		yMovement = 0.1f;
 	}
 	else if (keyboardState[DIK_DELETE] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Delete");
-		zMovement = -0.1f;
+		yMovement = -0.1f;
 	}
 	else
 	{
-		zMovement = 0.0f;
+		yMovement = 0.0f;
 	}
 
 	if (keyboardState[DIK_W] & 0x80)

@@ -1,7 +1,12 @@
 #include "Resource.h"
 
 
-Resource::Resource(char* path)
+Resource::Resource(char *path)
+{
+	isLoaded = false;
+}
+
+Resource::Resource()
 {
 }
 
