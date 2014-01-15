@@ -231,13 +231,13 @@ void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 
 	//32767
 	long yawAxis = joystickState.lRx - 32767;
-	if (yawMovement == 0 ((yawAxis + deadzone < -deadzone) || (yawAxis - deadzone > deadzone)))
+	if (yawMovement == 0 && ((yawAxis + deadzone < -deadzone) || (yawAxis - deadzone > deadzone)))
 	{
 		yawMovement = (yawAxis / 32767.0f) * 0.1f;
 	}
 
 	long pitchAxis = joystickState.lRy - 32767;
-	if (pitchMovement == 0 ((pitchAxis + deadzone < -deadzone) || (pitchAxis - deadzone > deadzone)))
+	if (pitchMovement == 0 && ((pitchAxis + deadzone < -deadzone) || (pitchAxis - deadzone > deadzone)))
 	{
 		pitchMovement = (-pitchAxis / 32767.0f) * 0.1f;
 	}

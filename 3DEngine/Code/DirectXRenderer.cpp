@@ -57,14 +57,11 @@ void DirectXRenderer::setRenderSize(int width, int height)
 	// the aspect ratio, and the near and far clipping planes (which define at
 	// what distances geometry should be no longer be rendered).
 	D3DXMATRIXA16 matProj;
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, (float)width/(float)height, 1.0f, 100.0f);
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, (float)width/(float)height, 0.1f, 100.0f);
 	g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 
-	// Turn off culling, so we see the front and back of the triangle
+	// Turn off culling
 	g_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
-	// Turn on the zbuffer
-	g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
 	// Turn on ambient lighting 
 	g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
@@ -78,7 +75,6 @@ void DirectXRenderer::Initialize(int width, int height)
 	if (g_pd3dDevice == NULL && SUCCEEDED(InitD3D(hWnd, width, height)))
 	{
 		InitGeometry("car.X");
-		//initHeightmap();
 		initSkybox();
 	}
 };
@@ -352,6 +348,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 	// Begin the scene
 	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
 	{
+		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
 		D3DXMATRIXA16 matWorldFinal;
 		D3DXMatrixTranslation(&matWorldFinal, 0.0f, 0.0f, 0.0f);
 		D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &activeCamera->rotationMatrix);
@@ -361,10 +358,10 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(g_pSkyboxIndexBuffer);
 		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24/*numvertices*/, 0, 12/*primitives count*/);
+		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
 		WorldMatrix(0);
-		// Meshes are divided into subsets, one for each material. Render them in
-		// a loop
+		// Meshes are divided into subsets, one for each material. Render them in a loop
 		terrain = scene->getTerrain();
 
 		std::vector<Entity*> entities = scene->getEntities();
@@ -384,8 +381,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		}
 
 		WorldMatrix(1);
-		// Meshes are divided into subsets, one for each material. Render them in
-		// a loop
+		// Meshes are divided into subsets, one for each material. Render them in a loop
 		for (DWORD i = 0; i < g_dwNumMaterials; i++)
 		{
 			// Set the material and texture for this subset
