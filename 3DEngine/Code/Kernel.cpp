@@ -24,6 +24,7 @@ void Kernel::run()
 	int height = 720;
 
 	renderer = new DirectXRenderer();
+	renderer->Initialize(width, height);
 	sceneManager = new SceneManager();
 	wManager = new WindowManager(sceneManager);
 	iManager = new InputManager();
