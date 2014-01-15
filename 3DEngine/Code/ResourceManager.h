@@ -3,6 +3,9 @@
 #include <Windows.h>
 #include <d3d9.h>
 #include "Resource.h"
+#include "TextureResource.h"
+#include <map>
+#include <string>
 
 class ResourceManager
 {
@@ -10,7 +13,10 @@ public:
 	ResourceManager();
 	~ResourceManager();
 	Resource* getResource(char *path);
+	TextureResource* getTexture(char *path);
 	void PrintMap();
 	LPDIRECT3DDEVICE9* g_pd3dDevice;
+private:
+	std::map<std::string, Resource*> ResourceMap;
 };
 #endif

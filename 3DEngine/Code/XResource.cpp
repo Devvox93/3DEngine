@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-XResource::XResource(char *path, LPDIRECT3DDEVICE9* g_pd3dDevice)
+XResource::XResource(char *path, LPDIRECT3DDEVICE9* g_pd3dDevice, ResourceManager* rsm)
 {
 	g_pMesh = NULL; // Our mesh object in sysmem
 	g_dwNumMaterials = 0L;   // Number of mesh materials
@@ -21,6 +21,43 @@ XResource::XResource(char *path, LPDIRECT3DDEVICE9* g_pd3dDevice)
 		isLoaded = false;
 		return;		//Jump out of the function
 	}
+
+	// We need to extract the material properties and texture names from the 
+	// pD3DXMtrlBuffer
+	D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
+	g_pMeshMaterials = new D3DMATERIAL9[g_dwNumMaterials];
+	if (g_pMeshMaterials == NULL)
+	{
+		return;
+	}
+	myTextures = new TextureResource*[g_dwNumMaterials];
+	for (DWORD i = 0; i < g_dwNumMaterials; i++)
+	{
+		// Copy the material
+		g_pMeshMaterials[i] = d3dxMaterials[i].MatD3D;
+
+		// Set the ambient color for the material (D3DX does not do this)
+		g_pMeshMaterials[i].Ambient = g_pMeshMaterials[i].Diffuse;
+
+		if (d3dxMaterials[i].pTextureFilename != NULL &&
+			lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
+		{
+			// Create the texture
+			/*if (FAILED(D3DXCreateTextureFromFileA(*g_pd3dDevice,
+				d3dxMaterials[i].pTextureFilename,
+				&g_pMeshTextures[i])))
+			{
+				std::string lol = std::string(d3dxMaterials[i].pTextureFilename);
+				Logger::getInstance().log(WARNING, "Could not find texture: " + lol);
+			}*/
+			Logger::getInstance().log(INFO, d3dxMaterials[i].pTextureFilename);
+			myTextures[i] = rsm->getTexture(d3dxMaterials[i].pTextureFilename);
+		}
+	}
+
+	// Done with the material buffer
+	pD3DXMtrlBuffer->Release();
+
 	isLoaded = true;
 }
 
