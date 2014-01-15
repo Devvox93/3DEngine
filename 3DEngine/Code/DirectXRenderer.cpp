@@ -86,6 +86,9 @@ void DirectXRenderer::Initialize(int width, int height)
 
 void DirectXRenderer::initTerrain(Terrain *terrain)
 {
+
+	
+
 	std::string yolo = std::string("clouds.bmp");
 	std::string stemp = std::string(yolo.begin(), yolo.end());
 	LPCSTR sw = stemp.c_str();
@@ -115,9 +118,13 @@ void DirectXRenderer::initTerrain(Terrain *terrain)
 	memcpy(pVertices, terrain->aTerrainVertices, terrain->data->width * terrain->data->height * sizeof(D3DVERTEX)); //copy data
 	g_pHeightmapVertexBuffer->Unlock();                                 //unlock buffer
 
+	terrainVertexBuffers[terrain] = &g_pHeightmapVertexBuffer;
+
 	g_pHeightmapIndexBuffer->Lock(0, terrain->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
 	memcpy(pVertices, terrain->aTerrainIndices, terrain->amountOfIndices * sizeof(int));   //copy data
 	g_pHeightmapIndexBuffer->Unlock();                                 //unlock buffer
+
+	terrainIndexBuffers[terrain] = &g_pHeightmapIndexBuffer;
 }
 
 void DirectXRenderer::initSkybox()
@@ -340,9 +347,6 @@ void DirectXRenderer::WorldMatrix(int type) //moet worden vervangen door een for
 //-----------------------------------------------------------------------------
 void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 {
-	LPDIRECT3DTEXTURE9 *terrainTexture;
-
-	terrainTexture = terrainTextures[scene->getTerrain()];
 		
 	activeCamera->update();//DIT MOET IN SCENE GEBEUREN!
 	// Clear the backbuffer and the zbuffer
@@ -396,10 +400,11 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			g_pMesh->DrawSubset(i);
 		}
 		WorldMatrix(2);
-		g_pd3dDevice->SetTexture(0, *terrainTexture);
-		g_pd3dDevice->SetStreamSource(0, g_pHeightmapVertexBuffer, 0, sizeof(D3DVERTEX));
+
+		g_pd3dDevice->SetTexture(0, *terrainTextures[terrain]);
+		g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-		g_pd3dDevice->SetIndices(g_pHeightmapIndexBuffer);
+		g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
 		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->data->width * terrain->data->height/*numvertices*/, 0, (terrain->data->width - 1) * (terrain->data->height - 1) * 2/*primitives count*/);
 
 		// End the scene
