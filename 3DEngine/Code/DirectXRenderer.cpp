@@ -18,7 +18,6 @@ DirectXRenderer::DirectXRenderer()
 {
 	g_pD3D = NULL;
 	g_pd3dDevice = NULL;
-
 	g_pMesh = NULL; // Our mesh object in sysmem
 	g_pMeshMaterials = NULL; // Materials for our mesh
 	g_pMeshTextures = NULL; // Textures for our mesh
@@ -57,14 +56,11 @@ void DirectXRenderer::setRenderSize(int width, int height)
 	// the aspect ratio, and the near and far clipping planes (which define at
 	// what distances geometry should be no longer be rendered).
 	D3DXMATRIXA16 matProj;
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, (float)width/(float)height, 1.0f, 100.0f);
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, (float)width/(float)height, 0.1f, 1000.0f);
 	g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 
-	// Turn off culling, so we see the front and back of the triangle
+	// Turn off culling
 	g_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
-	// Turn on the zbuffer
-	g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
 	// Turn on ambient lighting 
 	g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
@@ -78,7 +74,6 @@ void DirectXRenderer::Initialize(int width, int height)
 	if (g_pd3dDevice == NULL && SUCCEEDED(InitD3D(hWnd, width, height)))
 	{
 		InitGeometry("car.X");
-		//initHeightmap();
 		initSkybox();
 	}
 };
@@ -86,6 +81,9 @@ void DirectXRenderer::Initialize(int width, int height)
 
 void DirectXRenderer::initTerrain(Terrain *terrain)
 {
+
+	
+
 	std::string yolo = std::string("clouds.bmp");
 	std::string stemp = std::string(yolo.begin(), yolo.end());
 	LPCSTR sw = stemp.c_str();
@@ -115,9 +113,13 @@ void DirectXRenderer::initTerrain(Terrain *terrain)
 	memcpy(pVertices, terrain->aTerrainVertices, terrain->data->width * terrain->data->height * sizeof(D3DVERTEX)); //copy data
 	g_pHeightmapVertexBuffer->Unlock();                                 //unlock buffer
 
+	terrainVertexBuffers[terrain] = &g_pHeightmapVertexBuffer;
+
 	g_pHeightmapIndexBuffer->Lock(0, terrain->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
 	memcpy(pVertices, terrain->aTerrainIndices, terrain->amountOfIndices * sizeof(int));   //copy data
 	g_pHeightmapIndexBuffer->Unlock();                                 //unlock buffer
+
+	terrainIndexBuffers[terrain] = &g_pHeightmapIndexBuffer;
 }
 
 void DirectXRenderer::initSkybox()
@@ -310,20 +312,20 @@ void DirectXRenderer::WorldMatrix(int type) //moet worden vervangen door een for
 	else if (type == 0)
 	{
 		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0, 0, 0);
-		D3DXMatrixTranslation(&matWorldTranslate, 1.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 0.015f, 0.015f, 0.015f);
+		D3DXMatrixTranslation(&matWorldTranslate, 100.0f, 0.0f, 0.0f);
+		D3DXMatrixScaling(&matWorldScaled, 1.0f, 1.0f, 1.0f);
 	}
 	else if (type==1)
 	{
 		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, -0, -0, -0);
-		D3DXMatrixTranslation(&matWorldTranslate, -1.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 0.015f, 0.015f, 0.015f);
+		D3DXMatrixTranslation(&matWorldTranslate, -100.0f, 0.0f, 0.0f);
+		D3DXMatrixScaling(&matWorldScaled, 1.0f, 1.0f, 1.0f);
 	}
 	else
 	{
 		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0.0f, 0.0f, 0.0f);
 		D3DXMatrixTranslation(&matWorldTranslate, 0.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 0.025f, 2.0f, 0.025f);
+		D3DXMatrixScaling(&matWorldScaled, 1.0f, 250.0f, 1.0f);
 	}
 
 	D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &matWorldTranslate);
@@ -340,9 +342,6 @@ void DirectXRenderer::WorldMatrix(int type) //moet worden vervangen door een for
 //-----------------------------------------------------------------------------
 void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 {
-	LPDIRECT3DTEXTURE9 *terrainTexture;
-
-	terrainTexture = terrainTextures[scene->getTerrain()];
 		
 	activeCamera->update();//DIT MOET IN SCENE GEBEUREN!
 	// Clear the backbuffer and the zbuffer
@@ -352,6 +351,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 	// Begin the scene
 	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
 	{
+		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
 		D3DXMATRIXA16 matWorldFinal;
 		D3DXMatrixTranslation(&matWorldFinal, 0.0f, 0.0f, 0.0f);
 		D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &activeCamera->rotationMatrix);
@@ -361,10 +361,10 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(g_pSkyboxIndexBuffer);
 		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24/*numvertices*/, 0, 12/*primitives count*/);
+		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
 		WorldMatrix(0);
-		// Meshes are divided into subsets, one for each material. Render them in
-		// a loop
+		// Meshes are divided into subsets, one for each material. Render them in a loop
 		terrain = scene->getTerrain();
 
 		std::vector<Entity*> entities = scene->getEntities();
@@ -384,8 +384,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		}
 
 		WorldMatrix(1);
-		// Meshes are divided into subsets, one for each material. Render them in
-		// a loop
+		// Meshes are divided into subsets, one for each material. Render them in a loop
 		for (DWORD i = 0; i < g_dwNumMaterials; i++)
 		{
 			// Set the material and texture for this subset
@@ -396,10 +395,11 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			g_pMesh->DrawSubset(i);
 		}
 		WorldMatrix(2);
-		g_pd3dDevice->SetTexture(0, *terrainTexture);
-		g_pd3dDevice->SetStreamSource(0, g_pHeightmapVertexBuffer, 0, sizeof(D3DVERTEX));
+
+		g_pd3dDevice->SetTexture(0, *terrainTextures[terrain]);
+		g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-		g_pd3dDevice->SetIndices(g_pHeightmapIndexBuffer);
+		g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
 		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->data->width * terrain->data->height/*numvertices*/, 0, (terrain->data->width - 1) * (terrain->data->height - 1) * 2/*primitives count*/);
 
 		// End the scene

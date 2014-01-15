@@ -36,18 +36,20 @@ private:
 	void Cleanup();
 	HRESULT InitGeometry(std::string filename);
 	void WorldMatrix(int type);
-
+	
 	LPDIRECT3DVERTEXBUFFER9 g_pHeightmapVertexBuffer = NULL; // Buffer to hold vertices
 	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;
 
 	LPDIRECT3DVERTEXBUFFER9 g_pSkyboxVertexBuffer = NULL; // Buffer to hold vertices
 	LPDIRECT3DINDEXBUFFER9 g_pSkyboxIndexBuffer = NULL;
-
+	LPDIRECT3DTEXTURE9 terrainTexture = NULL;
 	Terrain *terrain;
-	LPDIRECT3DTEXTURE9 terrainTexture;
+	
 	LPDIRECT3DTEXTURE9 skyboxTexture;
 
 	std::map <Terrain*, LPDIRECT3DTEXTURE9*> terrainTextures;
+	std::map <Terrain*, LPDIRECT3DVERTEXBUFFER9*> terrainVertexBuffers;
+	std::map <Terrain*, LPDIRECT3DINDEXBUFFER9*> terrainIndexBuffers;
 	Camera* activeCamera;
 };
 

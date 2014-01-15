@@ -3,6 +3,8 @@
 #include "WindowManager.h"
 #include "InputManager.h"
 #include "Renderer.h"
+#include "Resource.h"
+#include "ResourceManager.h"
 #include "Camera.h"
 #include <sstream>
 #include "SceneManager.h"
@@ -22,14 +24,22 @@ void Kernel::run()
 	int height = 720;
 
 	renderer = new DirectXRenderer();
+	renderer->Initialize(width, height);
 	sceneManager = new SceneManager();
 	wManager = new WindowManager(sceneManager);
 	iManager = new InputManager();
 
 	Camera* cam = new Camera();
+	ResourceManager *rsManager = new ResourceManager;
+	
+	rsManager->storeResource("clouds.bmp");
+	rsManager->storeResource("btest.bmp");
+	rsManager->storeResource("test.bmp");
+	rsManager->storeResource("car.x");
 
-	renderer->Initialize(width, height);
+	rsManager->PrintMap();
 
+	
 	renderer->setActiveCamera(cam);
 
 	sceneManager->createScene();
