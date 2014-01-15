@@ -5,6 +5,7 @@
 #include "Terrain.h"
 #include "Skybox.h"
 #include <vector>
+#include "ResourceManager.h"
 
 enum Entities
 {
@@ -14,10 +15,10 @@ enum Entities
 class Scene
 {
 public:
-	Scene();
+	Scene(ResourceManager* rsm);
 	~Scene();
 
-	void createEntity(Entities sort);
+	void createEntity(Entities sort, ResourceManager* rsm);
 	void deleteEntity(Entity* entity);
 	void loadEntities();
 	void render();

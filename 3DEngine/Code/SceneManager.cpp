@@ -11,9 +11,9 @@ SceneManager::~SceneManager()
 {
 };
 
-void SceneManager::createScene()
+void SceneManager::createScene(ResourceManager* rsm)
 {
-	Scene *newScene = new Scene();
+	Scene *newScene = new Scene(rsm);
 
 	scenes.push_back(newScene);
 };
@@ -30,6 +30,5 @@ Scene* SceneManager::getScene()
 		return current;
 	}
 	//Scene *scene = scenes.front();
-	Scene *scene = new Scene();
-	return scene;
+	return NULL;
 };

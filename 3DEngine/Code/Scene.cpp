@@ -3,11 +3,12 @@
 #include "Camera.h"
 #include "Logger.h"
 
-Scene::Scene()
+Scene::Scene(ResourceManager* rsm)
 {
 	entities = std::vector<Entity*>();
 	terrain = new Terrain("clouds.bmp"); // Terrain moet ingeladen worden
 	//skybox = new Skybox();
+	createEntity(MODEL, rsm);
 }
 
 
@@ -15,7 +16,7 @@ Scene::~Scene()
 {
 }
 
-void Scene::createEntity(Entities sort){
+void Scene::createEntity(Entities sort, ResourceManager* rsm){
 	Entity *newEntity;
 
 	switch (sort)
@@ -25,6 +26,7 @@ void Scene::createEntity(Entities sort){
 		break;
 	case(MODEL) :
 		newEntity = new Model();
+		((Model*)newEntity)->model = (XResource*)rsm->getResource("car.X");
 		break;
 	default:
 		Logger::getInstance().log(WARNING, "Entity fout");

@@ -3,6 +3,7 @@
 #include <ctime>
 #include <sstream>
 #include "InputManager.h"
+#include "Model.h"
 
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ | D3DFVF_TEX1)
 struct D3DVERTEX
@@ -363,16 +364,28 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24/*numvertices*/, 0, 12/*primitives count*/);
 		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
-		WorldMatrix(0);
-		// Meshes are divided into subsets, one for each material. Render them in a loop
-		terrain = scene->getTerrain();
-
 		std::vector<Entity*> entities = scene->getEntities();
 		for each(Entity *currentEntity in entities)
 		{
+			//Logger::getInstance().log(INFO, "WOOT@!!@!@@!@!!@!");
+			D3DXMATRIXA16 matWorldFinal;
+			D3DXMatrixMultiply(&matWorldFinal, &currentEntity->finalMatrix, &activeCamera->finalMatrix);
+			g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
 
+			Model *lol = (Model*)currentEntity;
+			// Meshes are divided into subsets, one for each material. Render them in a loop
+			for (DWORD i = 0; i < lol->model->g_dwNumMaterials; i++)
+			{
+				// Set the material and texture for this subset
+				//g_pd3dDevice->SetMaterial(&lol->model->g_pMeshMaterials[i]);
+				g_pd3dDevice->SetTexture(0, NULL);//moet een array van textureresources zijn
+
+				// Draw the mesh subset
+				lol->model->g_pMesh->DrawSubset(i);
+			}
 		}
-
+		WorldMatrix(0);
+		// Meshes are divided into subsets, one for each material. Render them in a loop
 		for (DWORD i = 0; i < g_dwNumMaterials; i++)
 		{
 			// Set the material and texture for this subset
@@ -395,7 +408,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			g_pMesh->DrawSubset(i);
 		}
 		WorldMatrix(2);
-
+		terrain = scene->getTerrain();
 		g_pd3dDevice->SetTexture(0, *terrainTextures[terrain]);
 		g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);

@@ -13,10 +13,10 @@
 std::map<char*, Resource*> ResourceMap;
 
 
-void ResourceManager::storeResource(char *path)
+Resource* ResourceManager::getResource(char *path)
 {
 	std::stringstream sstm;
-	sstm << "Path = " << path;
+	sstm << path;
 	
 	if (ResourceMap.find(path) == ResourceMap.end()){
 
@@ -32,10 +32,11 @@ void ResourceManager::storeResource(char *path)
 				Logger::getInstance().log(INFO, sstm.str());
 			}
 		}
-		if (sstm.str().substr(sstm.str().find_last_of(".") + 1) == "x"&&"X") {
-			Resource *xrsrc = new XResource(path);
+		if (sstm.str().substr(sstm.str().find_last_of(".") + 1) == "x" || sstm.str().substr(sstm.str().find_last_of(".") + 1) == "X") {
+			Resource *xrsrc = new XResource(path, g_pd3dDevice);
 			if (xrsrc->isLoaded){
 				ResourceMap.insert(std::make_pair(path, xrsrc));
+				Logger::getInstance().log(INFO, "Ik heb een X in de map gezet!");
 			}
 			else
 			{				
@@ -46,7 +47,12 @@ void ResourceManager::storeResource(char *path)
 
 		}
 	}
+	else 
+	{
+		Logger::getInstance().log(INFO, "Ik heb een resource gereturned!");
+		return ResourceMap[path];
 	}
+}
 
 void ResourceManager::PrintMap()
 {

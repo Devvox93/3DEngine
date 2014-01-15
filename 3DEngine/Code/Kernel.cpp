@@ -31,18 +31,18 @@ void Kernel::run()
 
 	Camera* cam = new Camera();
 	ResourceManager *rsManager = new ResourceManager;
-	
-	rsManager->storeResource("clouds.bmp");
-	rsManager->storeResource("btest.bmp");
-	rsManager->storeResource("test.bmp");
-	rsManager->storeResource("car.x");
+	rsManager->g_pd3dDevice = &((DirectXRenderer *)renderer)->g_pd3dDevice;
+	rsManager->getResource("clouds.bmp");
+	rsManager->getResource("btest.bmp");
+	rsManager->getResource("test.bmp");
+	rsManager->getResource("car.X");
 
 	rsManager->PrintMap();
 
 	
 	renderer->setActiveCamera(cam);
 
-	sceneManager->createScene();
+	sceneManager->createScene(rsManager);
 
 	wManager->newWindow(renderer, 10, 10, width, height);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);

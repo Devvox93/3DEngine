@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "XResource.h"
 
 class Model : public Entity
 {
@@ -7,5 +8,6 @@ public:
 	~Model();
 
 	void update();
+	XResource* model;
 };
 
