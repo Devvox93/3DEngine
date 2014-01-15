@@ -18,7 +18,6 @@ DirectXRenderer::DirectXRenderer()
 {
 	g_pD3D = NULL;
 	g_pd3dDevice = NULL;
-
 	g_pMesh = NULL; // Our mesh object in sysmem
 	g_pMeshMaterials = NULL; // Materials for our mesh
 	g_pMeshTextures = NULL; // Textures for our mesh
