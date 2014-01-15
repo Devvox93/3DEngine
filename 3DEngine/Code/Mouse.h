@@ -9,7 +9,7 @@
 class Mouse
 {
 public:
-	Mouse(IDirectInputDevice8* argDevice, int argScreenWidth, int argScreenHeight);
+	Mouse(IDirectInput8* directInput, HWND hwnd, int argScreenWidth, int argScreenHeight);
 	~Mouse();
 
 	void addMouseListener(MouseListener* argMouseListener);

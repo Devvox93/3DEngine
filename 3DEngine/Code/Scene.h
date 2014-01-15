@@ -1,8 +1,9 @@
-#ifndef _SCENE_
-#define _SCENE_
+#ifndef _SCENE_H_
+#define _SCENE_H_
 
 #include "Entity.h"
 #include "Terrain.h"
+#include "Skybox.h"
 #include <vector>
 
 enum Entities
@@ -18,9 +19,14 @@ public:
 
 	void createEntity(Entities sort);
 	void deleteEntity(Entity* entity);
+	void loadEntities();
+	void render();
+	void updateEntities();
 	std::vector<Entity*> getEntities();
+	Terrain* getTerrain();
 private:
-	Terrain* terrain;
+	Terrain *terrain;
+	Skybox *skybox;
 	std::vector<Entity*> entities;
 };
 

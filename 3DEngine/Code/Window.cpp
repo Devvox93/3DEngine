@@ -72,7 +72,7 @@ LRESULT Window::WindowProc(HWND hwnd, UINT msg, WPARAM wParam,
 	switch (msg)
 	{
 	case WM_PAINT:
-		render();
+		render(NULL);
 		break;
 	default:
 		return NULL;
@@ -80,7 +80,7 @@ LRESULT Window::WindowProc(HWND hwnd, UINT msg, WPARAM wParam,
 	return NULL;
 }
 
-void Window::render()
+void Window::render(Scene *scene)
 {
 	RECT rect;
 	HDC hDC = GetDC(_hwnd);

@@ -17,7 +17,7 @@ struct WindowList
 class WindowManager
 {
 public:
-	WindowManager();
+	WindowManager(SceneManager *sceneManager);
 	~WindowManager();
 	void newWindow(Renderer *renderer, int x, int y, int width, int height);
 	void updateWindows();
@@ -25,6 +25,7 @@ public:
 	Window* getLastWindow();
 private:
 	WindowList* windows;
+	SceneManager *sceneManager;
 };
 
 #endif

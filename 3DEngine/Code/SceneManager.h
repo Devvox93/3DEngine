@@ -1,3 +1,5 @@
+#ifndef _SCENEMANAGER_H_
+#define _SCENEMANAGER_H_
 #include "Scene.h"
 #include <vector>
 
@@ -9,7 +11,8 @@ public:
 
 	void createScene();
 	void deleteScene();
+	Scene* getScene();
 private:
-	std::vector<Scene> scenes;
+	std::vector<Scene*> scenes;
 };
-
+#endif

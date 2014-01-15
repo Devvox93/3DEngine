@@ -8,11 +8,11 @@ Renderer::~Renderer()
 {
 };
 
-void Renderer::Initialize(HWND hWnd, int width, int height)
+void Renderer::Initialize(int width, int height)
 {
 };
 
-void Renderer::Render(HWND hwnd)
+void Renderer::Render(HWND hwnd, Scene* scene)
 {
 };
 
@@ -21,5 +21,10 @@ void Renderer::setActiveCamera(Camera* camera)
 };
 
 void Renderer::setRenderSize(int width, int height)
+{
+};
+
+
+void Renderer::initTerrain(Terrain *terrain)
 {
 };

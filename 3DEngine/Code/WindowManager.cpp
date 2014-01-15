@@ -3,8 +3,9 @@
 #include "Logger.h"
 #include <sstream>
 
-WindowManager::WindowManager()
+WindowManager::WindowManager(SceneManager *sManager)
 {
+	sceneManager = sManager;
 }
 
 WindowManager::~WindowManager()
@@ -22,12 +23,15 @@ void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int h
 		return;
 	}
 
-	renderer->Initialize(hwnd, width, height);
-
 	WindowList *list = new WindowList();
+
+	renderer->initTerrain(sceneManager->getScene()->getTerrain());
+
 	list->window = window;
 	list->next = windows;
 	windows = list;
+
+	
 }
 
 
@@ -42,7 +46,7 @@ void WindowManager::updateWindows()
 	WindowList *list = windows;
 	while (list != NULL)
 	{
-		list->window->render();
+		list->window->render(sceneManager->getScene());
 		list = list->next;
 	}
 }
@@ -81,7 +85,6 @@ bool WindowManager::hasActiveWindow()
 	{
 		return true;
 	}
-
 	return false;
 }
 

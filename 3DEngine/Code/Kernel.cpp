@@ -7,12 +7,10 @@
 #include "ResourceManager.h"
 #include "Camera.h"
 #include <sstream>
+#include "SceneManager.h"
 
 Kernel::Kernel()
 {
-	renderer = new DirectXRenderer();
-	wManager = new WindowManager();
-	iManager = new InputManager();
 }
 
 Kernel::~Kernel()
@@ -22,8 +20,14 @@ Kernel::~Kernel()
 
 void Kernel::run()
 {
-	Renderer *renderer = new DirectXRenderer();
-	WindowManager *manager = new WindowManager();
+	int width = 1280;
+	int height = 720;
+
+	renderer = new DirectXRenderer();
+	sceneManager = new SceneManager();
+	wManager = new WindowManager(sceneManager);
+	iManager = new InputManager();
+
 	Camera* cam = new Camera();
 	ResourceManager *rsManager = new ResourceManager;
 	
@@ -37,11 +41,14 @@ void Kernel::run()
 	
 	renderer->setActiveCamera(cam);
 
-	wManager->newWindow(renderer, 10, 10, 1280, 720);
+	sceneManager->createScene();
+
+	wManager->newWindow(renderer, 10, 10, width, height);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
 
 	iManager->getKeyboard()->addKeyboardListener(this);
 	iManager->getKeyboard()->addKeyboardListener(cam);
+	iManager->getMouse()->addMouseListener(cam);
 	iManager->getJoystick()->addJoystickListener(cam);
 	
 	while (wManager->hasActiveWindow())
@@ -53,8 +60,6 @@ void Kernel::run()
 
 void Kernel::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 {
-	Logger::getInstance().log(INFO, "Input gebruikt ofzo");
-
 	if (keyboardState[DIK_ESCAPE] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Afgesloten met Escape");

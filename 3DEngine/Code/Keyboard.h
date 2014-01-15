@@ -10,7 +10,7 @@
 class Keyboard
 {
 public:
-	Keyboard(IDirectInputDevice8* argDevice);
+	Keyboard(IDirectInput8* directInput, HWND hwnd);
 	~Keyboard();
 	
 	void addKeyboardListener(KeyboardListener* argKeyboardListener);
