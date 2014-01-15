@@ -7,6 +7,8 @@
 
 Camera::Camera()
 {
+	speed = 0.0f;
+
 	xMovement = 0.0f;
 	yMovement = 0.0f;
 	zMovement = 0.0f;
@@ -29,6 +31,15 @@ void Camera::update()
 	tf.z += zMovement;
 	setPosition(tf.x, tf.y, tf.z);
 
+	/*TripleFloat rot = getRotation();
+	float theta = rot.y;
+	float phi = rot.x;
+
+	xMovement = speed*sinf(phi)*cosf(theta);
+	yMovement = speed*sinf(phi)*sinf(theta);
+	zMovement = speed*cosf(phi);*/
+
+	// Voor Joystick
 	TripleFloat tf2 = getRotation();
 	tf2.x += yawMovement;
 	tf2.y += pitchMovement;
@@ -81,21 +92,25 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 {
 	Logger::getInstance().log(INFO, "Camera KEYBOARD input gebruikt");
 
+#pragma region "Keys"
+
+#pragma region "Arrows"
 	if (keyboardState[DIK_UPARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Up arrow");
-		zMovement = 0.1f;
-
+		speed = 0.1f;
+		
 	}
 	else if (keyboardState[DIK_DOWNARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Down arrow");
-		zMovement = -0.1f;
+		speed = -0.1f;
 	}
 	else
 	{
-		zMovement = 0.0f;
+		speed = 0.0f;
 	}
+
 	if (keyboardState[DIK_LEFTARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Left arrow");
@@ -111,22 +126,9 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		xMovement = 0.0f;
 	}
+#pragma endregion
 
-	if (keyboardState[DIK_INSERT] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Insert");
-		yMovement = 0.1f;
-	}
-	else if (keyboardState[DIK_DELETE] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Delete");
-		yMovement = -0.1f;
-	}
-	else
-	{
-		yMovement = 0.0f;
-	}
-
+#pragma region "WASD"
 	if (keyboardState[DIK_W] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "W key");
@@ -158,6 +160,26 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		yawMovement = 0.0f;
 	}
+#pragma endregion
+
+#pragma region "Other"
+	if (keyboardState[DIK_INSERT] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "Insert");
+		yMovement = -0.1f;
+	}
+	else if (keyboardState[DIK_DELETE] & 0x80)
+	{
+		Logger::getInstance().log(INFO, "Delete");
+		yMovement = 0.1f;
+	}
+	else
+	{
+		yMovement = 0.0f;
+	}
+#pragma endregion
+
+#pragma endregion
 }
 
 void Camera::useMouseInput(DIMOUSESTATE mouseState)

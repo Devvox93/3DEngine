@@ -21,6 +21,6 @@ public:
 	void useMouseInput(DIMOUSESTATE mouseState);
 	void useJoystickInput(DIJOYSTATE2 joystickState);
 private:
-	float xMovement, yMovement, zMovement, yawMovement, pitchMovement, rollMovement;
+	float xMovement, yMovement, zMovement, yawMovement, pitchMovement, rollMovement, speed;
 };
 #endif
