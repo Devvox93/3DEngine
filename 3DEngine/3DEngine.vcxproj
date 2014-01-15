@@ -73,6 +73,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Code\BMPresource.h" />
     <ClInclude Include="Code\DirectXRenderer.h" />
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
@@ -98,8 +99,10 @@
     <ClInclude Include="Code\Texture.h" />
     <ClInclude Include="Code\Window.h" />
     <ClInclude Include="Code\WindowManager.h" />
+    <ClInclude Include="Code\XResource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Code\BMPresource.cpp" />
     <ClCompile Include="Code\DirectXRenderer.cpp" />
     <ClCompile Include="Code\Terrain.cpp" />
     <ClCompile Include="Code\Camera.cpp" />
@@ -125,6 +128,7 @@
     <ClCompile Include="Code\Window.cpp" />
     <ClCompile Include="Code\WindowManager.cpp" />
     <ClCompile Include="Code\DirectXWindow.cpp" />
+    <ClCompile Include="Code\XResource.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

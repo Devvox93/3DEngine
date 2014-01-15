@@ -26,6 +26,8 @@
     <ClCompile Include="Code\Joystick.cpp" />
     <ClCompile Include="Code\JoystickListener.cpp" />
     <ClCompile Include="Code\Terrain.cpp" />
+    <ClCompile Include="Code\BMPresource.cpp" />
+    <ClCompile Include="Code\XResource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Camera.h" />
@@ -53,5 +55,7 @@
     <ClInclude Include="Code\Joystick.h" />
     <ClInclude Include="Code\JoystickListener.h" />
     <ClInclude Include="Code\Terrain.h" />
+    <ClInclude Include="Code\BMPresource.h" />
+    <ClInclude Include="Code\XResource.h" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,8 @@
 #include "WindowManager.h"
 #include "InputManager.h"
 #include "Renderer.h"
+#include "Resource.h"
+#include "ResourceManager.h"
 #include "Camera.h"
 #include <sstream>
 
@@ -23,6 +25,23 @@ void Kernel::run()
 	Renderer *renderer = new DirectXRenderer();
 	WindowManager *manager = new WindowManager();
 	Camera* cam = new Camera();
+	ResourceManager *rsManager = new ResourceManager;
+	
+	rsManager->storeResource("clouds.bmp");
+	rsManager->storeResource("btest.bmp");
+	rsManager->storeResource("test.bmp");
+	rsManager->storeResource("clouds3s.bmp");
+	rsManager->storeResource("clouds.bmp");
+	rsManager->storeResource("clouds.bmp");
+	rsManager->storeResource("car2.x");
+	rsManager->storeResource("car.x");
+	rsManager->storeResource("car.x");
+	rsManager->storeResource("car.x");
+	rsManager->storeResource("car.x");
+
+	rsManager->PrintMap();
+
+	
 	renderer->setActiveCamera(cam);
 
 	wManager->newWindow(renderer, 10, 10, 1280, 720);
