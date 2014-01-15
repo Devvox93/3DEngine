@@ -57,7 +57,7 @@ void DirectXRenderer::setRenderSize(int width, int height)
 	// the aspect ratio, and the near and far clipping planes (which define at
 	// what distances geometry should be no longer be rendered).
 	D3DXMATRIXA16 matProj;
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, (float)width/(float)height, 0.1f, 100.0f);
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, (float)width/(float)height, 0.1f, 1000.0f);
 	g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 
 	// Turn off culling
@@ -313,20 +313,20 @@ void DirectXRenderer::WorldMatrix(int type) //moet worden vervangen door een for
 	else if (type == 0)
 	{
 		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0, 0, 0);
-		D3DXMatrixTranslation(&matWorldTranslate, 1.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 0.015f, 0.015f, 0.015f);
+		D3DXMatrixTranslation(&matWorldTranslate, 100.0f, 0.0f, 0.0f);
+		D3DXMatrixScaling(&matWorldScaled, 1.0f, 1.0f, 1.0f);
 	}
 	else if (type==1)
 	{
 		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, -0, -0, -0);
-		D3DXMatrixTranslation(&matWorldTranslate, -1.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 0.015f, 0.015f, 0.015f);
+		D3DXMatrixTranslation(&matWorldTranslate, -100.0f, 0.0f, 0.0f);
+		D3DXMatrixScaling(&matWorldScaled, 1.0f, 1.0f, 1.0f);
 	}
 	else
 	{
 		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0.0f, 0.0f, 0.0f);
 		D3DXMatrixTranslation(&matWorldTranslate, 0.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 0.025f, 2.0f, 0.025f);
+		D3DXMatrixScaling(&matWorldScaled, 1.0f, 250.0f, 1.0f);
 	}
 
 	D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &matWorldTranslate);
