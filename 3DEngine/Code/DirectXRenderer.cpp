@@ -84,7 +84,7 @@ void DirectXRenderer::initTerrain(Terrain *terrain)
 
 	
 
-	std::string yolo = std::string("clouds.bmp");
+	std::string yolo = std::string("tex.bmp");
 	std::string stemp = std::string(yolo.begin(), yolo.end());
 	LPCSTR sw = stemp.c_str();
 	// Use D3DX to create a texture from a file based image
