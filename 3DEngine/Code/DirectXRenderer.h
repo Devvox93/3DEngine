@@ -32,6 +32,7 @@ private:
 	void Cleanup();
 	HRESULT InitGeometry(std::string filename);
 	void WorldMatrix(int type);
+	D3DPRESENT_PARAMETERS setMyRenderSize(int width, int height, bool activate);
 	
 	LPDIRECT3DVERTEXBUFFER9 g_pHeightmapVertexBuffer = NULL; // Buffer to hold vertices
 	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;

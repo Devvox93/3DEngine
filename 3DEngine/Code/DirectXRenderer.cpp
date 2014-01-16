@@ -33,6 +33,11 @@ void DirectXRenderer::setActiveCamera(Camera* camera)
 
 void DirectXRenderer::setRenderSize(int width, int height)
 {
+	setMyRenderSize(width, height, true);
+}
+
+D3DPRESENT_PARAMETERS DirectXRenderer::setMyRenderSize(int width, int height, bool activate)
+{
 	// Set up the structure used to create the D3DDevice. Since we are now
 	// using more complex geometry, we will create a device with a zbuffer.
 	D3DPRESENT_PARAMETERS d3dpp;
@@ -44,23 +49,30 @@ void DirectXRenderer::setRenderSize(int width, int height)
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 	d3dpp.BackBufferWidth = width;
 	d3dpp.BackBufferHeight = height;
-	g_pd3dDevice->Reset(&d3dpp);
 
-	// For the projection matrix, we set up a perspective transform (which
-	// transforms geometry from 3D view space to 2D viewport space, with
-	// a perspective divide making objects smaller in the distance). To build
-	// a perpsective transform, we need the field of view (1/4 pi is common),
-	// the aspect ratio, and the near and far clipping planes (which define at
-	// what distances geometry should be no longer be rendered).
-	D3DXMATRIXA16 matProj;
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, (float)width/(float)height, 0.1f, 1000.0f);
-	g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
+	if (activate)
+	{
+		g_pd3dDevice->Reset(&d3dpp);
+		// For the projection matrix, we set up a perspective transform (which
+		// transforms geometry from 3D view space to 2D viewport space, with
+		// a perspective divide making objects smaller in the distance). To build
+		// a perpsective transform, we need the field of view (1/4 pi is common),
+		// the aspect ratio, and the near and far clipping planes (which define at
+		// what distances geometry should be no longer be rendered).
+		D3DXMATRIXA16 matProj;
+		D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, (float)width / (float)height, 0.1f, 1000.0f);
+		g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 
-	// Turn off culling
-	g_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+		// Turn off culling
+		g_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	// Turn on ambient lighting 
-	g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
+		// Turn on ambient lighting 
+		g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
+	}
+	else
+	{
+		return d3dpp;
+	}
 }
 
 void DirectXRenderer::Initialize(int width, int height)
@@ -155,20 +167,10 @@ HRESULT DirectXRenderer::InitD3D(HWND hWnd, int width, int height)
 		return E_FAIL;
 	}
 
-	// Set up the structure used to create the D3DDevice. Since we are now
-	// using more complex geometry, we will create a device with a zbuffer.
-	D3DPRESENT_PARAMETERS d3dpp;
-	ZeroMemory(&d3dpp, sizeof(d3dpp));
-	d3dpp.Windowed = TRUE;
-	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
-	d3dpp.EnableAutoDepthStencil = TRUE;
-	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-
 	// Create the D3DDevice
 	if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
 		D3DCREATE_HARDWARE_VERTEXPROCESSING,
-		&d3dpp, &g_pd3dDevice)))
+		&setMyRenderSize(width, height, false), &g_pd3dDevice)))
 	{
 		return E_FAIL;
 	}
@@ -182,8 +184,7 @@ HRESULT DirectXRenderer::InitD3D(HWND hWnd, int width, int height)
 	D3DXMATRIXA16 matView;
 	D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
 	g_pd3dDevice->SetTransform(D3DTS_VIEW, &matView);
-	setRenderSize(width, height);
-
+	setMyRenderSize(width, height, true);
 	return S_OK;
 };
 
