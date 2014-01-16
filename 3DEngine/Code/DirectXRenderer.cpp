@@ -42,6 +42,7 @@ D3DPRESENT_PARAMETERS DirectXRenderer::setMyRenderSize(int width, int height, bo
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.BackBufferWidth = width;
 	d3dpp.BackBufferHeight = height;
+	d3dpp.MultiSampleType = D3DMULTISAMPLE_4_SAMPLES;//anti-aliasing
 
 	if (activate)
 	{
@@ -61,6 +62,11 @@ D3DPRESENT_PARAMETERS DirectXRenderer::setMyRenderSize(int width, int height, bo
 
 		// Turn on ambient lighting 
 		g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
+
+		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR); // minification
+		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR); // magnification
+		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR); // mipmapping
+
 	}
 	else
 	{
