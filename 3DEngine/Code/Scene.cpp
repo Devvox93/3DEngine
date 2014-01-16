@@ -7,7 +7,7 @@ Scene::Scene(ResourceManager* rsm)
 {
 	entities = std::vector<Entity*>();
 	terrain = new Terrain("clouds.bmp"); // Terrain moet ingeladen worden
-	//skybox = new Skybox();
+	skybox = new Skybox();
 	createEntity(MODEL, rsm);
 }
 
@@ -62,4 +62,9 @@ std::vector<Entity*> Scene::getEntities(){
 Terrain* Scene::getTerrain()
 {
 	return terrain;
+};
+
+Skybox* Scene::getSkybox()
+{
+	return skybox;
 };

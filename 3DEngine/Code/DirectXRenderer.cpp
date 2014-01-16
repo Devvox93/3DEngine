@@ -19,10 +19,6 @@ DirectXRenderer::DirectXRenderer()
 {
 	g_pD3D = NULL;
 	g_pd3dDevice = NULL;
-	g_pMesh = NULL; // Our mesh object in sysmem
-	g_pMeshMaterials = NULL; // Materials for our mesh
-	g_pMeshTextures = NULL; // Textures for our mesh
-	g_dwNumMaterials = 0L;   // Number of mesh materials
 };
 
 DirectXRenderer::~DirectXRenderer()
@@ -74,17 +70,13 @@ void DirectXRenderer::Initialize(int width, int height)
 
 	if (g_pd3dDevice == NULL && SUCCEEDED(InitD3D(hWnd, width, height)))
 	{
-		InitGeometry("car.X");
-		initSkybox();
+
 	}
 };
 
 
 void DirectXRenderer::initTerrain(Terrain *terrain)
 {
-
-	
-
 	std::string yolo = std::string("tex.bmp");
 	std::string stemp = std::string(yolo.begin(), yolo.end());
 	LPCSTR sw = stemp.c_str();
@@ -121,9 +113,9 @@ void DirectXRenderer::initTerrain(Terrain *terrain)
 	g_pHeightmapIndexBuffer->Unlock();                                 //unlock buffer
 
 	terrainIndexBuffers[terrain] = &g_pHeightmapIndexBuffer;
-}
+};
 
-void DirectXRenderer::initSkybox()
+void DirectXRenderer::initSkybox(Skybox* skybox)
 {
 	std::string yolo = std::string("skybox.jpg");
 	std::string stemp = std::string(yolo.begin(), yolo.end());
@@ -133,8 +125,8 @@ void DirectXRenderer::initSkybox()
 	{
 		Logger::getInstance().log(INFO, "well shit!");
 	}
+	skyboxTextures[skybox] = &skyboxTexture;
 
-	Skybox* skybox = new Skybox();
 	g_pd3dDevice->CreateVertexBuffer(24 * sizeof(SVertex),
 		D3DUSAGE_WRITEONLY,
 		D3DFVF_CUSTOMVERTEX,
@@ -153,10 +145,14 @@ void DirectXRenderer::initSkybox()
 	memcpy(pVertices, skybox->aSkyboxVertices, 24 * sizeof(D3DVERTEX)); //copy data
 	g_pSkyboxVertexBuffer->Unlock();                                 //unlock buffer
 
+	skyboxVertexBuffers[skybox] = &g_pSkyboxVertexBuffer;
+
 	g_pSkyboxIndexBuffer->Lock(0, 36 * sizeof(int), (void**)&pVertices, 0);   //lock buffer
 	memcpy(pVertices, skybox->aSkyboxIndices, 36 * sizeof(int));   //copy data
 	g_pSkyboxIndexBuffer->Unlock();                                 //unlock buffer
-}
+
+	skyboxIndexBuffers[skybox] = &g_pSkyboxIndexBuffer;
+};
 
 //-----------------------------------------------------------------------------
 // Name: InitD3D()
@@ -200,78 +196,7 @@ HRESULT DirectXRenderer::InitD3D(HWND hWnd, int width, int height)
 	setRenderSize(width, height);
 
 	return S_OK;
-}
-
-HRESULT DirectXRenderer::InitGeometry(std::string filename)
-{
-	LPD3DXBUFFER pD3DXMtrlBuffer;
-
-	std::string stemp = std::string(filename.begin(), filename.end());
-	LPCSTR sw = stemp.c_str();
-
-	// Load the mesh from the specified file
-	if (FAILED(D3DXLoadMeshFromX(sw, D3DXMESH_SYSTEMMEM,
-		g_pd3dDevice, NULL,
-		&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
-		&g_pMesh)))
-	{
-			Logger::getInstance().log(WARNING, "Could not find file: " + filename);
-			return E_FAIL;
-		}
-
-	// We need to extract the material properties and texture names from the 
-	// pD3DXMtrlBuffer
-	D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
-	g_pMeshMaterials = new D3DMATERIAL9[g_dwNumMaterials];
-	if (g_pMeshMaterials == NULL)
-	{
-		return E_OUTOFMEMORY;
-	}
-	g_pMeshTextures = new LPDIRECT3DTEXTURE9[g_dwNumMaterials];
-	if (g_pMeshTextures == NULL)
-	{
-		return E_OUTOFMEMORY;
-	}
-
-	for (DWORD i = 0; i < g_dwNumMaterials; i++)
-	{
-		// Copy the material
-		g_pMeshMaterials[i] = d3dxMaterials[i].MatD3D;
-
-		// Set the ambient color for the material (D3DX does not do this)
-		g_pMeshMaterials[i].Ambient = g_pMeshMaterials[i].Diffuse;
-
-		g_pMeshTextures[i] = NULL;
-		if (d3dxMaterials[i].pTextureFilename != NULL &&
-			lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
-		{
-			// Create the texture
-			if (FAILED(D3DXCreateTextureFromFileA(g_pd3dDevice,
-				d3dxMaterials[i].pTextureFilename,
-				&g_pMeshTextures[i])))
-			{
-				// If texture is not in current folder, try parent folder
-				const CHAR* strPrefix = "..\\";
-				CHAR strTexture[MAX_PATH];
-				strcpy_s(strTexture, MAX_PATH, strPrefix);
-				strcat_s(strTexture, MAX_PATH, d3dxMaterials[i].pTextureFilename);
-				// If texture is not in current folder, try parent folder
-				if (FAILED(D3DXCreateTextureFromFileA(g_pd3dDevice,
-					strTexture,
-					&g_pMeshTextures[i])))
-				{
-					std::string lol = std::string(strTexture);
-					Logger::getInstance().log(WARNING, "Could not find texture: " + lol);
-				}
-			}
-		}
-	}
-
-	// Done with the material buffer
-	pD3DXMtrlBuffer->Release();
-
-	return S_OK;
-}
+};
 
 //-----------------------------------------------------------------------------
 // Name: Cleanup()
@@ -356,11 +281,13 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		D3DXMATRIXA16 matWorldFinal;
 		D3DXMatrixTranslation(&matWorldFinal, 0.0f, 0.0f, 0.0f);
 		D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &activeCamera->rotationMatrix);
+
+		Skybox *skybox = scene->getSkybox();
 		g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
-		g_pd3dDevice->SetTexture(0, skyboxTexture);
-		g_pd3dDevice->SetStreamSource(0, g_pSkyboxVertexBuffer, 0, sizeof(D3DVERTEX));
+		g_pd3dDevice->SetTexture(0, *skyboxTextures[skybox]);
+		g_pd3dDevice->SetStreamSource(0, *skyboxVertexBuffers[skybox], 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-		g_pd3dDevice->SetIndices(g_pSkyboxIndexBuffer);
+		g_pd3dDevice->SetIndices(*skyboxIndexBuffers[skybox]);
 		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24/*numvertices*/, 0, 12/*primitives count*/);
 		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
@@ -384,31 +311,9 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 				lol->model->g_pMesh->DrawSubset(i);
 			}
 		}
-		WorldMatrix(0);
-		// Meshes are divided into subsets, one for each material. Render them in a loop
-		for (DWORD i = 0; i < g_dwNumMaterials; i++)
-		{
-			// Set the material and texture for this subset
-			g_pd3dDevice->SetMaterial(&g_pMeshMaterials[i]);
-			g_pd3dDevice->SetTexture(0, g_pMeshTextures[i]);
-
-			// Draw the mesh subset
-			g_pMesh->DrawSubset(i);
-		}
-
-		WorldMatrix(1);
-		// Meshes are divided into subsets, one for each material. Render them in a loop
-		for (DWORD i = 0; i < g_dwNumMaterials; i++)
-		{
-			// Set the material and texture for this subset
-			g_pd3dDevice->SetMaterial(&g_pMeshMaterials[i]);
-			g_pd3dDevice->SetTexture(0, g_pMeshTextures[i]);
-
-			// Draw the mesh subset
-			g_pMesh->DrawSubset(i);
-		}
 		WorldMatrix(2);
-		terrain = scene->getTerrain();
+
+		Terrain *terrain = scene->getTerrain();
 		g_pd3dDevice->SetTexture(0, *terrainTextures[terrain]);
 		g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
