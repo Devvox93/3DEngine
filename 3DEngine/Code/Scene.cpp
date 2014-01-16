@@ -3,12 +3,12 @@
 #include "Camera.h"
 #include "Logger.h"
 
-Scene::Scene(ResourceManager* rsm)
+Scene::Scene(ResourceManager* resourceManager)
 {
 	entities = std::vector<Entity*>();
-	terrain = new Terrain("clouds.bmp"); // Terrain moet ingeladen worden
+	terrain = new Terrain("clouds.bmp", "tex.bmp", resourceManager); // Terrain moet ingeladen worden
 	skybox = new Skybox();
-	createEntity(MODEL, rsm);
+	createEntity(MODEL, resourceManager);
 }
 
 

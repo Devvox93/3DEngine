@@ -20,6 +20,7 @@ Resource* ResourceManager::getResource(char *path)
 			Resource *bmprsrc = new BMPresource(path);
 			if (bmprsrc->isLoaded){
 				ResourceMap.insert(std::make_pair(path, bmprsrc));
+				return ResourceMap[path];
 			}
 			else
 			{
@@ -33,6 +34,7 @@ Resource* ResourceManager::getResource(char *path)
 			if (xrsrc->isLoaded){
 				ResourceMap.insert(std::make_pair(path, xrsrc));
 				Logger::getInstance().log(INFO, "Ik heb een X in de map gezet!");
+				return ResourceMap[path];
 			}
 			else
 			{
