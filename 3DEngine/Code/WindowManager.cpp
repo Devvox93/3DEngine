@@ -26,6 +26,7 @@ void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int h
 	WindowList *list = new WindowList();
 
 	renderer->initTerrain(sceneManager->getScene()->getTerrain());
+	renderer->initSkybox(sceneManager->getScene()->getSkybox());
 
 	list->window = window;
 	list->next = windows;

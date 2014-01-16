@@ -3,7 +3,7 @@
 #include "Logger.h"
 
 
-Skybox::Skybox()
+Skybox::Skybox(char *texturePath, ResourceManager *resourceManager)
 {
 	aSkyboxVertices = new SVertex[24];
 	aSkyboxVertices[0] = { -50.0f, -50.0f, 50.0f, 0.25f, 0.6666f };//front
@@ -44,6 +44,8 @@ Skybox::Skybox()
 	aSkyboxIndices[27] = 16; aSkyboxIndices[29] = 18; aSkyboxIndices[28] = 19;
 	aSkyboxIndices[30] = 20; aSkyboxIndices[31] = 21; aSkyboxIndices[32] = 22;//bottom
 	aSkyboxIndices[33] = 20; aSkyboxIndices[34] = 22; aSkyboxIndices[35] = 23;
+
+	texture = resourceManager->getTexture(texturePath);
 }
 
 Skybox::~Skybox()

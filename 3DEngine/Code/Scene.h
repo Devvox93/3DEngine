@@ -25,6 +25,7 @@ public:
 	void updateEntities();
 	std::vector<Entity*> getEntities();
 	Terrain* getTerrain();
+	Skybox* getSkybox();
 private:
 	Terrain *terrain;
 	Skybox *skybox;

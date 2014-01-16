@@ -3,12 +3,12 @@
 #include "Camera.h"
 #include "Logger.h"
 
-Scene::Scene(ResourceManager* rsm)
+Scene::Scene(ResourceManager* resourceManager)
 {
 	entities = std::vector<Entity*>();
-	terrain = new Terrain("clouds.bmp"); // Terrain moet ingeladen worden
-	//skybox = new Skybox();
-	createEntity(MODEL, rsm);
+	terrain = new Terrain("clouds.bmp", "tex.bmp", resourceManager); // Terrain moet ingeladen worden
+	skybox = new Skybox("skybox.jpg", resourceManager);
+	createEntity(MODEL, resourceManager);
 }
 
 
@@ -62,4 +62,9 @@ std::vector<Entity*> Scene::getEntities(){
 Terrain* Scene::getTerrain()
 {
 	return terrain;
+};
+
+Skybox* Scene::getSkybox()
+{
+	return skybox;
 };

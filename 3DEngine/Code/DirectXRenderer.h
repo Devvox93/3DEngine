@@ -17,10 +17,6 @@ public:
 	LPDIRECT3D9         g_pD3D;
 	LPDIRECT3DDEVICE9   g_pd3dDevice;
 
-	LPD3DXMESH          g_pMesh; // Our mesh object in sysmem
-	D3DMATERIAL9*       g_pMeshMaterials; // Materials for our mesh
-	LPDIRECT3DTEXTURE9* g_pMeshTextures; // Textures for our mesh
-	DWORD               g_dwNumMaterials;   // Number of mesh materials
 
 	DirectXRenderer();
 	~DirectXRenderer();
@@ -29,27 +25,32 @@ public:
 	void setActiveCamera(Camera* camera);
 	void setRenderSize(int width, int height);
 	void initTerrain(Terrain *terrain);
-	void initSkybox();
+	void initSkybox(Skybox* skybox);
 
 private:
 	HRESULT InitD3D(HWND hWnd, int width, int height);
 	void Cleanup();
 	HRESULT InitGeometry(std::string filename);
 	void WorldMatrix(int type);
+	D3DPRESENT_PARAMETERS setMyRenderSize(int width, int height, bool activate);
 	
 	LPDIRECT3DVERTEXBUFFER9 g_pHeightmapVertexBuffer = NULL; // Buffer to hold vertices
 	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;
-
-	LPDIRECT3DVERTEXBUFFER9 g_pSkyboxVertexBuffer = NULL; // Buffer to hold vertices
-	LPDIRECT3DINDEXBUFFER9 g_pSkyboxIndexBuffer = NULL;
 	LPDIRECT3DTEXTURE9 terrainTexture = NULL;
-	Terrain *terrain;
-	
-	LPDIRECT3DTEXTURE9 skyboxTexture;
 
 	std::map <Terrain*, LPDIRECT3DTEXTURE9*> terrainTextures;
 	std::map <Terrain*, LPDIRECT3DVERTEXBUFFER9*> terrainVertexBuffers;
 	std::map <Terrain*, LPDIRECT3DINDEXBUFFER9*> terrainIndexBuffers;
+
+	LPDIRECT3DVERTEXBUFFER9 g_pSkyboxVertexBuffer = NULL; // Buffer to hold vertices
+	LPDIRECT3DINDEXBUFFER9 g_pSkyboxIndexBuffer = NULL;
+	LPDIRECT3DTEXTURE9 skyboxTexture = NULL;
+
+	std::map <Skybox*, LPDIRECT3DTEXTURE9*> skyboxTextures;
+	std::map <Skybox*, LPDIRECT3DVERTEXBUFFER9*> skyboxVertexBuffers;
+	std::map <Skybox*, LPDIRECT3DINDEXBUFFER9*> skyboxIndexBuffers;
+
+	
 	Camera* activeCamera;
 };
 

@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-Terrain::Terrain(char* path)
+Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager)
 {
 	data = new TerrainData();
 	HDC lhdcDest;	//Handle to Device Context (Windows GDI)
@@ -79,6 +79,8 @@ Terrain::Terrain(char* path)
 		aTerrainIndices[i + 4] = i / 6 + data->width + offset;
 		aTerrainIndices[i + 5] = i / 6 + data->width + 1 + offset;
 	}
+
+	texture = resourceManager->getTexture(texturePath);
 }
 
 

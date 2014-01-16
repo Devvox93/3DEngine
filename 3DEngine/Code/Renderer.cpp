@@ -28,3 +28,7 @@ void Renderer::setRenderSize(int width, int height)
 void Renderer::initTerrain(Terrain *terrain)
 {
 };
+
+void Renderer::initSkybox(Skybox *skybox)
+{
+};
