@@ -31,10 +31,6 @@ BMPresource::BMPresource(char *path)
 	//Load the bmp into the device context (memory space)
 	SelectObject(lhdcDest, hbmp);
 	//The BITMAP structure defines the type, width, height, color format, and bit values of a bitmap
-	BITMAP bm;
-	//The GetObject function retrieves information for the specified graphics object
-	//bm is cast to a "void*" because GetObject function doesn't 'know' it's format 
-	//(don't know what it is, but just put it in that buffer)
 	isLoaded = true;
 
 }

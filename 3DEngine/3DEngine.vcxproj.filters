@@ -16,7 +16,6 @@
     <ClCompile Include="Code\Scene.cpp" />
     <ClCompile Include="Code\SceneManager.cpp" />
     <ClCompile Include="Code\Skybox.cpp" />
-    <ClCompile Include="Code\Texture.cpp" />
     <ClCompile Include="Code\Window.cpp" />
     <ClCompile Include="Code\WindowManager.cpp" />
     <ClCompile Include="Code\DirectXWindow.cpp" />
@@ -46,7 +45,6 @@
     <ClInclude Include="Code\Scene.h" />
     <ClInclude Include="Code\SceneManager.h" />
     <ClInclude Include="Code\Skybox.h" />
-    <ClInclude Include="Code\Texture.h" />
     <ClInclude Include="Code\Window.h" />
     <ClInclude Include="Code\WindowManager.h" />
     <ClInclude Include="Code\DirectXRenderer.h" />
@@ -57,5 +55,6 @@
     <ClInclude Include="Code\BMPresource.h" />
     <ClInclude Include="Code\XResource.h" />
     <ClInclude Include="Code\TextureResource.h" />
+    <ClInclude Include="Code\Defines.h" />
   </ItemGroup>
 </Project>

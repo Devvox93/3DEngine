@@ -29,6 +29,5 @@ Scene* SceneManager::getScene()
 	{
 		return current;
 	}
-	//Scene *scene = scenes.front();
 	return NULL;
 };

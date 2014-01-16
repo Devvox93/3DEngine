@@ -3,22 +3,14 @@
 
 #include "TextureResource.h"
 #include "ResourceManager.h"
-
-struct SVertex
-{
-	float x,
-	y,
-	z,
-	u,//texture coordinate x
-	v;//texture coordinate y
-};
+#include "Defines.h"
 
 class Skybox
 {
 public:
 	Skybox(char *texturePath, ResourceManager *resourceManager);
 	~Skybox();
-	SVertex* aSkyboxVertices;
+	Vertex* aSkyboxVertices;
 	int* aSkyboxIndices;
 	TextureResource *texture;
 private:

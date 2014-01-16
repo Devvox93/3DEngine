@@ -4,16 +4,9 @@
 #include <sstream>
 #include "InputManager.h"
 #include "Model.h"
+#include "Defines.h"
 
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ | D3DFVF_TEX1)
-struct D3DVERTEX
-{
-	float x,
-	y,
-	z,
-	u,//texture x
-	v;//texture y
-};
 
 DirectXRenderer::DirectXRenderer()
 {
@@ -86,75 +79,6 @@ void DirectXRenderer::Initialize(int width, int height)
 	}
 };
 
-
-void DirectXRenderer::initTerrain(Terrain *terrain)
-{
-	g_pd3dDevice->CreateVertexBuffer(terrain->data->width * terrain->data->height * sizeof(Vertex),
-		D3DUSAGE_WRITEONLY,
-		D3DFVF_CUSTOMVERTEX,
-		D3DPOOL_MANAGED,
-		&g_pHeightmapVertexBuffer,
-		NULL);
-	g_pd3dDevice->CreateIndexBuffer(terrain->amountOfIndices * sizeof(int),
-		D3DUSAGE_WRITEONLY,
-		D3DFMT_INDEX32,
-		D3DPOOL_MANAGED,
-		&g_pHeightmapIndexBuffer,
-		NULL);
-
-	VOID* pVertices;
-	g_pHeightmapVertexBuffer->Lock(0, terrain->data->width * terrain->data->height * sizeof(D3DVERTEX), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, terrain->aTerrainVertices, terrain->data->width * terrain->data->height * sizeof(D3DVERTEX)); //copy data
-	g_pHeightmapVertexBuffer->Unlock();                                 //unlock buffer
-
-	terrainVertexBuffers[terrain] = &g_pHeightmapVertexBuffer;
-
-	g_pHeightmapIndexBuffer->Lock(0, terrain->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, terrain->aTerrainIndices, terrain->amountOfIndices * sizeof(int));   //copy data
-	g_pHeightmapIndexBuffer->Unlock();                                 //unlock buffer
-
-	terrainIndexBuffers[terrain] = &g_pHeightmapIndexBuffer;
-};
-
-void DirectXRenderer::initSkybox(Skybox* skybox)
-{
-	//std::string yolo = std::string("skybox.jpg");
-	//std::string stemp = std::string(yolo.begin(), yolo.end());
-	//LPCSTR sw = stemp.c_str();
-	//// Use D3DX to create a texture from a file based image
-	//if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, sw, &skyboxTexture)))
-	//{
-	//	Logger::getInstance().log(INFO, "well shit!");
-	//}
-	//skyboxTextures[skybox] = &skyboxTexture;
-
-	g_pd3dDevice->CreateVertexBuffer(24 * sizeof(SVertex),
-		D3DUSAGE_WRITEONLY,
-		D3DFVF_CUSTOMVERTEX,
-		D3DPOOL_MANAGED,
-		&g_pSkyboxVertexBuffer,
-		NULL);
-	g_pd3dDevice->CreateIndexBuffer(36 * sizeof(int),
-		D3DUSAGE_WRITEONLY,
-		D3DFMT_INDEX32,
-		D3DPOOL_MANAGED,
-		&g_pSkyboxIndexBuffer,
-		NULL);
-
-	VOID* pVertices;
-	g_pSkyboxVertexBuffer->Lock(0, 24 * sizeof(D3DVERTEX), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, skybox->aSkyboxVertices, 24 * sizeof(D3DVERTEX)); //copy data
-	g_pSkyboxVertexBuffer->Unlock();                                 //unlock buffer
-
-	skyboxVertexBuffers[skybox] = &g_pSkyboxVertexBuffer;
-
-	g_pSkyboxIndexBuffer->Lock(0, 36 * sizeof(int), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, skybox->aSkyboxIndices, 36 * sizeof(int));   //copy data
-	g_pSkyboxIndexBuffer->Unlock();                                 //unlock buffer
-
-	skyboxIndexBuffers[skybox] = &g_pSkyboxIndexBuffer;
-};
-
 //-----------------------------------------------------------------------------
 // Name: InitD3D()
 // Desc: Initializes Direct3D
@@ -188,6 +112,44 @@ HRESULT DirectXRenderer::InitD3D(HWND hWnd, int width, int height)
 	return S_OK;
 };
 
+void DirectXRenderer::initTerrain(Terrain *terrain)
+{
+	g_pd3dDevice->CreateVertexBuffer(terrain->data->width * terrain->data->height * sizeof(Vertex), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_MANAGED, &g_pHeightmapVertexBuffer, NULL);
+	g_pd3dDevice->CreateIndexBuffer(terrain->amountOfIndices * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pHeightmapIndexBuffer, NULL);
+
+	VOID* pVertices;
+	g_pHeightmapVertexBuffer->Lock(0, terrain->data->width * terrain->data->height * sizeof(Vertex), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, terrain->aTerrainVertices, terrain->data->width * terrain->data->height * sizeof(Vertex)); //copy data
+	g_pHeightmapVertexBuffer->Unlock();                                 //unlock buffer
+
+	terrainVertexBuffers[terrain] = &g_pHeightmapVertexBuffer;
+
+	g_pHeightmapIndexBuffer->Lock(0, terrain->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, terrain->aTerrainIndices, terrain->amountOfIndices * sizeof(int));   //copy data
+	g_pHeightmapIndexBuffer->Unlock();                                 //unlock buffer
+
+	terrainIndexBuffers[terrain] = &g_pHeightmapIndexBuffer;
+};
+
+void DirectXRenderer::initSkybox(Skybox* skybox)
+{
+	g_pd3dDevice->CreateVertexBuffer(24 * sizeof(Vertex), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_MANAGED, &g_pSkyboxVertexBuffer, NULL);
+	g_pd3dDevice->CreateIndexBuffer(36 * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pSkyboxIndexBuffer, NULL);
+
+	VOID* pVertices;
+	g_pSkyboxVertexBuffer->Lock(0, 24 * sizeof(Vertex), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, skybox->aSkyboxVertices, 24 * sizeof(Vertex)); //copy data
+	g_pSkyboxVertexBuffer->Unlock();                                 //unlock buffer
+
+	skyboxVertexBuffers[skybox] = &g_pSkyboxVertexBuffer;
+
+	g_pSkyboxIndexBuffer->Lock(0, 36 * sizeof(int), (void**)&pVertices, 0);   //lock buffer
+	memcpy(pVertices, skybox->aSkyboxIndices, 36 * sizeof(int));   //copy data
+	g_pSkyboxIndexBuffer->Unlock();                                 //unlock buffer
+
+	skyboxIndexBuffers[skybox] = &g_pSkyboxIndexBuffer;
+};
+
 //-----------------------------------------------------------------------------
 // Name: Cleanup()
 // Desc: Releases all previously initialized objects
@@ -205,53 +167,6 @@ void DirectXRenderer::Cleanup()
 	}
 }
 
-void DirectXRenderer::WorldMatrix(int type) //moet worden vervangen door een for-loop per entity, 
-											//die de entity matrix multiplied met camera.
-{
-	D3DXMATRIXA16 matWorldFinal;
-	D3DXMATRIXA16 matWorldScaled;
-	D3DXMATRIXA16 matWorldTranslate;
-
-	// Set up the rotation matrix to generate 1 full rotation (2*PI radians) 
-	// every 1000 ms. To avoid the loss of precision inherent in very high 
-	// floating point numbers, the system time is modulated by the rotation 
-	// period before conversion to a radian angle.
-	UINT iTime = timeGetTime() / 10;
-	FLOAT fAngle = iTime * (2.0f * D3DX_PI) / 1000.0f;
-
-	if (type == -1)
-	{
-		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0, 0, 0);
-		D3DXMatrixTranslation(&matWorldTranslate, 0.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 1.0f, 1.0f, 1.0f);
-	} 
-	else if (type == 0)
-	{
-		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0, 0, 0);
-		D3DXMatrixTranslation(&matWorldTranslate, 100.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 1.0f, 1.0f, 1.0f);
-	}
-	else if (type==1)
-	{
-		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, -0, -0, -0);
-		D3DXMatrixTranslation(&matWorldTranslate, -100.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 1.0f, 1.0f, 1.0f);
-	}
-	else
-	{
-		D3DXMatrixRotationYawPitchRoll(&matWorldFinal, 0.0f, 0.0f, 0.0f);
-		D3DXMatrixTranslation(&matWorldTranslate, 0.0f, 0.0f, 0.0f);
-		D3DXMatrixScaling(&matWorldScaled, 1.0f, 250.0f, 1.0f);
-	}
-
-	D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &matWorldTranslate);
-	D3DXMatrixMultiply(&matWorldFinal, &matWorldScaled, &matWorldFinal);
-
-	D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &activeCamera->finalMatrix);
-
-	g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
-}
-
 //-----------------------------------------------------------------------------
 // Name: Render()
 // Desc: Draws the scene
@@ -261,8 +176,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		
 	activeCamera->update();//DIT MOET IN SCENE GEBEUREN!
 	// Clear the backbuffer and the zbuffer
-	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(0, 127, 0), 1.0f, 0);
+	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 127, 0), 1.0f, 0);
 
 	// Begin the scene
 	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
@@ -271,20 +185,29 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		D3DXMATRIXA16 matWorldFinal;
 		D3DXMatrixTranslation(&matWorldFinal, 0.0f, 0.0f, 0.0f);
 		D3DXMatrixMultiply(&matWorldFinal, &matWorldFinal, &activeCamera->rotationMatrix);
-
 		Skybox *skybox = scene->getSkybox();
 		g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
 		g_pd3dDevice->SetTexture(0, skybox->texture->texture);
-		g_pd3dDevice->SetStreamSource(0, *skyboxVertexBuffers[skybox], 0, sizeof(D3DVERTEX));
+		g_pd3dDevice->SetStreamSource(0, *skyboxVertexBuffers[skybox], 0, sizeof(Vertex));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(*skyboxIndexBuffers[skybox]);
-		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24/*numvertices*/, 0, 12/*primitives count*/);
+		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+
+		D3DXMATRIXA16 matWorldScaled;
+		D3DXMatrixScaling(&matWorldScaled, 1.0f, 250.0f, 1.0f);
+		D3DXMatrixMultiply(&matWorldFinal, &matWorldScaled, &activeCamera->finalMatrix);
+		g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
+		Terrain *terrain = scene->getTerrain();
+		g_pd3dDevice->SetTexture(0, terrain->texture->texture);
+		g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(Vertex));
+		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
+		g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
+		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->data->width * terrain->data->height, 0, (terrain->data->width - 1) * (terrain->data->height - 1) * 2);
 
 		std::vector<Entity*> entities = scene->getEntities();
 		for each(Entity *currentEntity in entities)
 		{
-			//Logger::getInstance().log(INFO, "WOOT@!!@!@@!@!!@!");
 			D3DXMATRIXA16 matWorldFinal;
 			D3DXMatrixMultiply(&matWorldFinal, &currentEntity->finalMatrix, &activeCamera->finalMatrix);
 			g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
@@ -295,20 +218,12 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			{
 				// Set the material and texture for this subset
 				g_pd3dDevice->SetMaterial(&lol->model->g_pMeshMaterials[i]);
-				g_pd3dDevice->SetTexture(0, lol->model->myTextures[i]->texture);//moet een array van textureresources zijn
+				g_pd3dDevice->SetTexture(0, lol->model->myTextures[i]->texture);
 
 				// Draw the mesh subset
 				lol->model->g_pMesh->DrawSubset(i);
 			}
 		}
-		WorldMatrix(2);
-
-		Terrain *terrain = scene->getTerrain();
-		g_pd3dDevice->SetTexture(0, terrain->texture->texture);
-		g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(D3DVERTEX));
-		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-		g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
-		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->data->width * terrain->data->height/*numvertices*/, 0, (terrain->data->width - 1) * (terrain->data->height - 1) * 2/*primitives count*/);
 
 		// End the scene
 		g_pd3dDevice->EndScene();

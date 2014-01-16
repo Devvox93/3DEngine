@@ -2,8 +2,8 @@
 #include "Camera.h"
 #include "Logger.h"
 #include <sstream>
+#include "Defines.h"
 
-#define PI 3.14159265f
 
 Camera::Camera()
 {

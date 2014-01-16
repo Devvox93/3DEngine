@@ -3,6 +3,7 @@
 
 #include "TextureResource.h"
 #include "ResourceManager.h"
+#include "Defines.h"
 
 typedef unsigned char BYTE;
 
@@ -10,15 +11,6 @@ struct TerrainData
 {
 	int width;
 	int height;
-};
-
-struct Vertex
-{
-	float x,
-	y,
-	z,
-	u,//texture coordinate x
-	v;//texture coordinate y
 };
 
 class Terrain

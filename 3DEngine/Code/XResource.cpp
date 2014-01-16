@@ -43,14 +43,6 @@ XResource::XResource(char *path, LPDIRECT3DDEVICE9* g_pd3dDevice, ResourceManage
 			lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
 		{
 			// Create the texture
-			/*if (FAILED(D3DXCreateTextureFromFileA(*g_pd3dDevice,
-				d3dxMaterials[i].pTextureFilename,
-				&g_pMeshTextures[i])))
-			{
-				std::string lol = std::string(d3dxMaterials[i].pTextureFilename);
-				Logger::getInstance().log(WARNING, "Could not find texture: " + lol);
-			}*/
-			Logger::getInstance().log(INFO, d3dxMaterials[i].pTextureFilename);
 			myTextures[i] = rsm->getTexture(d3dxMaterials[i].pTextureFilename);
 		}
 	}
