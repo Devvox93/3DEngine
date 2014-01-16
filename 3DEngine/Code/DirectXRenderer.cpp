@@ -42,11 +42,11 @@ D3DPRESENT_PARAMETERS DirectXRenderer::setMyRenderSize(int width, int height, bo
 	// using more complex geometry, we will create a device with a zbuffer.
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
-	d3dpp.Windowed = TRUE;
+	d3dpp.Windowed = true;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
-	d3dpp.EnableAutoDepthStencil = TRUE;
-	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+	d3dpp.EnableAutoDepthStencil = true;
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.BackBufferWidth = width;
 	d3dpp.BackBufferHeight = height;
 
