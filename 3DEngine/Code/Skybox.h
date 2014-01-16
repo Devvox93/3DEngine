@@ -1,6 +1,9 @@
 #ifndef _SKYBOX_H_
 #define _SKYBOX_H_
 
+#include "TextureResource.h"
+#include "ResourceManager.h"
+
 struct SVertex
 {
 	float x,
@@ -13,10 +16,11 @@ struct SVertex
 class Skybox
 {
 public:
-	Skybox();
+	Skybox(char *texturePath, ResourceManager *resourceManager);
 	~Skybox();
 	SVertex* aSkyboxVertices;
 	int* aSkyboxIndices;
+	TextureResource *texture;
 private:
 };
 

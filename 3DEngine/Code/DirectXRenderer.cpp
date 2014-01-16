@@ -77,17 +77,6 @@ void DirectXRenderer::Initialize(int width, int height)
 
 void DirectXRenderer::initTerrain(Terrain *terrain)
 {
-	std::string yolo = std::string("tex.bmp");
-	std::string stemp = std::string(yolo.begin(), yolo.end());
-	LPCSTR sw = stemp.c_str();
-	// Use D3DX to create a texture from a file based image
-	if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, sw, &terrainTexture)))
-	{
-		Logger::getInstance().log(INFO, "well shit!");
-	}
-
-	terrainTextures[terrain] = &terrainTexture;
-
 	g_pd3dDevice->CreateVertexBuffer(terrain->data->width * terrain->data->height * sizeof(Vertex),
 		D3DUSAGE_WRITEONLY,
 		D3DFVF_CUSTOMVERTEX,
@@ -117,15 +106,15 @@ void DirectXRenderer::initTerrain(Terrain *terrain)
 
 void DirectXRenderer::initSkybox(Skybox* skybox)
 {
-	std::string yolo = std::string("skybox.jpg");
-	std::string stemp = std::string(yolo.begin(), yolo.end());
-	LPCSTR sw = stemp.c_str();
-	// Use D3DX to create a texture from a file based image
-	if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, sw, &skyboxTexture)))
-	{
-		Logger::getInstance().log(INFO, "well shit!");
-	}
-	skyboxTextures[skybox] = &skyboxTexture;
+	//std::string yolo = std::string("skybox.jpg");
+	//std::string stemp = std::string(yolo.begin(), yolo.end());
+	//LPCSTR sw = stemp.c_str();
+	//// Use D3DX to create a texture from a file based image
+	//if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, sw, &skyboxTexture)))
+	//{
+	//	Logger::getInstance().log(INFO, "well shit!");
+	//}
+	//skyboxTextures[skybox] = &skyboxTexture;
 
 	g_pd3dDevice->CreateVertexBuffer(24 * sizeof(SVertex),
 		D3DUSAGE_WRITEONLY,
@@ -284,7 +273,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 
 		Skybox *skybox = scene->getSkybox();
 		g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
-		g_pd3dDevice->SetTexture(0, *skyboxTextures[skybox]);
+		g_pd3dDevice->SetTexture(0, skybox->texture->texture);
 		g_pd3dDevice->SetStreamSource(0, *skyboxVertexBuffers[skybox], 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(*skyboxIndexBuffers[skybox]);
@@ -314,7 +303,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		WorldMatrix(2);
 
 		Terrain *terrain = scene->getTerrain();
-		g_pd3dDevice->SetTexture(0, *terrainTextures[terrain]);
+		g_pd3dDevice->SetTexture(0, terrain->texture->texture);
 		g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(D3DVERTEX));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
