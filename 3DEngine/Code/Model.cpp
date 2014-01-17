@@ -1,10 +1,12 @@
 #include "Model.h"
 
-Model::Model()
+Model::Model(XResource* _model, float _positionX, float _positionY, float _positionZ, float _yaw, float _pitch, float _roll, float _scaleX, float _scaleY, float _scaleZ)
 {
-	TripleFloat tf = getPosition();
-	tf.y = 500.0f;
-	setPosition(tf.x, tf.y, tf.z);
+	model = _model;
+
+	setPosition(_positionX, _positionY, _positionZ);
+	setRotation(_yaw, _pitch, _roll);
+	setScale(_scaleX, _scaleY, _scaleZ);
 }
 
 

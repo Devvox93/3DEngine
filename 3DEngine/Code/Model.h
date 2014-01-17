@@ -4,7 +4,7 @@
 class Model : public Entity
 {
 public:
-	Model();
+	Model(XResource* _model, float _positionX, float _positionY, float _positionZ, float _yaw, float _pitch, float _roll, float _scaleX, float _scaleY, float _scaleZ);
 	~Model();
 
 	void update();
