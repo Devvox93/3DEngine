@@ -43,7 +43,7 @@ void Camera::moveCamera()
 
 	if (speedUp)
 	{
-		speed = SPEED * 2;
+		speed = SPEED * 3;
 	}
 	else
 	{
