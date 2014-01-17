@@ -15,6 +15,7 @@ public:
 	void setPosition(float x, float y, float z);
 	void setRotation(float yaw, float pitch, float roll);
 	void setScale(float scaleX, float scaleY, float scaleZ);
+	void multiplyMatrices();
 	TripleFloat getPosition();
 	TripleFloat getRotation();
 	TripleFloat getScale();

@@ -10,6 +10,7 @@ Scene::Scene(char* path, ResourceManager* resourceManager)
 	//terrain = new Terrain("clouds.bmp", "tex.bmp", resourceManager); // Terrain moet ingeladen worden
 	//skybox = new Skybox("skybox.jpg", resourceManager);
 	//createEntity(MODEL, resourceManager);
+
 	readSceneFile(sceneFile, resourceManager);
 }
 
@@ -27,9 +28,9 @@ void Scene::createEntity(Entities sort, ResourceManager* rsm){
 		newEntity = new Camera();
 		break;
 	case(MODEL) :
-//		newEntity = new Model();
-//		((Model*)newEntity)->model = (XResource*)rsm->getResource("car.X");
-//		break;
+		//newEntity = new Model((XResource*)rsm->getResource("car.X"), 0.0f, 3000.0f, 3000.0f, 1.57079633f, 0.0f, 0.0f, 0.1f, 0.1f, 0.1f);
+		//((Model*)newEntity)->model = (XResource*)rsm->getResource("car.X");
+		break;
 	default:
 		Logger::getInstance().log(WARNING, "Entity fout");
 		break;

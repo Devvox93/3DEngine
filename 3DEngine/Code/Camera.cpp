@@ -117,6 +117,19 @@ void Camera::setScale(float _scaleX, float _scaleY, float _scaleZ)
 	multiplyMatrices();
 }
 
+void Camera::multiplyMatrices()
+{
+	finalMatrix = positionMatrix;
+
+	if (yaw != 0 || pitch != 0 || roll != 0) {
+		D3DXMatrixMultiply(&finalMatrix, &positionMatrix, &rotationMatrix);
+	}
+
+	if (scaleX != 1 || scaleY != 1 || scaleZ != 1) {
+		D3DXMatrixMultiply(&finalMatrix, &finalMatrix, &scaleMatrix);
+	}
+}
+
 TripleFloat Camera::getPosition()
 {
 	return{ -x, -y, -z };

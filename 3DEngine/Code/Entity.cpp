@@ -68,10 +68,10 @@ void Entity::multiplyMatrices()
 	finalMatrix = positionMatrix;
 
 	if (yaw != 0 || pitch != 0 || roll != 0) {
-		D3DXMatrixMultiply(&finalMatrix, &positionMatrix, &rotationMatrix);
+		D3DXMatrixMultiply(&finalMatrix, &rotationMatrix, &positionMatrix);
 	}
 
 	if (scaleX != 1 || scaleY != 1 || scaleZ != 1) {
-		D3DXMatrixMultiply(&finalMatrix, &finalMatrix, &scaleMatrix);
+		D3DXMatrixMultiply(&finalMatrix, &scaleMatrix, &finalMatrix);
 	}
 }
