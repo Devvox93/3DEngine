@@ -7,6 +7,23 @@
 
 XResource::XResource(char *path, LPDIRECT3DDEVICE9* g_pd3dDevice, ResourceManager* rsm)
 {
+	std::string bla = std::string(path);
+
+	Logger::getInstance().log(INFO, "Hoi@ " + bla);
+	std::string::size_type loc = bla.find_last_of(".", 0);
+	if (loc != std::string::npos) {
+		//cout << "Found Omega at " << loc << endl;
+		std::ostringstream oss;
+		oss << "Found it at: " << loc;
+		Logger::getInstance().log(INFO, oss.str());
+	}
+	else {
+		//cout << "Didn't find Omega" << endl;
+		std::ostringstream oss;
+		oss << "Not found it at: " << loc;
+		Logger::getInstance().log(INFO, oss.str());
+	}
+
 	g_pMesh = NULL; // Our mesh object in sysmem
 	g_dwNumMaterials = 0L;   // Number of mesh materials
 	LPD3DXBUFFER pD3DXMtrlBuffer;

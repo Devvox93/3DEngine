@@ -1,4 +1,4 @@
 clouds.bmp
 tex.bmp
 skybox.jpg
-car.x,60.0f,100.0f,120.0f,0.0f,0.0f,0.0f,1.0f,1.0f,1.0f
+patrick.x,0.0f,100.0f,500.0f,-1.57079633f,0.0f,0.0f,0.2f,0.2f,0.2f
