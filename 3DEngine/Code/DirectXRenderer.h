@@ -37,7 +37,6 @@ private:
 	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;
 	LPDIRECT3DTEXTURE9 terrainTexture = NULL;
 
-	std::map <Terrain*, LPDIRECT3DTEXTURE9*> terrainTextures;
 	std::map <Terrain*, LPDIRECT3DVERTEXBUFFER9*> terrainVertexBuffers;
 	std::map <Terrain*, LPDIRECT3DINDEXBUFFER9*> terrainIndexBuffers;
 

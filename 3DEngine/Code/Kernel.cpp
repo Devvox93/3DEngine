@@ -42,7 +42,9 @@ void Kernel::run()
 	
 	renderer->setActiveCamera(cam);
 
-	sceneManager->createScene(rsManager);
+	std::vector<std::string>* sceneFile = rsManager->getSceneFile("default.txt");
+
+	sceneManager->createScene(rsManager, "default.txt");
 
 	wManager->newWindow(renderer, 10, 10, width, height);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);

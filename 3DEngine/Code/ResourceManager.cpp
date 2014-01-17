@@ -92,6 +92,30 @@ void ResourceManager::PrintMap()
 	}
 }
 
+std::vector<std::string>* ResourceManager::getSceneFile(char* path)
+{
+	std::ifstream file(path);
+	std::string line;
+	std::vector<std::string>* sceneFile = new std::vector<std::string>();
+	if (file)
+	{
+		while (std::getline(file, line))
+		{
+			sceneFile->push_back(line);
+		}
+	}
+	else 
+	{
+		Logger::getInstance().log(INFO, "Scene was not found, using HELLO WORLD instead");
+		std::ifstream file("default.txt");
+		while (std::getline(file, line))
+		{
+			sceneFile->push_back(line);
+		}
+	}
+	return sceneFile;
+};
+
 ResourceManager::ResourceManager()
 {
 }
