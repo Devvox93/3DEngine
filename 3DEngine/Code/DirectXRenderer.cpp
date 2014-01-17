@@ -179,7 +179,6 @@ void DirectXRenderer::Cleanup()
 //-----------------------------------------------------------------------------
 void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 {
-		
 	activeCamera->update();//DIT MOET IN SCENE GEBEUREN!
 	// Clear the backbuffer and the zbuffer
 	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 127, 0), 1.0f, 0);
@@ -187,6 +186,14 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 	// Begin the scene
 	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
 	{
+		D3DMATERIAL9 material = D3DMATERIAL9();
+		material.Ambient = D3DCOLORVALUE();
+		material.Ambient.a = 1.0f;
+		material.Ambient.r = 1.0f;
+		material.Ambient.g = 1.0f;
+		material.Ambient.b = 1.0f;
+		g_pd3dDevice->SetMaterial(&material);
+
 		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
 		D3DXMATRIXA16 matWorldFinal;
 		D3DXMatrixTranslation(&matWorldFinal, 0.0f, 0.0f, 0.0f);
@@ -210,7 +217,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
 		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->data->width * terrain->data->height, 0, (terrain->data->width - 1) * (terrain->data->height - 1) * 2);
-
+		
 		std::vector<Entity*> entities = scene->getEntities();
 		for each(Entity *currentEntity in entities)
 		{
@@ -224,13 +231,19 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			{
 				// Set the material and texture for this subset
 				g_pd3dDevice->SetMaterial(&lol->model->g_pMeshMaterials[i]);
-				g_pd3dDevice->SetTexture(0, lol->model->myTextures[i]->texture);
+				if (lol->model->myTextures[i])
+				{
+					g_pd3dDevice->SetTexture(0, lol->model->myTextures[i]->texture);
+				}
+				else
+				{
+					g_pd3dDevice->SetTexture(0, NULL);
+				}
 
 				// Draw the mesh subset
 				lol->model->g_pMesh->DrawSubset(i);
 			}
 		}
-
 		// End the scene
 		g_pd3dDevice->EndScene();
 	}

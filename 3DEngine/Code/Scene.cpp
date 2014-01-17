@@ -3,12 +3,14 @@
 #include "Camera.h"
 #include "Logger.h"
 
-Scene::Scene(ResourceManager* resourceManager)
+Scene::Scene(char* path, ResourceManager* resourceManager)
 {
 	entities = std::vector<Entity*>();
-	terrain = new Terrain("clouds.bmp", "tex.bmp", resourceManager); // Terrain has to be loaded
-	skybox = new Skybox("skybox.jpg", resourceManager);
-	createEntity(MODEL, resourceManager);
+	sceneFile = resourceManager->getSceneFile(path);
+	//terrain = new Terrain("clouds.bmp", "tex.bmp", resourceManager); // Terrain moet ingeladen worden
+	//skybox = new Skybox("skybox.jpg", resourceManager);
+	//createEntity(MODEL, resourceManager);
+	readSceneFile(sceneFile, resourceManager);
 }
 
 
@@ -67,4 +69,26 @@ Terrain* Scene::getTerrain()
 Skybox* Scene::getSkybox()
 {
 	return skybox;
+};
+
+void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *resourceManager)
+{
+	std::string stringTerrainPath = sceneFile->at(0);
+	char* terrainPath = new char[stringTerrainPath.length()+1];
+	strcpy_s(terrainPath, stringTerrainPath.length()+1, stringTerrainPath.c_str());
+
+	std::string stringTerrainTexturePath = sceneFile->at(1);
+	char* terrainTexturePath = new char[stringTerrainTexturePath.length()+1];
+	strcpy_s(terrainTexturePath, stringTerrainTexturePath.length()+1, stringTerrainTexturePath.c_str());
+	terrain = new Terrain(terrainPath, terrainTexturePath, resourceManager);
+	
+	std::string stringSkyboxTexturePath = sceneFile->at(2);
+	char* skyboxTexturePath = new char[stringSkyboxTexturePath.length()+1];
+	strcpy_s(skyboxTexturePath, stringSkyboxTexturePath.length()+1, stringSkyboxTexturePath.c_str());
+	skybox = new Skybox(skyboxTexturePath, resourceManager);
+
+	for (int i = 4; i <= sceneFile->size(); ++i)
+	{
+		Logger::getInstance().log(INFO, "deze bestaat niet");
+	}
 };

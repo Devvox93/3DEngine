@@ -1,0 +1,3 @@
+clouds.bmp
+tex.bmp
+skybox.jpg

@@ -6,6 +6,7 @@
 #include "TextureResource.h"
 #include <map>
 #include <string>
+#include <vector>
 
 class ResourceManager
 {
@@ -16,6 +17,7 @@ public:
 	TextureResource* getTexture(char *path);
 	void PrintMap();
 	LPDIRECT3DDEVICE9* g_pd3dDevice;
+	std::vector<std::string>* getSceneFile(char* path);
 private:
 	std::map<std::string, Resource*> ResourceMap;
 };
