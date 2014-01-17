@@ -224,7 +224,14 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			{
 				// Set the material and texture for this subset
 				g_pd3dDevice->SetMaterial(&lol->model->g_pMeshMaterials[i]);
-				g_pd3dDevice->SetTexture(0, lol->model->myTextures[i]->texture);
+				if (lol->model->myTextures[i])
+				{
+					g_pd3dDevice->SetTexture(0, lol->model->myTextures[i]->texture);
+				}
+				else
+				{
+					g_pd3dDevice->SetTexture(0, NULL);
+				}
 
 				// Draw the mesh subset
 				lol->model->g_pMesh->DrawSubset(i);
