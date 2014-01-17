@@ -9,7 +9,7 @@ Scene::Scene(char* path, ResourceManager* resourceManager)
 	sceneFile = resourceManager->getSceneFile(path);
 	//terrain = new Terrain("clouds.bmp", "tex.bmp", resourceManager); // Terrain moet ingeladen worden
 	//skybox = new Skybox("skybox.jpg", resourceManager);
-	createEntity(MODEL, resourceManager);
+	//createEntity(MODEL, resourceManager);
 	readSceneFile(sceneFile, resourceManager);
 }
 
