@@ -1,11 +1,10 @@
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
+
 #include "Entity.h"
 #include "KeyboardListener.h"
 #include "MouseListener.h"
 #include "JoystickListener.h"
-
-enum { CAMERA_MOVE, CAMERA_STRAFE, CAMERA_ELEVATE, CAMERA_PITCH, CAMERA_YAW };
 
 class Camera : public Entity, public KeyboardListener, public MouseListener, public JoystickListener
 {
@@ -23,7 +22,8 @@ public:
 	void useMouseInput(DIMOUSESTATE mouseState);
 	void useJoystickInput(DIJOYSTATE2 joystickState);
 private:
+	void Camera::moveCamera();
 	float xMovement, yMovement, zMovement, yawMovement, pitchMovement, rollMovement, speed;
-	void moveCamera(int transformation, float speed);
+	bool moveForward, moveBackward, moveLeft, moveRight, moveUp, moveDown, speedUp;
 };
 #endif

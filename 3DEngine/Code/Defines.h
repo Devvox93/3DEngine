@@ -3,6 +3,7 @@
 
 //A header file to use for cross-class definition of stuff.
 #define PI 3.14159265f
+#define SPEED 0.3f
 
 struct Vertex
 {

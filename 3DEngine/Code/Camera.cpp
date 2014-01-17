@@ -1,21 +1,16 @@
 #include <dinput.h>
+#include <sstream>
 #include "Camera.h"
 #include "Logger.h"
-#include <sstream>
 #include "Defines.h"
 
 
 Camera::Camera()
 {
 	speed = 0.0f;
-
-	xMovement = 0.0f;
-	yMovement = 0.0f;
-	zMovement = 0.0f;
-
-	yawMovement = 0.0f;
-	pitchMovement = 0.0f;
-	rollMovement = 0.0f;
+	xMovement = yMovement = zMovement = 0.0f;
+	yawMovement = pitchMovement = rollMovement = 0.0f;
+	moveForward = moveBackward = moveLeft = moveRight = moveUp = moveDown = speedUp = false;
 }
 
 
@@ -25,13 +20,7 @@ Camera::~Camera()
 
 void Camera::update()
 {
-	/*TripleFloat rot = getRotation();
-	float theta = rot.y;
-	float phi = rot.x;
-
-	xMovement = speed*sinf(phi)*cosf(theta);
-	yMovement = speed*sinf(phi)*sinf(theta);
-	zMovement = speed*cosf(phi);*/
+	moveCamera();
 
 	TripleFloat tf = getPosition();
 	tf.x += xMovement;
@@ -46,35 +35,53 @@ void Camera::update()
 	setRotation(tf2.x, tf2.y, tf2.z);
 }
 
-void Camera::moveCamera(int transformation, float speed)
+void Camera::moveCamera()
 {
 	TripleFloat rot = getRotation();
-	float yaw = rot.x, pitch = rot.y;
+	float yaw = rot.x;
+	float pitch = rot.y;
 
-	switch (transformation) {
-	case CAMERA_MOVE:
+	if (speedUp)
+	{
+		speed = SPEED * 2;
+	}
+	else
+	{
+		speed = SPEED;
+	}
+
+	if (moveBackward || moveLeft || moveDown)
+	{
+		speed = -speed;
+	}
+
+	if (moveForward || moveBackward)
+	{
 		xMovement = speed * sinf(yaw) * cosf(pitch);
 		if (sinf(yaw) < 0)
 		{
-			yMovement = speed * sinf(yaw) * sinf(pitch);
+			yMovement = 2 * speed * sinf(yaw) * sinf(pitch);
 		}
 		else if (sinf(yaw) > 0)
 		{
-			yMovement = -speed * sinf(yaw) * sinf(pitch);
+			yMovement = 2 * -speed * sinf(yaw) * sinf(pitch);
 		}
 		zMovement = speed * cosf(yaw);
-
-		break;
-	case CAMERA_STRAFE:
-		//TODO: Strafen fixen
-		xMovement += speed * sinf(yaw - PI / 2) * cosf(pitch - PI / 2);
-		zMovement += speed * cosf(yaw - PI / 2);
-
-		break;
-	case CAMERA_ELEVATE:
-		yMovement += speed;
-
-		break;
+	}
+	else if (moveLeft || moveRight)
+	{
+		xMovement = speed * sinf(yaw - 80) * cosf(pitch);
+		zMovement = speed * cosf(yaw - 80);
+	}
+	else if (moveUp || moveDown)
+	{
+		yMovement = speed;
+	}
+	else
+	{
+		xMovement = 0.0f;
+		yMovement = 0.0f;
+		zMovement = 0.0f;
 	}
 }
 
@@ -132,96 +139,70 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 #pragma region "Keys"
 
 #pragma region "Arrows"
-	if (keyboardState[DIK_UPARROW] & 0x80)
+	if (keyboardState[DIK_UPARROW])
 	{
 		Logger::getInstance().log(INFO, "Up arrow");
-		/*speed = 0.1f;*/
-		moveCamera(CAMERA_MOVE, 0.3f);
-		
+		moveForward = true;
 	}
-	else if (keyboardState[DIK_DOWNARROW] & 0x80)
+	else
+	{
+		moveForward = false;
+	}
+	if (keyboardState[DIK_DOWNARROW])
 	{
 		Logger::getInstance().log(INFO, "Down arrow");
-		/*speed = -0.1f;*/
-		moveCamera(CAMERA_MOVE, -0.3f);
+		moveBackward = true;
 	}
 	else
 	{
-		/*speed = 0.0f;*/
-		moveCamera(CAMERA_MOVE, 0.0f);
+		moveBackward = false;
 	}
-
-	if (keyboardState[DIK_LEFTARROW] & 0x80)
+	if (keyboardState[DIK_LEFTARROW])
 	{
 		Logger::getInstance().log(INFO, "Left arrow");
-
-		/*xMovement = -0.1f;*/
-		moveCamera(CAMERA_STRAFE, 0.3f);
+		moveLeft = true;
 	}
-	else if (keyboardState[DIK_RIGHTARROW] & 0x80)
+	else
+	{
+		moveLeft = false;
+	}
+	if (keyboardState[DIK_RIGHTARROW])
 	{
 		Logger::getInstance().log(INFO, "Right arrow");
-		/*xMovement = 0.1f;*/
-		moveCamera(CAMERA_STRAFE, -0.3f);
+		moveRight = true;
 	}
 	else
 	{
-		/*xMovement = 0.0f;*/
-		moveCamera(CAMERA_STRAFE, 0.0f);
-	}
-#pragma endregion
-
-#pragma region "WASD"
-	if (keyboardState[DIK_W] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "W key");
-
-		pitchMovement = -0.1f;
-	}
-	else if (keyboardState[DIK_S] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "S key");
-		pitchMovement = 0.1f;
-	}
-	else
-	{
-		pitchMovement = 0.0f;
-	}
-
-	if (keyboardState[DIK_A] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "A key");
-
-		yawMovement = -0.1f;
-	}
-	else if (keyboardState[DIK_D] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "D key");
-		yawMovement = 0.1f;
-	}
-	else
-	{
-		yawMovement = 0.0f;
+		moveRight = false;
 	}
 #pragma endregion
 
 #pragma region "Other"
-	if (keyboardState[DIK_RSHIFT] & 0x80)
+	if (keyboardState[DIK_RSHIFT])
 	{
 		Logger::getInstance().log(INFO, "Right Shift");
-		/*yMovement = -0.1f;*/
-		moveCamera(CAMERA_ELEVATE, 0.3f);
-	}
-	else if (keyboardState[DIK_RCONTROL] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Right Control");
-		/*yMovement = 0.1f;*/
-		moveCamera(CAMERA_ELEVATE, -0.3f);
+		moveUp = true;
 	}
 	else
 	{
-		/*yMovement = 0.0f;*/
-		moveCamera(CAMERA_ELEVATE, 0.0f);
+		moveUp = false;
+	}
+	if (keyboardState[DIK_RCONTROL])
+	{
+		Logger::getInstance().log(INFO, "Right Control");
+		moveDown = true;
+	}
+	else
+	{
+		moveDown = false;
+	}
+	if (keyboardState[DIK_NUMPAD0])
+	{
+		speedUp = true;
+	}
+	else
+	{
+		speedUp = false;
 	}
 #pragma endregion
 
