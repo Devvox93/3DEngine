@@ -32,8 +32,8 @@ private:
 	HRESULT InitGeometry(std::string filename);
 	D3DPRESENT_PARAMETERS setMyRenderSize(int width, int height, bool activate);
 	
-	LPDIRECT3DVERTEXBUFFER9 g_pHeightmapVertexBuffer = NULL; // Buffer to hold vertices
-	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;
+	LPDIRECT3DVERTEXBUFFER9 g_pTerrainVertexBuffer = NULL; // Buffer to hold vertices
+	LPDIRECT3DINDEXBUFFER9 g_pTerrainIndexBuffer = NULL;
 	LPDIRECT3DTEXTURE9 terrainTexture = NULL;
 
 	std::map <Terrain*, LPDIRECT3DVERTEXBUFFER9*> terrainVertexBuffers;

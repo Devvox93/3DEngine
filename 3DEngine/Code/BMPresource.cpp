@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-BMPresource::BMPresource(char *path)
+BMPresource::BMPresource(std::string path)
 {
 
 	HANDLE hbmp;	//Handle to an object (standard handle)
@@ -20,7 +20,7 @@ BMPresource::BMPresource(char *path)
 	}
 
 	//Windows GDI load image of type BMP (fileformat)
-	hbmp = LoadImage(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hbmp = LoadImage(NULL, path.c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	if (hbmp == NULL)	//Give a visual warning if the loading of the image failed
 	{
 		Logger::getInstance().log(WARNING, "Could not load BMP from path: " + std::string(path));

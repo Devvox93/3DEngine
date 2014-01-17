@@ -29,7 +29,7 @@ Keyboard::Keyboard(IDirectInput8* directInput, HWND hwnd)
 	}
 
 	// Set the cooperative level of the keyboard to not share with other programs.
-	result = keyboard->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
+	result = keyboard->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 	if (FAILED(result))
 	{
 		return;

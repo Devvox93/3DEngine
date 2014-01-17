@@ -1,8 +1,8 @@
 #include "TextureResource.h"
 #include "Logger.h"
-TextureResource::TextureResource(char *path, LPDIRECT3DDEVICE9* g_pd3dDevice)
+TextureResource::TextureResource(std::string path, LPDIRECT3DDEVICE9* g_pd3dDevice)
 {
-	if (FAILED(D3DXCreateTextureFromFileA(*g_pd3dDevice, path, &texture)))
+	if (FAILED(D3DXCreateTextureFromFileA(*g_pd3dDevice, path.c_str(), &texture)))
 	{
 		std::string lol = std::string(path);
 		Logger::getInstance().log(WARNING, "Could not find texture: " + lol);

@@ -4,7 +4,6 @@
 #include "Logger.h"
 #include "Defines.h"
 
-
 Camera::Camera()
 {
 	speed = 0.0f;
@@ -12,7 +11,6 @@ Camera::Camera()
 	yawMovement = pitchMovement = rollMovement = 0.0f;
 	moveForward = moveBackward = moveLeft = moveRight = moveUp = moveDown = speedUp = false;
 }
-
 
 Camera::~Camera()
 {

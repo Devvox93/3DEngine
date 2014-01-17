@@ -66,12 +66,8 @@ D3DPRESENT_PARAMETERS DirectXRenderer::setMyRenderSize(int width, int height, bo
 		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR); // minification
 		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR); // magnification
 		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR); // mipmapping
-
 	}
-	else
-	{
-		return d3dpp;
-	}
+	return d3dpp;
 }
 
 void DirectXRenderer::Initialize(int width, int height)
@@ -120,21 +116,21 @@ HRESULT DirectXRenderer::InitD3D(HWND hWnd, int width, int height)
 
 void DirectXRenderer::initTerrain(Terrain *terrain)
 {
-	g_pd3dDevice->CreateVertexBuffer(terrain->data->width * terrain->data->height * sizeof(Vertex), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_MANAGED, &g_pHeightmapVertexBuffer, NULL);
-	g_pd3dDevice->CreateIndexBuffer(terrain->amountOfIndices * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pHeightmapIndexBuffer, NULL);
+	g_pd3dDevice->CreateVertexBuffer(terrain->data->width * terrain->data->height * sizeof(Vertex), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_MANAGED, &g_pTerrainVertexBuffer, NULL);
+	g_pd3dDevice->CreateIndexBuffer(terrain->amountOfIndices * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pTerrainIndexBuffer, NULL);
 
 	VOID* pVertices;
-	g_pHeightmapVertexBuffer->Lock(0, terrain->data->width * terrain->data->height * sizeof(Vertex), (void**)&pVertices, 0);   //lock buffer
+	g_pTerrainVertexBuffer->Lock(0, terrain->data->width * terrain->data->height * sizeof(Vertex), (void**)&pVertices, 0);   //lock buffer
 	memcpy(pVertices, terrain->aTerrainVertices, terrain->data->width * terrain->data->height * sizeof(Vertex)); //copy data
-	g_pHeightmapVertexBuffer->Unlock();                                 //unlock buffer
+	g_pTerrainVertexBuffer->Unlock();                                 //unlock buffer
 
-	terrainVertexBuffers[terrain] = &g_pHeightmapVertexBuffer;
+	terrainVertexBuffers[terrain] = &g_pTerrainVertexBuffer;
 
-	g_pHeightmapIndexBuffer->Lock(0, terrain->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
+	g_pTerrainIndexBuffer->Lock(0, terrain->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
 	memcpy(pVertices, terrain->aTerrainIndices, terrain->amountOfIndices * sizeof(int));   //copy data
-	g_pHeightmapIndexBuffer->Unlock();                                 //unlock buffer
+	g_pTerrainIndexBuffer->Unlock();                                 //unlock buffer
 
-	terrainIndexBuffers[terrain] = &g_pHeightmapIndexBuffer;
+	terrainIndexBuffers[terrain] = &g_pTerrainIndexBuffer;
 };
 
 void DirectXRenderer::initSkybox(Skybox* skybox)

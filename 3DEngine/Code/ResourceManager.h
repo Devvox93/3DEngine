@@ -13,11 +13,11 @@ class ResourceManager
 public:
 	ResourceManager();
 	~ResourceManager();
-	Resource* getResource(char *path);
-	TextureResource* getTexture(char *path);
+	Resource* getResource(std::string path);
+	TextureResource* getTexture(std::string path);
 	void PrintMap();
 	LPDIRECT3DDEVICE9* g_pd3dDevice;
-	std::vector<std::string>* getSceneFile(char* path);
+	std::vector<std::string>* getSceneFile(std::string path);
 private:
 	std::map<std::string, Resource*> ResourceMap;
 };

@@ -9,14 +9,11 @@
 #include <string.h>
 #include <string>
 
-Resource* ResourceManager::getResource(char *path)
+Resource* ResourceManager::getResource(std::string path)
 {
-	std::stringstream sstm;
-	sstm << path;
-
 	if (ResourceMap.find(path) == ResourceMap.end()){
 
-		if (sstm.str().substr(sstm.str().find_last_of(".") + 1) == "bmp" || sstm.str().substr(sstm.str().find_last_of(".") + 1) == "BMP") {
+		if (path.substr(path.find_last_of(".") + 1) == "bmp" || path.substr(path.find_last_of(".") + 1) == "BMP") {
 			Resource *bmprsrc = new BMPresource(path);
 			if (bmprsrc->isLoaded){
 				ResourceMap.insert(std::make_pair(path, bmprsrc));
@@ -29,7 +26,7 @@ Resource* ResourceManager::getResource(char *path)
 				Logger::getInstance().log(INFO, sstm.str());
 			}
 		}
-		if (sstm.str().substr(sstm.str().find_last_of(".") + 1) == "x" || sstm.str().substr(sstm.str().find_last_of(".") + 1) == "X") {
+		if (path.substr(path.find_last_of(".") + 1) == "x" || path.substr(path.find_last_of(".") + 1) == "X") {
 			Resource *xrsrc = new XResource(path, g_pd3dDevice, this);
 			if (xrsrc->isLoaded){
 				ResourceMap.insert(std::make_pair(path, xrsrc));
@@ -42,8 +39,8 @@ Resource* ResourceManager::getResource(char *path)
 				sstm << "X resource is NULL";
 				Logger::getInstance().log(INFO, sstm.str());
 			}
-
 		}
+		return NULL;
 	}
 	else
 	{
@@ -52,34 +49,28 @@ Resource* ResourceManager::getResource(char *path)
 	}
 }
 
-TextureResource* ResourceManager::getTexture(char *path)
+TextureResource* ResourceManager::getTexture(std::string path)
 {
-	std::stringstream sstm;
-	sstm << path;
-
 	if (ResourceMap.find(path) == ResourceMap.end()){
-
-			TextureResource *xrsrc = new TextureResource(path, g_pd3dDevice);
-			if (xrsrc->isLoaded){
-				std::string pa = path;
-				Logger::getInstance().log(INFO, "Path is "+pa);
-				ResourceMap.insert(std::make_pair(pa, xrsrc));
-				Logger::getInstance().log(INFO, "Ik heb een texture in de map gezet!");
-				return (TextureResource*)ResourceMap[path];
-			}
-			else
-			{
-				std::stringstream sstm;
-				sstm << "Texture resource is NULL";
-				Logger::getInstance().log(INFO, sstm.str());
-			}
+		TextureResource *xrsrc = new TextureResource(path, g_pd3dDevice);
+		if (xrsrc->isLoaded){
+			std::string pa = path;
+			Logger::getInstance().log(INFO, "Path is "+pa);
+			ResourceMap.insert(std::make_pair(pa, xrsrc));
+			Logger::getInstance().log(INFO, "Ik heb een texture in de map gezet!");
+			return (TextureResource*)ResourceMap[path];
 		}
-	
+		else
+		{
+			Logger::getInstance().log(INFO, "Texture resource is NULL");
+		}
+	}
 	else
 	{
-		Logger::getInstance().log(INFO, "Ik heb een resource gereturned!");
+		Logger::getInstance().log(INFO, "Ik heb een texture resource gereturned!");
 		return (TextureResource*)ResourceMap[path];
 	}
+	return NULL;
 }
 
 void ResourceManager::PrintMap()
@@ -92,7 +83,7 @@ void ResourceManager::PrintMap()
 	}
 }
 
-std::vector<std::string>* ResourceManager::getSceneFile(char* path)
+std::vector<std::string>* ResourceManager::getSceneFile(std::string path)
 {
 	std::ifstream file(path);
 	std::string line;

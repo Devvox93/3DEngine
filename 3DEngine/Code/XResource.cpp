@@ -5,31 +5,14 @@
 #include <sstream>
 #include <string>
 
-XResource::XResource(char *path, LPDIRECT3DDEVICE9* g_pd3dDevice, ResourceManager* rsm)
+XResource::XResource(std::string path, LPDIRECT3DDEVICE9* g_pd3dDevice, ResourceManager* rsm)
 {
-	std::string bla = std::string(path);
-
-	Logger::getInstance().log(INFO, "Hoi@ " + bla);
-	std::string::size_type loc = bla.find_last_of(".", 0);
-	if (loc != std::string::npos) {
-		//cout << "Found Omega at " << loc << endl;
-		std::ostringstream oss;
-		oss << "Found it at: " << loc;
-		Logger::getInstance().log(INFO, oss.str());
-	}
-	else {
-		//cout << "Didn't find Omega" << endl;
-		std::ostringstream oss;
-		oss << "Not found it at: " << loc;
-		Logger::getInstance().log(INFO, oss.str());
-	}
-
 	g_pMesh = NULL; // Our mesh object in sysmem
 	g_dwNumMaterials = 0L;   // Number of mesh materials
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 
 	// Load the mesh from the specified file
-	if (FAILED(D3DXLoadMeshFromX(path, D3DXMESH_SYSTEMMEM,
+	if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM,
 		*g_pd3dDevice, NULL,
 		&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
 		&g_pMesh)))
@@ -45,9 +28,15 @@ XResource::XResource(char *path, LPDIRECT3DDEVICE9* g_pd3dDevice, ResourceManage
 	g_pMeshMaterials = new D3DMATERIAL9[g_dwNumMaterials];
 	if (g_pMeshMaterials == NULL)
 	{
+		Logger::getInstance().log(CRITICAL, "Memory failure?!?");
 		return;
 	}
 	myTextures = new TextureResource*[g_dwNumMaterials];
+	std::string::size_type loc = path.find_last_of("\\");
+	std::string prefix = "";
+	if (loc != std::string::npos) {
+		prefix = path.substr(0, loc + 1);
+	}
 	for (DWORD i = 0; i < g_dwNumMaterials; i++)
 	{
 		// Copy the material
@@ -60,7 +49,7 @@ XResource::XResource(char *path, LPDIRECT3DDEVICE9* g_pd3dDevice, ResourceManage
 			lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
 		{
 			// Create the texture
-			myTextures[i] = rsm->getTexture(d3dxMaterials[i].pTextureFilename);
+			myTextures[i] = rsm->getTexture(prefix + d3dxMaterials[i].pTextureFilename);
 		}
 	}
 

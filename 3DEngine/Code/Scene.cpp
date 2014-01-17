@@ -128,7 +128,7 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 		float pscaleYFloat = atof(scaleY.c_str());
 		float scaleZFloat = atof(scaleZ.c_str());
 
-		Logger::getInstance().log(INFO, xResourceName);
+		/*Logger::getInstance().log(INFO, xResourceName);
 		Logger::getInstance().log(INFO, positionX);
 		Logger::getInstance().log(INFO, positionY);
 		Logger::getInstance().log(INFO, positionZ);
@@ -137,11 +137,9 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 		Logger::getInstance().log(INFO, roll);
 		Logger::getInstance().log(INFO, scaleX);
 		Logger::getInstance().log(INFO, scaleY);
-		Logger::getInstance().log(INFO, scaleZ);
+		Logger::getInstance().log(INFO, scaleZ);*/
 
 		//createEntity(MODEL, resourceManager);
-
-		Entity* newEntity = new Model((XResource*)resourceManager->getResource(xResourceNameChar), positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat);
-		entities.push_back(newEntity);
+		entities.push_back(new Model((XResource*)resourceManager->getResource(xResourceNameChar), positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat));
 	}
 };
