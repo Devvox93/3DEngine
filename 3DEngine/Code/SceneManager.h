@@ -9,7 +9,7 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	void createScene(ResourceManager* rsm);
+	void createScene(ResourceManager* rsm, char* path);
 	void deleteScene();
 	Scene* getScene();
 	LPDIRECT3DDEVICE9 g_pd3dDevice;

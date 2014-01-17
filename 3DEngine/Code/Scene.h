@@ -15,7 +15,7 @@ enum Entities
 class Scene
 {
 public:
-	Scene(ResourceManager* rsm);
+	Scene(char* path, ResourceManager* rsm);
 	~Scene();
 
 	void createEntity(Entities sort, ResourceManager* rsm);
@@ -26,6 +26,8 @@ public:
 	std::vector<Entity*> getEntities();
 	Terrain* getTerrain();
 	Skybox* getSkybox();
+	void readSceneFile(std::vector<std::string> *sceneFile, ResourceManager *resourceManager);
+	std::vector<std::string> *sceneFile;
 private:
 	Terrain *terrain;
 	Skybox *skybox;

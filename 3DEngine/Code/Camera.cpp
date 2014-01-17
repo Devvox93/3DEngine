@@ -53,20 +53,26 @@ void Camera::moveCamera(int transformation, float speed)
 
 	switch (transformation) {
 	case CAMERA_MOVE:
-		//TODO: Fix tegenovergestelde Y-movement met -yaw
 		xMovement = speed * sinf(yaw) * cosf(pitch);
-		yMovement = speed * sinf(yaw) * sinf(pitch);
+		if (sinf(yaw) < 0)
+		{
+			yMovement = speed * sinf(yaw) * sinf(pitch);
+		}
+		else if (sinf(yaw) > 0)
+		{
+			yMovement = -speed * sinf(yaw) * sinf(pitch);
+		}
 		zMovement = speed * cosf(yaw);
 
 		break;
 	case CAMERA_STRAFE:
 		//TODO: Strafen fixen
-		xMovement += speed * sinf(yaw + PI / 2) * cosf(pitch + PI / 2);
-		zMovement += speed * cosf(yaw + PI / 2);
+		xMovement += speed * sinf(yaw - PI / 2) * cosf(pitch - PI / 2);
+		zMovement += speed * cosf(yaw - PI / 2);
 
 		break;
 	case CAMERA_ELEVATE:
-		yMovement += speed * sinf(pitch + PI / 2);
+		yMovement += speed;
 
 		break;
 	}
