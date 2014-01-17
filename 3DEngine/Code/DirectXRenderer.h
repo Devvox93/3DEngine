@@ -17,7 +17,6 @@ public:
 	LPDIRECT3D9         g_pD3D;
 	LPDIRECT3DDEVICE9   g_pd3dDevice;
 
-
 	DirectXRenderer();
 	~DirectXRenderer();
 	void Initialize(int width, int height);
@@ -31,7 +30,7 @@ private:
 	HRESULT InitD3D(HWND hWnd, int width, int height);
 	void Cleanup();
 	HRESULT InitGeometry(std::string filename);
-	void WorldMatrix(int type);
+	D3DPRESENT_PARAMETERS setMyRenderSize(int width, int height, bool activate);
 	
 	LPDIRECT3DVERTEXBUFFER9 g_pHeightmapVertexBuffer = NULL; // Buffer to hold vertices
 	LPDIRECT3DINDEXBUFFER9 g_pHeightmapIndexBuffer = NULL;

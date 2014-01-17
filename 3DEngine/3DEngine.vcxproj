@@ -74,6 +74,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Code\BMPresource.h" />
+    <ClInclude Include="Code\Defines.h" />
     <ClInclude Include="Code\DirectXRenderer.h" />
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
@@ -95,7 +96,6 @@
     <ClInclude Include="Code\Scene.h" />
     <ClInclude Include="Code\SceneManager.h" />
     <ClInclude Include="Code\Skybox.h" />
-    <ClInclude Include="Code\Texture.h" />
     <ClInclude Include="Code\TextureResource.h" />
     <ClInclude Include="Code\Window.h" />
     <ClInclude Include="Code\WindowManager.h" />
@@ -123,7 +123,6 @@
     <ClCompile Include="Code\Scene.cpp" />
     <ClCompile Include="Code\SceneManager.cpp" />
     <ClCompile Include="Code\Skybox.cpp" />
-    <ClCompile Include="Code\Texture.cpp" />
     <ClCompile Include="Code\TextureResource.cpp" />
     <ClCompile Include="Code\Window.cpp" />
     <ClCompile Include="Code\WindowManager.cpp" />

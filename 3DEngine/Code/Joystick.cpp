@@ -17,7 +17,6 @@ Joystick::Joystick(IDirectInput8* argInterface, HWND hDlg)
 	result = joystick->SetDataFormat(&c_dfDIJoystick2);
 	if (FAILED(result))
 	{
-		//return false;
 		return;
 	}
 
@@ -25,7 +24,6 @@ Joystick::Joystick(IDirectInput8* argInterface, HWND hDlg)
 	result = joystick->SetCooperativeLevel(hDlg, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 	if (FAILED(result))
 	{
-		//return false;
 		return;
 	}
 
@@ -33,7 +31,6 @@ Joystick::Joystick(IDirectInput8* argInterface, HWND hDlg)
 	result = joystick->Acquire();
 	if (FAILED(result))
 	{
-		//return false;
 		return;
 	}
 

@@ -9,12 +9,12 @@ void Logger::log(LogLevel type, std::string message)
 
 	time_t t = time(0);   // get time now
 	struct tm now;
-	localtime_s(&now, &t); //converteer tijdzone
+	localtime_s(&now, &t); //convert timezone
 
 	if (!logfile.is_open())
 	{
 		std::ostringstream oss;
-		oss << /* Logmap "Logs\\" <<*/  "Log " << now.tm_mday << "-" << (now.tm_mon + 1) << "-" << (now.tm_year + 1900) << ".txt";
+		oss << "Log " << now.tm_mday << "-" << (now.tm_mon + 1) << "-" << (now.tm_year + 1900) << ".txt";
 		logfile.open(oss.str(), std::ios_base::app);
 		if (!logfile.is_open())
 		{
@@ -22,7 +22,7 @@ void Logger::log(LogLevel type, std::string message)
 		}
 	}
 
-	SYSTEMTIME time;//deze heeft dezelfde data als now+millis, zou mooi zijn als we hier 14:02:00.009 uit zouden kunnen krijgen, inclusief tijdzone
+	SYSTEMTIME time;
 	GetSystemTime(&time);
 	WORD millis = time.wMilliseconds;
 

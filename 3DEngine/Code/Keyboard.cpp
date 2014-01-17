@@ -4,10 +4,6 @@
 #include "InputManager.h"
 #include "Logger.h"
 
-//// Define the keys we want to use
-//#define KEYDOWN (name, key) (name[key] & 0x80)
-//#define KEYUP (name, key) (name[key] & 0x80)
-
 /**
 * Function:	Keyboard::Keyboard(...)
 * Description:	Keyboard constructor
@@ -91,7 +87,6 @@ bool Keyboard::read()
 
 void Keyboard::processInput()
 {
-	//Logger::getInstance().log(INFO, "Processing keyboard input");
 	if (keyboardStateOld != keyboardState)
 	{
 		updateListeners();

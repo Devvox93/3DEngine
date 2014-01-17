@@ -5,7 +5,7 @@
 
 Skybox::Skybox(char *texturePath, ResourceManager *resourceManager)
 {
-	aSkyboxVertices = new SVertex[24];
+	aSkyboxVertices = new Vertex[24];
 	aSkyboxVertices[0] = { -50.0f, -50.0f, 50.0f, 0.25f, 0.6666f };//front
 	aSkyboxVertices[1] = { 50.0f, -50.0f, 50.0f, 0.50f, 0.6666f };
 	aSkyboxVertices[2] = { 50.0f, 50.0f, 50.0f, 0.50f, 0.3333f };

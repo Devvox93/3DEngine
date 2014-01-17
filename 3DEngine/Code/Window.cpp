@@ -6,7 +6,6 @@ Window::Window()
 {
 	//Set the default data for the window class.
 	//These can be reset in the derived class's constructor.
-
 	_WndClass.cbSize = sizeof(_WndClass);
 	_WndClass.style = CS_DBLCLKS;
 	_WndClass.lpfnWndProc = BaseWndProc;
@@ -62,7 +61,7 @@ LRESULT CALLBACK Window::BaseWndProc(HWND hwnd, UINT msg,
 		return pObj->WindowProc(hwnd, msg, wParam, lParam);
 	}
 
-	return 0;//hier komen wij niet vaak, één keer per scherm als het goed is...
+	return 0;
 }
 
 LRESULT Window::WindowProc(HWND hwnd, UINT msg, WPARAM wParam,
@@ -87,8 +86,7 @@ void Window::render(Scene *scene)
 	PAINTSTRUCT PaintStruct;
 	BeginPaint(_hwnd, &PaintStruct);
 	GetClientRect(_hwnd, &rect);
-	DrawText(hDC, "Hallo, scherm dat verdomd moeilijk te krijgen is!", 49, &rect,
-		DT_VCENTER | DT_CENTER | DT_SINGLELINE);
+	DrawText(hDC, "Hallo, scherm dat verdomd moeilijk te krijgen is!", 49, &rect, DT_VCENTER | DT_CENTER | DT_SINGLELINE);
 	EndPaint(_hwnd, &PaintStruct);
 	ReleaseDC(_hwnd, hDC);
 }

@@ -32,22 +32,17 @@ void Kernel::run()
 	Camera* cam = new Camera();
 	ResourceManager *rsManager = new ResourceManager;
 	rsManager->g_pd3dDevice = &((DirectXRenderer *)renderer)->g_pd3dDevice;
-	rsManager->getResource("clouds.bmp");
-	rsManager->getResource("btest.bmp");
-	rsManager->getResource("test.bmp");
-	rsManager->getResource("car.X");
 
 	rsManager->PrintMap();
 
-	
-	renderer->setActiveCamera(cam);
+	renderer->setActiveCamera(cam);//MOET IN SCENE GEBEUREN
 
 	std::vector<std::string>* sceneFile = rsManager->getSceneFile("default.txt");
 
 	sceneManager->createScene(rsManager, "default.txt");
 
 	wManager->newWindow(renderer, 10, 10, width, height);
-	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, 1024, 768);
+	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, width, height);
 
 	iManager->getKeyboard()->addKeyboardListener(this);
 	iManager->getKeyboard()->addKeyboardListener(cam);

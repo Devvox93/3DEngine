@@ -39,17 +39,17 @@ void Scene::createEntity(Entities sort, ResourceManager* rsm){
 };
 
 void Scene::deleteEntity(Entity* entity){
-	// destroy en delete meegegeven entity uit lijst
+	// destroy and delete passed entity from lijst
 };
 
 void Scene::render()
 {
-
+	//???
 };
 
 void Scene::loadEntities()
 {
-
+	//???
 };
 
 void Scene::updateEntities()

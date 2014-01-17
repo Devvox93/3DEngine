@@ -19,8 +19,8 @@ public:
 	Keyboard* getKeyboard();
 	Mouse* getMouse();
 	Joystick* getJoystick();
-private:
 
+private:
 	IDirectInput8* directInput;
 	Keyboard* myKeyboard;
 	Mouse* myMouse;

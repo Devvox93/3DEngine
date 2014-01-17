@@ -2,8 +2,8 @@
 #include "Camera.h"
 #include "Logger.h"
 #include <sstream>
+#include "Defines.h"
 
-#define PI 3.14159265f
 
 Camera::Camera()
 {
@@ -25,12 +25,6 @@ Camera::~Camera()
 
 void Camera::update()
 {
-	TripleFloat tf = getPosition();
-	tf.x += xMovement;
-	tf.y += yMovement;
-	tf.z += zMovement;
-	setPosition(tf.x, tf.y, tf.z);
-
 	/*TripleFloat rot = getRotation();
 	float theta = rot.y;
 	float phi = rot.x;
@@ -39,11 +33,49 @@ void Camera::update()
 	yMovement = speed*sinf(phi)*sinf(theta);
 	zMovement = speed*cosf(phi);*/
 
+	TripleFloat tf = getPosition();
+	tf.x += xMovement;
+	tf.y += yMovement;
+	tf.z += zMovement;
+	setPosition(tf.x, tf.y, tf.z);
+
 	// Voor Joystick
 	TripleFloat tf2 = getRotation();
 	tf2.x += yawMovement;
 	tf2.y += pitchMovement;
 	setRotation(tf2.x, tf2.y, tf2.z);
+}
+
+void Camera::moveCamera(int transformation, float speed)
+{
+	TripleFloat rot = getRotation();
+	float yaw = rot.x, pitch = rot.y;
+
+	switch (transformation) {
+	case CAMERA_MOVE:
+		xMovement = speed * sinf(yaw) * cosf(pitch);
+		if (sinf(yaw) < 0)
+		{
+			yMovement = speed * sinf(yaw) * sinf(pitch);
+		}
+		else if (sinf(yaw) > 0)
+		{
+			yMovement = -speed * sinf(yaw) * sinf(pitch);
+		}
+		zMovement = speed * cosf(yaw);
+
+		break;
+	case CAMERA_STRAFE:
+		//TODO: Strafen fixen
+		xMovement += speed * sinf(yaw - PI / 2) * cosf(pitch - PI / 2);
+		zMovement += speed * cosf(yaw - PI / 2);
+
+		break;
+	case CAMERA_ELEVATE:
+		yMovement += speed;
+
+		break;
+	}
 }
 
 void Camera::setPosition(float _x, float _y, float _z)
@@ -60,8 +92,13 @@ void Camera::setRotation(float _yaw, float _pitch, float _roll)
 	yaw = -_yaw;
 	pitch = -_pitch;
 	roll = -_roll;
-	D3DXMatrixRotationYawPitchRoll(&rotationMatrix, yaw, pitch, roll);
-	multiplyMatrices();
+
+	// Custom multiplyen van Matrices
+	D3DXMATRIXA16 rot1;
+	D3DXMatrixRotationYawPitchRoll(&rot1, yaw, 0.0f, 0.0f);
+	D3DXMATRIXA16 rot2;
+	D3DXMatrixRotationYawPitchRoll(&rot2, 0.0f, pitch, 0.0f);
+	D3DXMatrixMultiply(&rotationMatrix, &rot1, &rot2);
 }
 
 void Camera::setScale(float _scaleX, float _scaleY, float _scaleZ)
@@ -98,33 +135,39 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	if (keyboardState[DIK_UPARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Up arrow");
-		speed = 0.1f;
+		/*speed = 0.1f;*/
+		moveCamera(CAMERA_MOVE, 0.3f);
 		
 	}
 	else if (keyboardState[DIK_DOWNARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Down arrow");
-		speed = -0.1f;
+		/*speed = -0.1f;*/
+		moveCamera(CAMERA_MOVE, -0.3f);
 	}
 	else
 	{
-		speed = 0.0f;
+		/*speed = 0.0f;*/
+		moveCamera(CAMERA_MOVE, 0.0f);
 	}
 
 	if (keyboardState[DIK_LEFTARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Left arrow");
 
-		xMovement = -0.1f;
+		/*xMovement = -0.1f;*/
+		moveCamera(CAMERA_STRAFE, 0.3f);
 	}
 	else if (keyboardState[DIK_RIGHTARROW] & 0x80)
 	{
 		Logger::getInstance().log(INFO, "Right arrow");
-		xMovement = 0.1f;
+		/*xMovement = 0.1f;*/
+		moveCamera(CAMERA_STRAFE, -0.3f);
 	}
 	else
 	{
-		xMovement = 0.0f;
+		/*xMovement = 0.0f;*/
+		moveCamera(CAMERA_STRAFE, 0.0f);
 	}
 #pragma endregion
 
@@ -163,19 +206,22 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 #pragma endregion
 
 #pragma region "Other"
-	if (keyboardState[DIK_INSERT] & 0x80)
+	if (keyboardState[DIK_RSHIFT] & 0x80)
 	{
-		Logger::getInstance().log(INFO, "Insert");
-		yMovement = -0.1f;
+		Logger::getInstance().log(INFO, "Right Shift");
+		/*yMovement = -0.1f;*/
+		moveCamera(CAMERA_ELEVATE, 0.3f);
 	}
-	else if (keyboardState[DIK_DELETE] & 0x80)
+	else if (keyboardState[DIK_RCONTROL] & 0x80)
 	{
-		Logger::getInstance().log(INFO, "Delete");
-		yMovement = 0.1f;
+		Logger::getInstance().log(INFO, "Right Control");
+		/*yMovement = 0.1f;*/
+		moveCamera(CAMERA_ELEVATE, -0.3f);
 	}
 	else
 	{
-		yMovement = 0.0f;
+		/*yMovement = 0.0f;*/
+		moveCamera(CAMERA_ELEVATE, 0.0f);
 	}
 #pragma endregion
 
@@ -184,8 +230,6 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 
 void Camera::useMouseInput(DIMOUSESTATE mouseState)
 {
-	//Logger::getInstance().log(INFO, "Camera MOUSE input gebruikt");
-
 	TripleFloat rot = getRotation();
 
 	rot.x += (mouseState.lX / 100.0f);
