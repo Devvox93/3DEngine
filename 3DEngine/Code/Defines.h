@@ -1,8 +1,11 @@
+//A header file to use for cross-class definition of stuff.
 #ifndef _DEFINES_H_
 #define _DEFINES_H_
 
-//A header file to use for cross-class definition of stuff.
-#define PI 3.14159265f
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ | D3DFVF_TEX1)
+#define M_PI 3.14159265358979323846
+#define RADIANS(degree) (M_PI * (degree) / 180)
+#define DEGREES(radian) (radian) * (180 / M_PI)
 #define SPEED 0.5f
 
 struct Vertex

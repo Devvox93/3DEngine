@@ -21,7 +21,6 @@ public:
 	~DirectXRenderer();
 	void Initialize(int width, int height);
 	void Render(HWND hwnd, Scene* scene);
-	void setActiveCamera(Camera* camera);
 	void setRenderSize(int width, int height);
 	void initTerrain(Terrain *terrain);
 	void initSkybox(Skybox* skybox);
@@ -47,8 +46,7 @@ private:
 	std::map <Skybox*, LPDIRECT3DVERTEXBUFFER9*> skyboxVertexBuffers;
 	std::map <Skybox*, LPDIRECT3DINDEXBUFFER9*> skyboxIndexBuffers;
 
-	
-	Camera* activeCamera;
+
 };
 
 #endif

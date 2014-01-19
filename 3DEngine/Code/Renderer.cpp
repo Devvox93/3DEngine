@@ -16,10 +16,6 @@ void Renderer::Render(HWND hwnd, Scene* scene)
 {
 };
 
-void Renderer::setActiveCamera(Camera* camera)
-{
-};
-
 void Renderer::setRenderSize(int width, int height)
 {
 };

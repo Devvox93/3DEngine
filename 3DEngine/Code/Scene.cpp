@@ -5,12 +5,9 @@
 
 Scene::Scene(char* path, ResourceManager* resourceManager)
 {
-	entities = std::vector<Entity*>();
+	models = std::vector<Entity*>();
+	cameras = std::vector<Entity*>();
 	sceneFile = resourceManager->getSceneFile(path);
-	//terrain = new Terrain("clouds.bmp", "tex.bmp", resourceManager); // Terrain moet ingeladen worden
-	//skybox = new Skybox("skybox.jpg", resourceManager);
-	//createEntity(MODEL, resourceManager);
-
 	readSceneFile(sceneFile, resourceManager);
 }
 
@@ -26,21 +23,19 @@ void Scene::createEntity(Entities sort, ResourceManager* rsm){
 	{
 	case(CAMERA) :
 		newEntity = new Camera();
+		cameras.push_back(newEntity);
 		break;
 	case(MODEL) :
-		//newEntity = new Model((XResource*)rsm->getResource("car.X"), 0.0f, 3000.0f, 3000.0f, 1.57079633f, 0.0f, 0.0f, 0.1f, 0.1f, 0.1f);
-		//((Model*)newEntity)->model = (XResource*)rsm->getResource("car.X");
+		models.push_back(newEntity);
 		break;
 	default:
-		Logger::getInstance().log(WARNING, "Entity fout");
+		Logger::getInstance().log(WARNING, "Entity error");
 		break;
 	}
-
-	entities.push_back(newEntity);
 };
 
-void Scene::deleteEntity(Entity* entity){
-	// destroy and delete passed entity from lijst
+void Scene::deleteModel(Entity* entity){
+	// destroy and delete passed entity from list
 };
 
 void Scene::render()
@@ -55,12 +50,35 @@ void Scene::loadEntities()
 
 void Scene::updateEntities()
 {
-
+	for each (Entity* camera in cameras)
+	{
+		camera->update();
+	}
+	for each (Entity* model in models)
+	{
+		model->update();
+	}
 };
 
-std::vector<Entity*> Scene::getEntities(){
-	return entities;
+std::vector<Entity*> Scene::getModels()
+{
+	return models;
 };
+
+void Scene::addCamera(Entity* camera)
+{
+	cameras.push_back(camera);
+}
+
+void Scene::setActiveCamera(int camera)
+{
+	activeCamera = camera;
+}
+
+Entity* Scene::getActiveCamera()
+{
+	return cameras[activeCamera];
+}
 
 Terrain* Scene::getTerrain()
 {
@@ -140,6 +158,6 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 		Logger::getInstance().log(INFO, scaleZ);*/
 
 		//createEntity(MODEL, resourceManager);
-		entities.push_back(new Model((XResource*)resourceManager->getResource(xResourceNameChar), positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat));
+		models.push_back(new Model((XResource*)resourceManager->getResource(xResourceNameChar), positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat));
 	}
 };

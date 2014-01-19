@@ -263,7 +263,7 @@ void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 	if (joystickState.rgdwPOV[0] < 4294967295 )
 	{
 		float degrees = joystickState.rgdwPOV[0] / 100;
-		float radians = degrees*PI / 180.0f;
+		float radians = RADIANS(degrees);
 		xMovement = sin(radians) * 0.1f;
 		yMovement = cos(radians) * 0.1f;
 	}

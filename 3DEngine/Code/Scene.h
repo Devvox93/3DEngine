@@ -19,11 +19,14 @@ public:
 	~Scene();
 
 	void createEntity(Entities sort, ResourceManager* rsm);
-	void deleteEntity(Entity* entity);
+	void deleteModel(Entity* entity);
 	void loadEntities();
 	void render();
 	void updateEntities();
-	std::vector<Entity*> getEntities();
+	std::vector<Entity*> getModels();
+	void addCamera(Entity* camera);
+	void setActiveCamera(int camera);
+	Entity* getActiveCamera();
 	Terrain* getTerrain();
 	Skybox* getSkybox();
 	void readSceneFile(std::vector<std::string> *sceneFile, ResourceManager *resourceManager);
@@ -31,7 +34,10 @@ public:
 private:
 	Terrain *terrain;
 	Skybox *skybox;
-	std::vector<Entity*> entities;
+	std::vector<Entity*> models;
+	std::vector<Entity*> cameras;
+	int activeCamera;
+
 };
 
 #endif

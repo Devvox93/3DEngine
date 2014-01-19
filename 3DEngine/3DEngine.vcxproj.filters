@@ -27,6 +27,7 @@
     <ClCompile Include="Code\BMPresource.cpp" />
     <ClCompile Include="Code\XResource.cpp" />
     <ClCompile Include="Code\TextureResource.cpp" />
+    <ClCompile Include="Code\Camera2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Camera.h" />
@@ -56,5 +57,6 @@
     <ClInclude Include="Code\XResource.h" />
     <ClInclude Include="Code\TextureResource.h" />
     <ClInclude Include="Code\Defines.h" />
+    <ClInclude Include="Code\Camera2.h" />
   </ItemGroup>
 </Project>

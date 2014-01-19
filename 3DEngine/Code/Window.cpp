@@ -14,8 +14,7 @@ Window::Window()
 	_WndClass.hInstance = NULL;
 	_WndClass.hIcon = NULL;
 	_WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	_WndClass.hbrBackground =
-		(HBRUSH)GetStockObject(WHITE_BRUSH);
+	_WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	_WndClass.lpszMenuName = NULL;
 	_WndClass.hIconSm = NULL;
 
@@ -86,7 +85,7 @@ void Window::render(Scene *scene)
 	PAINTSTRUCT PaintStruct;
 	BeginPaint(_hwnd, &PaintStruct);
 	GetClientRect(_hwnd, &rect);
-	DrawText(hDC, "Hallo, scherm dat verdomd moeilijk te krijgen is!", 49, &rect, DT_VCENTER | DT_CENTER | DT_SINGLELINE);
+	DrawText(hDC, "Hello, screen that is damn hard to get!", 39, &rect, DT_VCENTER | DT_CENTER | DT_SINGLELINE);
 	EndPaint(_hwnd, &PaintStruct);
 	ReleaseDC(_hwnd, hDC);
 }

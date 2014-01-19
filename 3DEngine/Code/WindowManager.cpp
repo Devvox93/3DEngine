@@ -31,8 +31,6 @@ void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int h
 	list->window = window;
 	list->next = windows;
 	windows = list;
-
-	
 }
 
 
@@ -45,7 +43,7 @@ void WindowManager::updateWindows()
 		DispatchMessage(&Msg);
 	}
 	WindowList *list = windows;
-	while (list != NULL)
+	while (list != NULL)//loop through all the windows so we can render them.
 	{
 		list->window->render(sceneManager->getScene());
 		list = list->next;

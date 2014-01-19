@@ -6,6 +6,7 @@
 #include "Resource.h"
 #include "ResourceManager.h"
 #include "Camera.h"
+#include "Camera2.h"
 #include <sstream>
 #include "SceneManager.h"
 
@@ -30,16 +31,16 @@ void Kernel::run()
 	iManager = new InputManager();
 
 	Camera* cam = new Camera();
+	Camera2* cam2 = new Camera2();
 	ResourceManager *rsManager = new ResourceManager;
 	rsManager->g_pd3dDevice = &((DirectXRenderer *)renderer)->g_pd3dDevice;
-
 	rsManager->PrintMap();
 
-	renderer->setActiveCamera(cam);//MOET IN SCENE GEBEUREN
-
-	std::vector<std::string>* sceneFile = rsManager->getSceneFile("default.txt");
-
 	sceneManager->createScene(rsManager, "default.txt");
+	Scene* scene = sceneManager->getScene();
+	scene->addCamera(cam);
+	scene->addCamera(cam2);
+	scene->setActiveCamera(1);
 
 	wManager->newWindow(renderer, 10, 10, width, height);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, width, height);
@@ -48,6 +49,10 @@ void Kernel::run()
 	iManager->getKeyboard()->addKeyboardListener(cam);
 	iManager->getMouse()->addMouseListener(cam);
 	iManager->getJoystick()->addJoystickListener(cam);
+
+	iManager->getKeyboard()->addKeyboardListener(cam2);
+	iManager->getMouse()->addMouseListener(cam2);
+	iManager->getJoystick()->addJoystickListener(cam2);
 	
 	while (wManager->hasActiveWindow())
 	{
