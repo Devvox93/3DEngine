@@ -36,13 +36,14 @@ void Kernel::run()
 	rsManager->g_pd3dDevice = &((DirectXRenderer *)renderer)->g_pd3dDevice;
 	rsManager->PrintMap();
 
-	sceneManager->createScene(rsManager, "default.txt");
-	Scene* scene = sceneManager->getScene();
+	wManager->newWindow(renderer, 10, 10, width, height);
+
+	sceneManager->createScene(rsManager, "default.txt", wManager->getLastWindow()->_hwnd, renderer);
+	Scene* scene = sceneManager->getScene(wManager->getLastWindow()->_hwnd);
 	scene->addCamera(cam);
 	scene->addCamera(cam2);
 	scene->setActiveCamera(1);
 
-	wManager->newWindow(renderer, 10, 10, width, height);
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, width, height);
 
 	iManager->getKeyboard()->addKeyboardListener(this);

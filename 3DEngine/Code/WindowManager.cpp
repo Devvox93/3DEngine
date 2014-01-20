@@ -25,9 +25,6 @@ void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int h
 
 	WindowList *list = new WindowList();
 
-	renderer->initTerrain(sceneManager->getScene()->getTerrain());
-	renderer->initSkybox(sceneManager->getScene()->getSkybox());
-
 	list->window = window;
 	list->next = windows;
 	windows = list;
@@ -45,7 +42,8 @@ void WindowManager::updateWindows()
 	WindowList *list = windows;
 	while (list != NULL)//loop through all the windows so we can render them.
 	{
-		list->window->render(sceneManager->getScene());
+		Window* window = list->window;
+		window->render(sceneManager->getScene(window->_hwnd));
 		list = list->next;
 	}
 }
@@ -85,9 +83,14 @@ bool WindowManager::hasActiveWindow()
 		return true;
 	}
 	return false;
-}
+};
 
 Window* WindowManager::getLastWindow()
 {
 	return windows->window;
 }
+
+void setScene(Window* window, Scene* scene)
+{
+
+};

@@ -23,6 +23,7 @@ public:
 	void updateWindows();
 	bool hasActiveWindow();
 	Window* getLastWindow();
+	void setScene(Window* window, Scene* scene);
 private:
 	WindowList* windows;
 	SceneManager *sceneManager;

@@ -3,7 +3,7 @@
 
 SceneManager::SceneManager()
 {
-	scenes = std::vector<Scene*>();
+	scenes = std::map<HWND, Scene*>();
 };
 
 
@@ -11,11 +11,15 @@ SceneManager::~SceneManager()
 {
 };
 
-void SceneManager::createScene(ResourceManager* resourceManager, char* path)
+void SceneManager::createScene(ResourceManager* resourceManager, std::string path, HWND hwnd, Renderer* renderer)
 {
 	Scene* newScene = new Scene(path, resourceManager);
 
-	scenes.push_back(newScene);
+	scenes[hwnd] = newScene;
+	
+
+	renderer->initTerrain(newScene->getTerrain());
+	renderer->initSkybox(newScene->getSkybox());
 };
 
 void SceneManager::deleteScene()
@@ -23,11 +27,11 @@ void SceneManager::deleteScene()
 
 };
 
-Scene* SceneManager::getScene()
+Scene* SceneManager::getScene(HWND hwnd)
 {
-	for each (Scene* current in scenes)
+	if (scenes.count(hwnd))
 	{
-		return current;
+		return scenes[hwnd];
 	}
 	return NULL;
 };
