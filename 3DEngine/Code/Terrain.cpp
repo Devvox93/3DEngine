@@ -51,13 +51,13 @@ Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager
 		{
 			aTerrainVertices[(lHeight*getWidth()) + lWidth] = { -(getWidth() / 2) + (float)lWidth, //x
 																-0.5f + ((float)GetRValue(GetPixel(lhdcDest, lWidth, lHeight)) / 255.0f), //y
-																-(getWidth() / 2) + (float)lHeight, //z
+																(getWidth() / 2) - (float)lHeight, //z
 																(1.0f / (getWidth() - 1)) * lWidth, //u
 																(1.0f / (getHeight() - 1)) * lHeight }; //v
 		}
 	}
 
-	amountOfIndices = (getWidth() - 1) * (getHeight() - 1) * 2 * 3;
+	amountOfIndices = (getWidth() - 1) * (getHeight() - 1) * 2 * 3;// * 2 * 3 because there's 2 triangles with 3 vertices per square
 	aTerrainIndices = new int[amountOfIndices];
 
 	std::stringstream ss2;
@@ -68,7 +68,7 @@ Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager
 	int offset = 0;
 	for (int i = 0; i < amountOfIndices; i += 6)
 	{
-		if (i != 0 && (i - 0) % ((getWidth() - 1) * 6) == 0)
+		if (i != 0 && i % ((getWidth() - 1) * 6) == 0)
 		{
 			offset += 1;
 		}
@@ -79,7 +79,6 @@ Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager
 		aTerrainIndices[i + 4] = i / 6 + getWidth() + offset;
 		aTerrainIndices[i + 5] = i / 6 + getWidth() + 1 + offset;
 	}
-
 	texture = resourceManager->getTexture(texturePath);
 };
 
