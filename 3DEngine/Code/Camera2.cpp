@@ -66,6 +66,15 @@ void Camera2::setPosition(float _x, float _y, float _z)
 
 void Camera2::setRotation(float _yaw, float _pitch, float _roll)
 {
+	if (_pitch > RADIANS(90.0))
+	{
+		_pitch = RADIANS(90.0);
+	}
+	else if (_pitch < RADIANS(-90.0))
+	{
+		_pitch = RADIANS(-90.0);
+	}
+
 	yaw = -_yaw;
 	pitch = -_pitch;
 	roll = -_roll;
@@ -158,6 +167,7 @@ void Camera2::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		upSpeed -= 1;
 	}
+
 	if (upSpeed == 1)
 	{
 		yMovement = 1.0f;
@@ -176,7 +186,8 @@ void Camera2::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 		movementSpeed = 2.0f;
 		yMovement *= 2.0f;
 	}
-	else {
+	else
+	{
 		movementSpeed = 1.0f;
 	}
 
