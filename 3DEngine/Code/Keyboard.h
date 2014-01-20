@@ -18,11 +18,9 @@ public:
 	void processInput();
 	void updateListeners();
 private:
-
 	IDirectInputDevice8* keyboard;
 	std::array<unsigned char, 256> keyboardState;
 	std::array<unsigned char, 256> keyboardStateOld;
 	std::vector<KeyboardListener*> keyboardListeners;
 };
-
 #endif

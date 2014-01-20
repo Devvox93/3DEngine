@@ -1,7 +1,6 @@
 #ifndef _INPUTMANAGER_H_
 #define _INPUTMANAGER_H_
 
-
 #include "Dinput.h"
 #include "windows.h"
 #include "Keyboard.h"
@@ -19,12 +18,10 @@ public:
 	Keyboard* getKeyboard();
 	Mouse* getMouse();
 	Joystick* getJoystick();
-
 private:
 	IDirectInput8* directInput;
 	Keyboard* myKeyboard;
 	Mouse* myMouse;
 	Joystick* myJoystick;
 };
-
 #endif

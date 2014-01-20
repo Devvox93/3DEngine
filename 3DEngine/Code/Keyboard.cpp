@@ -4,10 +4,6 @@
 #include "InputManager.h"
 #include "Logger.h"
 
-/**
-* Function:	Keyboard::Keyboard(...)
-* Description:	Keyboard constructor
-*/
 Keyboard::Keyboard(IDirectInput8* directInput, HWND hwnd)
 {
 	keyboardListeners = std::vector<KeyboardListener*>();
@@ -41,27 +37,22 @@ Keyboard::Keyboard(IDirectInput8* directInput, HWND hwnd)
 	{
 		return;
 	}
-}
+};
 
-
-/**
-* Function:	Keyboard::~Keyboard()
-* Description:	Keyboard destructor
-*/
 Keyboard::~Keyboard()
 {
 	if (keyboard)
 	{
 		keyboard->Unacquire();
 		keyboard->Release();
-		keyboard = 0;
+		keyboard = NULL;
 	}
-}
+};
 
 void Keyboard::addKeyboardListener(KeyboardListener* argKeyboardListener)
 {
 	keyboardListeners.push_back(argKeyboardListener);
-}
+};
 
 bool Keyboard::read()
 {
@@ -81,9 +72,8 @@ bool Keyboard::read()
 			return false;
 		}
 	}
-
 	return true;
-}
+};
 
 void Keyboard::processInput()
 {
@@ -91,9 +81,8 @@ void Keyboard::processInput()
 	{
 		updateListeners();
 	}
-
 	std::copy(std::begin(keyboardState), std::end(keyboardState), std::begin(keyboardStateOld));
-}
+};
 
 void Keyboard::updateListeners()
 {
@@ -101,5 +90,4 @@ void Keyboard::updateListeners()
 	{
 		current->useKeyboardInput(keyboardState);
 	}
-}
-
+};

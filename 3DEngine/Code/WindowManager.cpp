@@ -6,11 +6,11 @@
 WindowManager::WindowManager(SceneManager *sManager)
 {
 	sceneManager = sManager;
-}
+};
 
 WindowManager::~WindowManager()
 {
-}
+};
 
 void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int height)
 {
@@ -31,8 +31,7 @@ void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int h
 	list->window = window;
 	list->next = windows;
 	windows = list;
-}
-
+};
 
 void WindowManager::updateWindows()
 {
@@ -48,7 +47,7 @@ void WindowManager::updateWindows()
 		list->window->render(sceneManager->getScene());
 		list = list->next;
 	}
-}
+};
 
 bool WindowManager::hasActiveWindow()
 {
@@ -85,9 +84,9 @@ bool WindowManager::hasActiveWindow()
 		return true;
 	}
 	return false;
-}
+};
 
 Window* WindowManager::getLastWindow()
 {
 	return windows->window;
-}
+};

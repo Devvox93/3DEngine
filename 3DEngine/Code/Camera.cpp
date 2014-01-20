@@ -10,11 +10,11 @@ Camera::Camera()
 	xMovement = yMovement = zMovement = 0.0f;
 	yawMovement = pitchMovement = rollMovement = 0.0f;
 	moveForward = moveBackward = moveLeft = moveRight = moveUp = moveDown = speedUp = false;
-}
+};
 
 Camera::~Camera()
 {
-}
+};
 
 void Camera::update()
 {
@@ -26,12 +26,12 @@ void Camera::update()
 	tf.z += zMovement;
 	setPosition(tf.x, tf.y, tf.z);
 
-	// Voor Joystick
+	//For Joystick
 	TripleFloat tf2 = getRotation();
 	tf2.x += yawMovement;
 	tf2.y += pitchMovement;
 	setRotation(tf2.x, tf2.y, tf2.z);
-}
+};
 
 void Camera::moveCamera()
 {
@@ -81,7 +81,7 @@ void Camera::moveCamera()
 		yMovement = 0.0f;
 		zMovement = 0.0f;
 	}
-}
+};
 
 void Camera::setPosition(float _x, float _y, float _z)
 {
@@ -90,7 +90,7 @@ void Camera::setPosition(float _x, float _y, float _z)
 	z = -_z;
 	D3DXMatrixTranslation(&positionMatrix, x, y, z);
 	multiplyMatrices();
-}
+};
 
 void Camera::setRotation(float _yaw, float _pitch, float _roll)
 {
@@ -98,13 +98,13 @@ void Camera::setRotation(float _yaw, float _pitch, float _roll)
 	pitch = -_pitch;
 	roll = -_roll;
 
-	// Custom multiplyen van Matrices
+	//Custom multiplying of Matrices
 	D3DXMATRIXA16 rot1;
 	D3DXMatrixRotationYawPitchRoll(&rot1, yaw, 0.0f, 0.0f);
 	D3DXMATRIXA16 rot2;
 	D3DXMatrixRotationYawPitchRoll(&rot2, 0.0f, pitch, 0.0f);
 	D3DXMatrixMultiply(&rotationMatrix, &rot1, &rot2);
-}
+};
 
 void Camera::setScale(float _scaleX, float _scaleY, float _scaleZ)
 {
@@ -113,7 +113,7 @@ void Camera::setScale(float _scaleX, float _scaleY, float _scaleZ)
 	scaleZ = -_scaleZ;
 	D3DXMatrixScaling(&scaleMatrix, scaleX, scaleY, scaleZ);
 	multiplyMatrices();
-}
+};
 
 void Camera::multiplyMatrices()
 {
@@ -126,30 +126,25 @@ void Camera::multiplyMatrices()
 	if (scaleX != 1 || scaleY != 1 || scaleZ != 1) {
 		D3DXMatrixMultiply(&finalMatrix, &finalMatrix, &scaleMatrix);
 	}
-}
+};
 
 TripleFloat Camera::getPosition()
 {
 	return{ -x, -y, -z };
-}
+};
 
 TripleFloat Camera::getRotation()
 {
 	return{ -yaw, -pitch, -roll };
-}
+};
 
 TripleFloat Camera::getScale()
 {
 	return{ -scaleX, -scaleY, -scaleZ };
-}
+};
 
 void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 {
-	Logger::getInstance().log(INFO, "Camera KEYBOARD input gebruikt");
-
-#pragma region "Keys"
-
-#pragma region "Arrows"
 	if (keyboardState[DIK_UPARROW])
 	{
 		Logger::getInstance().log(INFO, "Up arrow");
@@ -159,6 +154,7 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		moveForward = false;
 	}
+
 	if (keyboardState[DIK_DOWNARROW])
 	{
 		Logger::getInstance().log(INFO, "Down arrow");
@@ -168,6 +164,7 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		moveBackward = false;
 	}
+
 	if (keyboardState[DIK_LEFTARROW])
 	{
 		Logger::getInstance().log(INFO, "Left arrow");
@@ -177,6 +174,7 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		moveLeft = false;
 	}
+
 	if (keyboardState[DIK_RIGHTARROW])
 	{
 		Logger::getInstance().log(INFO, "Right arrow");
@@ -186,9 +184,7 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		moveRight = false;
 	}
-#pragma endregion
 
-#pragma region "Other"
 	if (keyboardState[DIK_RSHIFT])
 	{
 		Logger::getInstance().log(INFO, "Right Shift");
@@ -198,6 +194,7 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		moveUp = false;
 	}
+
 	if (keyboardState[DIK_RCONTROL])
 	{
 		Logger::getInstance().log(INFO, "Right Control");
@@ -207,59 +204,28 @@ void Camera::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	{
 		moveDown = false;
 	}
+
 	if (keyboardState[DIK_NUMPAD0])
 	{
+		Logger::getInstance().log(INFO, "Numpad 0");
 		speedUp = true;
 	}
 	else
 	{
 		speedUp = false;
 	}
-#pragma endregion
-
-#pragma endregion
-}
+};
 
 void Camera::useMouseInput(DIMOUSESTATE mouseState)
 {
 	TripleFloat rot = getRotation();
-
 	rot.x += (mouseState.lX / 100.0f);
 	rot.y += (mouseState.lY / 100.0f);
-
 	setRotation(rot.x, rot.y, rot.z);
-}
+};
 
 void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 {
-	/*Logger::getInstance().log(INFO, "JoystickInput gebruikt ofzo");
-	std::ostringstream oss;
-	oss << "Data: lARx: " << joystickState.lARx << ", lARy: " << joystickState.lARy << ", lARz: " << joystickState.lARz << std::endl
-		<< "lAX: " << joystickState.lAX << ", lAY: " << joystickState.lAY << ", lAZ: " << joystickState.lAZ << std::endl
-		<< "lFTx: " << joystickState.lFRx << ", lFTy: " << joystickState.lFRy << ", lFTz: " << joystickState.lFRz << std::endl
-		<< "lFX: " << joystickState.lFX << ", lFY: " << joystickState.lFY << ", lFZ: " << joystickState.lFZ << std::endl
-		<< "lRx: " << joystickState.lRx << ", lRy: " << joystickState.lRy << ", lRz: " << joystickState.lRz << std::endl
-		<< "lVRx: " << joystickState.lVRx << ", lVRy: " << joystickState.lVRy << ", lVRz: " << joystickState.lVRz << std::endl
-		<< "lVX: " << joystickState.lVX << ", lVY: " << joystickState.lVY << ", lVZ: " << joystickState.lVZ << std::endl
-		<< "lX: " << joystickState.lX << ", lY: " << joystickState.lY << ", lZ: " << joystickState.lZ << std::endl
-		<< "Buttons:" << std::endl;
-	//<< ", lX: " << joystickState.rgbButtons;
-	for (int i = 0; i < 128; i++)
-	{
-		if (joystickState.rgbButtons[i] & 0x80) {
-			oss << i << " ";
-		}
-	}
-	oss << std::endl;
-
-	oss << "More data: rgdwPOV[0]: " << joystickState.rgdwPOV[0] << ", rgdwPOV[1]: " << joystickState.rgdwPOV[1] << ", rgdwPOV[2]: " << joystickState.rgdwPOV[2] << ", rgdwPOV[3]: " << joystickState.rgdwPOV[3] << std::endl;
-	oss << "rglASlider[0]: " << joystickState.rglASlider[0] << ", rglASlider[1]: " << joystickState.rglASlider[1] << std::endl;
-	oss << "rglFSlider[0]: " << joystickState.rglFSlider << ", rglFSlider[1]: " << joystickState.rglFSlider[1] << std::endl;
-	oss << "rglSlider[0]: " << joystickState.rglSlider[0] << ", rglSlider[1]: " << joystickState.rglSlider[1] << std::endl;
-	oss << "rglVSlider[0]: " << joystickState.rglVSlider[0] << ", rglVSlider[1]: " << joystickState.rglVSlider[1] << std::endl;
-	Logger::getInstance().log(INFO, oss.str());*/
-	
-
 	if (joystickState.rgdwPOV[0] < 4294967295 )
 	{
 		float degrees = joystickState.rgdwPOV[0] / 100;
@@ -274,7 +240,6 @@ void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 	}
 	
 	long deadzone = 3000;
-	//32767
 	long xAxis = joystickState.lX - 32767;
 	if (xMovement == 0.0f && ((xAxis + deadzone < -deadzone) || (xAxis - deadzone > deadzone)))
 	{
@@ -287,7 +252,6 @@ void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 		yMovement = (-yAxis / 32767.0f) * 0.1f;
 	}
 
-	//32767
 	long yawAxis = joystickState.lRx - 32767;
 	if (yawMovement == 0 && ((yawAxis + deadzone < -deadzone) || (yawAxis - deadzone > deadzone)))
 	{
@@ -301,7 +265,6 @@ void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 	}
 	
 	long deadzoneZ = 100;
-	//32767
 	long zAxis = joystickState.lZ - 32767;
 	if ((zAxis + deadzoneZ < -deadzoneZ) || (zAxis - deadzoneZ > deadzoneZ))
 	{
@@ -310,5 +273,4 @@ void Camera::useJoystickInput(DIJOYSTATE2 joystickState)
 	else {
 		zMovement = 0.0f;
 	}
-
-}
+};

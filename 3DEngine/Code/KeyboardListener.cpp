@@ -2,8 +2,8 @@
 
 KeyboardListener::KeyboardListener()
 {
-}
+};
 
 KeyboardListener::~KeyboardListener()
 {
-}
+};

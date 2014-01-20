@@ -42,48 +42,77 @@ Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager
 	data->height = bm.bmHeight;
 
 	//Create an array to hold all the heightdata
-	aTerrainVertices = new Vertex[data->width * data->height];
+	aTerrainVertices = new Vertex[getWidth() * getHeight()];
 
 	//Iterate through the BMP-file and fill the heightdata-array
-	for (int lHeight = 0; lHeight < data->height; lHeight++)
+	for (int lHeight = 0; lHeight < getHeight(); lHeight++)
 	{
-		for (int lWidth = 0; lWidth < data->width; lWidth++)
+		for (int lWidth = 0; lWidth < getWidth(); lWidth++)
 		{
-			aTerrainVertices[(lHeight*data->width) + lWidth] = { -(data->width / 2) + (float)lWidth, //x
+			aTerrainVertices[(lHeight*getWidth()) + lWidth] = { -(getWidth() / 2) + (float)lWidth, //x
 																-0.5f + ((float)GetRValue(GetPixel(lhdcDest, lWidth, lHeight)) / 255.0f), //y
-																-(data->width / 2) + (float)lHeight, //z
-																(1.0f / (data->width - 1)) * lWidth, //u
-																(1.0f / (data->height - 1)) * lHeight }; //v
+																-(getWidth() / 2) + (float)lHeight, //z
+																(1.0f / (getWidth() - 1)) * lWidth, //u
+																(1.0f / (getHeight() - 1)) * lHeight }; //v
 		}
 	}
 
-	amountOfIndices = (data->width - 1) * (data->height - 1) * 2 * 3;
+	amountOfIndices = (getWidth() - 1) * (getHeight() - 1) * 2 * 3;
 	aTerrainIndices = new int[amountOfIndices];
 
 	std::stringstream ss2;
-	ss2 << "Amount of planes: " << amountOfIndices / 3 << std::endl << "Amount of vertices: " << data->width * data->height << std::endl << "Amount of indices: " << amountOfIndices << std::endl;
-	ss2 << "Good for a total of " << ((amountOfIndices * sizeof(int) + (data->width * data->height * sizeof(Vertex)))) / 1024 << " kbytes.";
+	ss2 << "Amount of planes: " << amountOfIndices / 3 << std::endl << "Amount of vertices: " << getWidth() * getHeight() << std::endl << "Amount of indices: " << amountOfIndices << std::endl;
+	ss2 << "Good for a total of " << ((amountOfIndices * sizeof(int) + (getWidth() * getHeight() * sizeof(Vertex)))) / 1024 << " kbytes.";
 	Logger::getInstance().log(INFO, ss2.str());
 
 	int offset = 0;
 	for (int i = 0; i < amountOfIndices; i += 6)
 	{
-		if (i != 0 && (i - 0) % ((data->width - 1) * 6) == 0)
+		if (i != 0 && (i - 0) % ((getWidth() - 1) * 6) == 0)
 		{
 			offset += 1;
 		}
 		aTerrainIndices[i + 0] = i / 6 + offset;
-		aTerrainIndices[i + 1] = i / 6 + data->width + offset;
+		aTerrainIndices[i + 1] = i / 6 + getWidth() + offset;
 		aTerrainIndices[i + 2] = i / 6 + 1 + offset;
 		aTerrainIndices[i + 3] = i / 6 + 1 + offset;
-		aTerrainIndices[i + 4] = i / 6 + data->width + offset;
-		aTerrainIndices[i + 5] = i / 6 + data->width + 1 + offset;
+		aTerrainIndices[i + 4] = i / 6 + getWidth() + offset;
+		aTerrainIndices[i + 5] = i / 6 + getWidth() + 1 + offset;
 	}
 
 	texture = resourceManager->getTexture(texturePath);
-}
-
+};
 
 Terrain::~Terrain()
 {
-}
+};
+
+int Terrain::getWidth()
+{
+	return data->width;
+};
+
+int Terrain::getHeight()
+{
+	return data->height;
+};
+
+Vertex* Terrain::getVertices()
+{
+	return aTerrainVertices;
+};
+
+int Terrain::getAmountOfIndices()
+{
+	return amountOfIndices;
+};
+
+int* Terrain::getIndices()
+{
+	return aTerrainIndices;
+};
+
+TextureResource* Terrain::getTextureResource()
+{
+	return texture;
+};

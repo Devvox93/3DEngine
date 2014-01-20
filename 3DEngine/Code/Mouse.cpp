@@ -1,9 +1,5 @@
 #include "Mouse.h"
 
-/**
-* Function:	Mouse::Mouse()
-* Description:	Empty mouse constructor
-*/
 Mouse::Mouse(IDirectInput8* directInput, HWND hwnd, int argScreenWidth, int argScreenHeight)
 {
 	mouseListeners = std::vector<MouseListener*>();
@@ -45,12 +41,8 @@ Mouse::Mouse(IDirectInput8* directInput, HWND hwnd, int argScreenWidth, int argS
 	{
 		return;
 	}
-}
+};
 
-/**
-* Function:	Mouse::~Mouse()
-* Description:	destructor of the mouse
-*/
 Mouse::~Mouse()
 {
 	if (mouse)
@@ -59,12 +51,12 @@ Mouse::~Mouse()
 		mouse->Release();
 		mouse = 0;
 	}
-}
+};
 
 void Mouse::addMouseListener(MouseListener* argMouseListener)
 {
 	mouseListeners.push_back(argMouseListener);
-}
+};
 
 bool Mouse::read()
 {
@@ -86,7 +78,7 @@ bool Mouse::read()
 	}
 
 	return true;
-}
+};
 
 void Mouse::processInput()
 {
@@ -116,7 +108,7 @@ void Mouse::processInput()
 	{
 		updateListeners();
 	}
-}
+};
 
 void Mouse::updateListeners()
 {
@@ -124,4 +116,4 @@ void Mouse::updateListeners()
 	{
 		current->useMouseInput(mouseState);
 	}
-}
+};

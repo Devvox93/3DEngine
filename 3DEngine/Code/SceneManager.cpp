@@ -14,7 +14,6 @@ SceneManager::~SceneManager()
 void SceneManager::createScene(ResourceManager* resourceManager, char* path)
 {
 	Scene* newScene = new Scene(path, resourceManager);
-
 	scenes.push_back(newScene);
 };
 

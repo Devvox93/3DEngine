@@ -14,9 +14,6 @@
 class DirectXRenderer : public Renderer
 {
 public:
-	LPDIRECT3D9         g_pD3D;
-	LPDIRECT3DDEVICE9   g_pd3dDevice;
-
 	DirectXRenderer();
 	~DirectXRenderer();
 	void Initialize(int width, int height);
@@ -24,8 +21,10 @@ public:
 	void setRenderSize(int width, int height);
 	void initTerrain(Terrain *terrain);
 	void initSkybox(Skybox* skybox);
-
+	LPDIRECT3DDEVICE9 getD3DDevice();
 private:
+	LPDIRECT3D9         g_pD3D;
+	LPDIRECT3DDEVICE9   g_pd3dDevice;
 	HRESULT InitD3D(HWND hWnd, int width, int height);
 	void Cleanup();
 	HRESULT InitGeometry(std::string filename);
@@ -45,8 +44,5 @@ private:
 	std::map <Skybox*, LPDIRECT3DTEXTURE9*> skyboxTextures;
 	std::map <Skybox*, LPDIRECT3DVERTEXBUFFER9*> skyboxVertexBuffers;
 	std::map <Skybox*, LPDIRECT3DINDEXBUFFER9*> skyboxIndexBuffers;
-
-
 };
-
 #endif

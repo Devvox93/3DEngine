@@ -1,6 +1,5 @@
 #include "Entity.h"
 
-
 Entity::Entity()
 {
 	x = y = z = 0.0f;
@@ -9,32 +8,30 @@ Entity::Entity()
 	scaleY = 1.0f;
 	scaleZ = 1.0f;
 	multiplyMatrices();
-}
-
+};
 
 Entity::~Entity()
 {
-}
+};
 
 TripleFloat Entity::getPosition()
 {
 	return { x, y, z };
-}
+};
 
 TripleFloat Entity::getRotation()
 {
 	return { yaw, pitch, roll };
-}
+};
 
 TripleFloat Entity::getScale()
 {
 	return { scaleX, scaleY, scaleZ };
-}
+};
 
 void Entity::update()
 {
-
-}
+};
 
 void Entity::setPosition(float _x, float _y, float _z)
 {
@@ -43,7 +40,7 @@ void Entity::setPosition(float _x, float _y, float _z)
 	z = _z;
 	D3DXMatrixTranslation(&positionMatrix, x, y, z);
 	multiplyMatrices();
-}
+};
 
 void Entity::setRotation(float _yaw, float _pitch, float _roll)
 {
@@ -52,7 +49,7 @@ void Entity::setRotation(float _yaw, float _pitch, float _roll)
 	roll = _roll;
 	D3DXMatrixRotationYawPitchRoll(&rotationMatrix, yaw, pitch, roll);
 	multiplyMatrices();
-}
+};
 
 void Entity::setScale(float _scaleX, float _scaleY, float _scaleZ)
 {
@@ -61,17 +58,18 @@ void Entity::setScale(float _scaleX, float _scaleY, float _scaleZ)
 	scaleZ = _scaleZ;
 	D3DXMatrixScaling(&scaleMatrix, scaleX, scaleY, scaleZ);
 	multiplyMatrices();
-}
+};
 
 void Entity::multiplyMatrices() 
 {
 	finalMatrix = positionMatrix;
-
-	if (yaw != 0 || pitch != 0 || roll != 0) {
+	if (yaw != 0 || pitch != 0 || roll != 0)
+	{
 		D3DXMatrixMultiply(&finalMatrix, &rotationMatrix, &positionMatrix);
 	}
 
-	if (scaleX != 1 || scaleY != 1 || scaleZ != 1) {
+	if (scaleX != 1 || scaleY != 1 || scaleZ != 1)
+	{
 		D3DXMatrixMultiply(&finalMatrix, &scaleMatrix, &finalMatrix);
 	}
-}
+};

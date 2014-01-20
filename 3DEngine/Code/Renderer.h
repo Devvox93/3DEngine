@@ -18,5 +18,4 @@ public:
 	virtual void initTerrain(Terrain *terrain) = 0;
 private:
 };
-
-#endif // !_RENDERER_H_
+#endif

@@ -2,7 +2,6 @@
 #include <sstream>
 #include "Logger.h"
 
-
 Skybox::Skybox(char *texturePath, ResourceManager *resourceManager)
 {
 	aSkyboxVertices = new Vertex[24];
@@ -46,8 +45,23 @@ Skybox::Skybox(char *texturePath, ResourceManager *resourceManager)
 	aSkyboxIndices[33] = 20; aSkyboxIndices[34] = 22; aSkyboxIndices[35] = 23;
 
 	texture = resourceManager->getTexture(texturePath);
-}
+};
 
 Skybox::~Skybox()
 {
-}
+};
+
+Vertex* Skybox::getVertices()
+{
+	return aSkyboxVertices;
+}; 
+
+int* Skybox::getIndices()
+{
+	return aSkyboxIndices;
+};
+
+TextureResource* Skybox::getTextureResource()
+{
+	return texture;
+};

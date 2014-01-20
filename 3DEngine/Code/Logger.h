@@ -1,3 +1,5 @@
+#ifndef _LOGGER_H_
+#define _LOGGER_H_
 #include <fstream>
 
 enum LogLevel {INFO, WARNING, CRITICAL};
@@ -10,17 +12,16 @@ public:
 		static Logger instance;
 		return instance;
 	}
-
 	void log(LogLevel type, std::string message);
-
 private:
 	Logger()
 	{
-		// Constructor
+		//Constructor, don't implement
 	}
 	
-	Logger(Logger const&);              // Don't Implement
-	void operator=(Logger const&); // Don't implement
+	Logger(Logger const&); //Don't implement
+	void operator=(Logger const&); //Don't implement
 
 	std::ofstream logfile;
 };
+#endif

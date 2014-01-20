@@ -5,23 +5,21 @@
 
 DirectXWindow::DirectXWindow()
 {
-
-}
+};
 
 DirectXWindow::DirectXWindow(Renderer *directXRenderer)
 {
 	//Override class name and style attributes.
 	_pszClassName = "DirectXWindow";
-	_pszTitle = "YoloSwag Scherm";
+	_pszTitle = "Stop met het lezen van deze titel, het kost meer tijd dan het waard is.";
 	_dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
 	_WndClass.style |= CS_HREDRAW | CS_VREDRAW;
 
 	renderer = directXRenderer;
 	resize();
-}
+};
 
-LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
-	WPARAM wParam, LPARAM lParam)
+LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
@@ -39,7 +37,7 @@ LRESULT DirectXWindow::WindowProc(HWND hwnd, UINT msg,
 		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
 	return 0;
-}
+};
 
 void DirectXWindow::resize()
 {
@@ -50,14 +48,18 @@ void DirectXWindow::resize()
 		int height = rect.bottom - rect.top;
 		renderer->setRenderSize(width, height);
 	}
-}
+};
 
 void DirectXWindow::OnDestroy(HWND hwnd)
 {
 	PostQuitMessage(0);
-}
+};
 
 void DirectXWindow::render(Scene *scene)
 {
+	if (scene)
+	{
+		scene->updateEntities();
+	}
 	renderer->Render(_hwnd, scene);
-}
+};

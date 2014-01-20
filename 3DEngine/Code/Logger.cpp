@@ -6,8 +6,7 @@
 
 void Logger::log(LogLevel type, std::string message)
 {
-
-	time_t t = time(0);   // get time now
+	time_t t = time(0);   //get time now
 	struct tm now;
 	localtime_s(&now, &t); //convert timezone
 
@@ -31,27 +30,25 @@ void Logger::log(LogLevel type, std::string message)
 	logfile << timebuf << "." << millis << " ";
 	std::cout << timebuf << "." << millis << " ";
 
-
 	switch (type)
 	{
-	case INFO:
-		logfile << "<INFO>: ";
-		std::cout << "<INFO>: ";
-		break;
-	case WARNING:
-		logfile << "<WARNING>: ";
-		std::cout << "<WARNING>: ";
-		break;
-	case CRITICAL:
-		logfile << "<CRITICAL>: ";
-		std::cout << "<CRITICAL>: ";
-		break;
-	default:
-		logfile << "<???>: ";
-		std::cout << "<???>: ";
-		break;
+		case INFO:
+			logfile << "<INFO>: ";
+			std::cout << "<INFO>: ";
+			break;
+		case WARNING:
+			logfile << "<WARNING>: ";
+			std::cout << "<WARNING>: ";
+			break;
+		case CRITICAL:
+			logfile << "<CRITICAL>: ";
+			std::cout << "<CRITICAL>: ";
+			break;
+		default:
+			logfile << "<???>: ";
+			std::cout << "<???>: ";
+			break;
 	}
 	logfile << message.c_str() << std::endl;
 	std::cout << message.c_str() << std::endl;
-	
-}
+};

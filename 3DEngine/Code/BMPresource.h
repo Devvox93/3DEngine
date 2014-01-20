@@ -1,3 +1,6 @@
+#ifndef _BMPRESOURCE_H_
+#define _BMPRESOURCE_H_
+
 #include "Resource.h"
 #include <string>
 
@@ -8,4 +11,4 @@ public:
 	BMPresource();
 	~BMPresource();
 };
-
+#endif

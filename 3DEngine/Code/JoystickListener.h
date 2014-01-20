@@ -1,7 +1,9 @@
 #ifndef _JOYSTICKLISTENER_
 #define _JOYSTICKLISTENER_
+
 #include <array>
 #include <dinput.h>
+
 class JoystickListener
 {
 public:
@@ -10,5 +12,4 @@ public:
 
 	virtual void useJoystickInput(DIJOYSTATE2) = 0;
 };
-
 #endif

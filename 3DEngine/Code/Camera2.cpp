@@ -6,15 +6,14 @@ Camera2::Camera2()
 {
 	spinAroundCurrentAngle = spinAroundX = spinAroundZ = spinAroundRadius = 0.0f;
 	spinning = false;
-	xMovement = yMovement = zMovement = yawMovement = pitchMovement = rollMovement = 0.0f;
+	xMovement = yMovement = zMovement = yawMovement = pitchMovement = rollMovement = movementSpeed = 0.0f;
 	setPosition(0.0f, 100.0f, 0.0f);
 	setRotation(0.0f, 0.0f, 0.0f);
-}
-
+};
 
 Camera2::~Camera2()
 {
-}
+};
 
 void Camera2::update()
 {
@@ -35,14 +34,12 @@ void Camera2::update()
 	else
 	{
 		TripleFloat tf = getPosition();
-		tf.x = spinAroundX + (sin(RADIANS(spinAroundCurrentAngle)) * spinAroundRadius);
-		tf.z = spinAroundZ + -(cos(RADIANS(spinAroundCurrentAngle)) * spinAroundRadius);
+		tf.x = spinAroundX + (float)(sin(RADIANS(spinAroundCurrentAngle)) * spinAroundRadius);
+		tf.z = spinAroundZ + (float)-(cos(RADIANS(spinAroundCurrentAngle)) * spinAroundRadius);
 		setPosition(tf.x, tf.y, tf.z);
 
 		TripleFloat tfr = getRotation();
-		tfr.x = -RADIANS(spinAroundCurrentAngle);
-		//tfr.y += pitchMovement;
-		//tfr.z += rollMovement;
+		tfr.x = (float)-RADIANS(spinAroundCurrentAngle);
 		setRotation(tfr.x, tfr.y, tfr.z);
 		spinAroundCurrentAngle++;
 		if (spinAroundCurrentAngle == 360.0f)
@@ -53,7 +50,7 @@ void Camera2::update()
 		oss << "Current angle: " << spinAroundCurrentAngle;
 		Logger::getInstance().log(INFO, oss.str());
 	}
-}
+};
 
 void Camera2::setPosition(float _x, float _y, float _z)
 {
@@ -62,7 +59,7 @@ void Camera2::setPosition(float _x, float _y, float _z)
 	z = -_z;
 	D3DXMatrixTranslation(&positionMatrix, x, y, z);
 	multiplyMatrices();
-}
+};
 
 void Camera2::setRotation(float _yaw, float _pitch, float _roll)
 {
@@ -70,13 +67,13 @@ void Camera2::setRotation(float _yaw, float _pitch, float _roll)
 	pitch = -_pitch;
 	roll = -_roll;
 
-	// Custom multiplyen van Matrices
+	//Custom multiplying of Matrices
 	D3DXMATRIXA16 rot1;
 	D3DXMatrixRotationYawPitchRoll(&rot1, yaw, 0.0f, 0.0f);
 	D3DXMATRIXA16 rot2;
 	D3DXMatrixRotationYawPitchRoll(&rot2, 0.0f, pitch, 0.0f);
 	D3DXMatrixMultiply(&rotationMatrix, &rot1, &rot2);
-}
+};
 
 void Camera2::setScale(float _scaleX, float _scaleY, float _scaleZ)
 {
@@ -85,7 +82,7 @@ void Camera2::setScale(float _scaleX, float _scaleY, float _scaleZ)
 	scaleZ = -_scaleZ;
 	D3DXMatrixScaling(&scaleMatrix, scaleX, scaleY, scaleZ);
 	multiplyMatrices();
-}
+};
 
 void Camera2::multiplyMatrices()
 {
@@ -98,22 +95,22 @@ void Camera2::multiplyMatrices()
 	if (scaleX != 1 || scaleY != 1 || scaleZ != 1) {
 		D3DXMatrixMultiply(&finalMatrix, &finalMatrix, &scaleMatrix);
 	}
-}
+};
 
 TripleFloat Camera2::getPosition()
 {
 	return{ -x, -y, -z };
-}
+};
 
 TripleFloat Camera2::getRotation()
 {
 	return{ -yaw, -pitch, -roll };
-}
+};
 
 TripleFloat Camera2::getScale()
 {
 	return{ -scaleX, -scaleY, -scaleZ };
-}
+};
 
 void Camera2::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 {
@@ -188,9 +185,9 @@ void Camera2::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 		return;
 	}
 	
-	movementAngle = atan2f(ix, iz);
+	movementAngle = (float)atan2f((float)ix, (float)iz);
 	changeMovement();
-}
+};
 
 void Camera2::useMouseInput(DIMOUSESTATE mouseState)
 {
@@ -201,42 +198,14 @@ void Camera2::useMouseInput(DIMOUSESTATE mouseState)
 
 	setRotation(rot.x, rot.y, rot.z);
 	changeMovement();
-}
+};
 
 void Camera2::useJoystickInput(DIJOYSTATE2 joystickState)
 {
-	/*Logger::getInstance().log(INFO, "JoystickInput gebruikt ofzo");
-	std::ostringstream oss;
-	oss << "Data: lARx: " << joystickState.lARx << ", lARy: " << joystickState.lARy << ", lARz: " << joystickState.lARz << std::endl
-	<< "lAX: " << joystickState.lAX << ", lAY: " << joystickState.lAY << ", lAZ: " << joystickState.lAZ << std::endl
-	<< "lFTx: " << joystickState.lFRx << ", lFTy: " << joystickState.lFRy << ", lFTz: " << joystickState.lFRz << std::endl
-	<< "lFX: " << joystickState.lFX << ", lFY: " << joystickState.lFY << ", lFZ: " << joystickState.lFZ << std::endl
-	<< "lRx: " << joystickState.lRx << ", lRy: " << joystickState.lRy << ", lRz: " << joystickState.lRz << std::endl
-	<< "lVRx: " << joystickState.lVRx << ", lVRy: " << joystickState.lVRy << ", lVRz: " << joystickState.lVRz << std::endl
-	<< "lVX: " << joystickState.lVX << ", lVY: " << joystickState.lVY << ", lVZ: " << joystickState.lVZ << std::endl
-	<< "lX: " << joystickState.lX << ", lY: " << joystickState.lY << ", lZ: " << joystickState.lZ << std::endl
-	<< "Buttons:" << std::endl;
-	//<< ", lX: " << joystickState.rgbButtons;
-	for (int i = 0; i < 128; i++)
-	{
-	if (joystickState.rgbButtons[i] & 0x80) {
-	oss << i << " ";
-	}
-	}
-	oss << std::endl;
-
-	oss << "More data: rgdwPOV[0]: " << joystickState.rgdwPOV[0] << ", rgdwPOV[1]: " << joystickState.rgdwPOV[1] << ", rgdwPOV[2]: " << joystickState.rgdwPOV[2] << ", rgdwPOV[3]: " << joystickState.rgdwPOV[3] << std::endl;
-	oss << "rglASlider[0]: " << joystickState.rglASlider[0] << ", rglASlider[1]: " << joystickState.rglASlider[1] << std::endl;
-	oss << "rglFSlider[0]: " << joystickState.rglFSlider << ", rglFSlider[1]: " << joystickState.rglFSlider[1] << std::endl;
-	oss << "rglSlider[0]: " << joystickState.rglSlider[0] << ", rglSlider[1]: " << joystickState.rglSlider[1] << std::endl;
-	oss << "rglVSlider[0]: " << joystickState.rglVSlider[0] << ", rglVSlider[1]: " << joystickState.rglVSlider[1] << std::endl;
-	Logger::getInstance().log(INFO, oss.str());*/
-
-
 	if (joystickState.rgdwPOV[0] < 4294967295)
 	{
-		float degrees = joystickState.rgdwPOV[0] / 100;
-		movementAngle = RADIANS(degrees);
+		float degrees = (float)joystickState.rgdwPOV[0] / 100;
+		movementAngle = (float)RADIANS(degrees);
 		movementSpeed = 1.0f;
 		changeMovement();
 		return;
@@ -250,7 +219,6 @@ void Camera2::useJoystickInput(DIJOYSTATE2 joystickState)
 	long deadzone = 3000;
 	float ix = 0.0f;
 	float iz = 0.0f;
-	//32767
 	long xAxis = joystickState.lX - 32767;
 	if ((xAxis + deadzone < -deadzone) || (xAxis - deadzone > deadzone))
 	{
@@ -263,7 +231,6 @@ void Camera2::useJoystickInput(DIJOYSTATE2 joystickState)
 		iz = -yAxis / 32767.0f;
 	}
 	
-	//32767
 	long yawAxis = joystickState.lRx - 32767;
 	if ((yawAxis + deadzone < -deadzone) || (yawAxis - deadzone > deadzone))
 	{
@@ -297,7 +264,6 @@ void Camera2::useJoystickInput(DIJOYSTATE2 joystickState)
 	}
 
 	long deadzoneZ = 100;
-	//32767
 	long zAxis = joystickState.lZ - 32767;
 	if ((zAxis + deadzoneZ < -deadzoneZ) || (zAxis - deadzoneZ > deadzoneZ))
 	{
@@ -325,11 +291,11 @@ void Camera2::useJoystickInput(DIJOYSTATE2 joystickState)
 		}
 		changeMovement();
 	}
-}
+};
 
 void Camera2::changeMovement()
 {
 	float totalRadians = -yaw + movementAngle;
 	xMovement = sin(totalRadians) * movementSpeed;
 	zMovement = cos(totalRadians) * movementSpeed;
-}
+};

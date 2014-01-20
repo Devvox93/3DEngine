@@ -22,10 +22,13 @@ Window::Window()
 	_dwStyle = NULL;
 	_pszClassName = "Window";
 	_pszTitle = "";
-}
+};
 
-HWND Window::Create(int x, int y, int nWidth, int nHeight,
-	HWND hParent, HMENU hMenu, HINSTANCE hInstance)
+Window::~Window()
+{
+};
+
+HWND Window::Create(int x, int y, int nWidth, int nHeight, HWND hParent, HMENU hMenu, HINSTANCE hInstance)
 {
 	_WndClass.lpszClassName = _pszClassName;
 	_WndClass.hInstance = hInstance;
@@ -33,15 +36,12 @@ HWND Window::Create(int x, int y, int nWidth, int nHeight,
 	//If we're already registered, this call will fail.
 	RegisterClassEx(&_WndClass);
 
-	_hwnd = CreateWindowEx(_dwExtendedStyle, _pszClassName,
-		_pszTitle, _dwStyle, x, y, nWidth, nHeight,
-		hParent, hMenu, hInstance, (void*)this);
+	_hwnd = CreateWindowEx(_dwExtendedStyle, _pszClassName, _pszTitle, _dwStyle, x, y, nWidth, nHeight, hParent, hMenu, hInstance, (void*)this);
 	state = normal;
 	return _hwnd;
-}
+};
 
-LRESULT CALLBACK Window::BaseWndProc(HWND hwnd, UINT msg,
-	WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK Window::BaseWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	//A pointer to the object is passed in the CREATESTRUCT
 	if (msg == WM_NCCREATE)
@@ -51,20 +51,17 @@ LRESULT CALLBACK Window::BaseWndProc(HWND hwnd, UINT msg,
 	}
 	
 	//Retrieve the pointer
-	Window *pObj =
-		(Window *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+	Window *pObj = (Window *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 
 	//Filter message through child classes
 	if (pObj)
 	{
 		return pObj->WindowProc(hwnd, msg, wParam, lParam);
 	}
-
 	return 0;
-}
+};
 
-LRESULT Window::WindowProc(HWND hwnd, UINT msg, WPARAM wParam,
-	LPARAM lParam)
+LRESULT Window::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	//This may be overridden to process messages.
 	switch (msg)
@@ -76,10 +73,14 @@ LRESULT Window::WindowProc(HWND hwnd, UINT msg, WPARAM wParam,
 		return NULL;
 	}
 	return NULL;
-}
+};
 
 void Window::render(Scene *scene)
 {
+	if (scene)
+	{
+		scene->updateEntities();
+	}
 	RECT rect;
 	HDC hDC = GetDC(_hwnd);
 	PAINTSTRUCT PaintStruct;
@@ -88,4 +89,4 @@ void Window::render(Scene *scene)
 	DrawText(hDC, "Hello, screen that is damn hard to get!", 39, &rect, DT_VCENTER | DT_CENTER | DT_SINGLELINE);
 	EndPaint(_hwnd, &PaintStruct);
 	ReleaseDC(_hwnd, hDC);
-}
+};

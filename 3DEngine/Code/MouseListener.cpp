@@ -2,8 +2,8 @@
 
 MouseListener::MouseListener()
 {
-}
+};
 
 MouseListener::~MouseListener()
 {
-}
+};

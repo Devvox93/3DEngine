@@ -2,11 +2,7 @@
 #define _ENTITY_H_
 
 #include <d3dx9.h>
-
-struct TripleFloat
-{
-	float x, y, z;
-};
+#include "Defines.h"
 
 class Entity
 {

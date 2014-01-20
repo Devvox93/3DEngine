@@ -12,12 +12,9 @@ public:
 	virtual void render(Scene *scene);
 protected:
 	Renderer *renderer;
-
 	virtual LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 	virtual void OnDestroy(HWND hwnd);
 private:
 	void resize();
 };
-
 #endif

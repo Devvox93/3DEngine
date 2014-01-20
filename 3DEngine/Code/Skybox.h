@@ -10,10 +10,12 @@ class Skybox
 public:
 	Skybox(char *texturePath, ResourceManager *resourceManager);
 	~Skybox();
+	Vertex* getVertices();
+	int* getIndices();
+	TextureResource* getTextureResource();
+private:
 	Vertex* aSkyboxVertices;
 	int* aSkyboxIndices;
 	TextureResource *texture;
-private:
 };
-
 #endif

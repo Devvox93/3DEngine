@@ -5,8 +5,6 @@
 #include "ResourceManager.h"
 #include "Defines.h"
 
-typedef unsigned char BYTE;
-
 struct TerrainData
 {
 	int width;
@@ -18,12 +16,17 @@ class Terrain
 public:
 	Terrain(char* path, char* texturepath, ResourceManager *resourceManager);
 	~Terrain();
+	int getWidth();
+	int getHeight();
+	Vertex* getVertices();
+	int getAmountOfIndices();
+	int* getIndices();
+	TextureResource* getTextureResource();
+private:
 	TerrainData* data;
 	Vertex* aTerrainVertices;
 	int amountOfIndices;
 	int* aTerrainIndices;
-	TextureResource *texture;
-private:
+	TextureResource* texture;
 };
-
 #endif

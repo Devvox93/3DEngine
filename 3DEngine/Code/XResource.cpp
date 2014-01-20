@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-XResource::XResource(std::string path, LPDIRECT3DDEVICE9* g_pd3dDevice, ResourceManager* rsm)
+XResource::XResource(std::string path, LPDIRECT3DDEVICE9 g_pd3dDevice, ResourceManager* rsm)
 {
 	g_pMesh = NULL; // Our mesh object in sysmem
 	g_dwNumMaterials = 0L;   // Number of mesh materials
@@ -13,7 +13,7 @@ XResource::XResource(std::string path, LPDIRECT3DDEVICE9* g_pd3dDevice, Resource
 
 	// Load the mesh from the specified file
 	if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM,
-		*g_pd3dDevice, NULL,
+		g_pd3dDevice, NULL,
 		&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
 		&g_pMesh)))
 	{
@@ -57,12 +57,32 @@ XResource::XResource(std::string path, LPDIRECT3DDEVICE9* g_pd3dDevice, Resource
 	pD3DXMtrlBuffer->Release();
 
 	isLoaded = true;
-}
+};
 
 XResource::XResource()
 {
-}
+};
 
 XResource::~XResource()
 {
-}
+};
+
+LPD3DXMESH XResource::getMesh()
+{
+	return g_pMesh;
+};
+
+D3DMATERIAL9* XResource::getMeshMaterials()
+{
+	return g_pMeshMaterials;
+};
+
+TextureResource** XResource::getTextures()
+{
+	return myTextures;
+};
+
+DWORD XResource::getNumberOfMaterials()
+{
+	return g_dwNumMaterials;
+};

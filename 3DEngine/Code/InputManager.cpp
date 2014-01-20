@@ -1,17 +1,15 @@
-#define DIRECTINPUT_VERSION 0x0800
-
 #include "InputManager.h"
 #include "Keyboard.h"
 #include "Logger.h"
+#include "Defines.h"
 
 InputManager::InputManager()
 {
-	directInput = 0;
-	myKeyboard = 0;
-	myMouse = 0;
-	myJoystick = 0;
-}
-
+	directInput = NULL;
+	myKeyboard = NULL;
+	myMouse = NULL;
+	myJoystick = NULL;
+};
 
 InputManager::~InputManager()
 {
@@ -30,7 +28,7 @@ InputManager::~InputManager()
 		directInput->Release();
 		directInput = 0;
 	}
-}
+};
 
 bool InputManager::initialize(HINSTANCE hinstance, HWND hwnd, int argScreenWidth, int argScreenHeight)
 {
@@ -48,12 +46,11 @@ bool InputManager::initialize(HINSTANCE hinstance, HWND hwnd, int argScreenWidth
 	myJoystick = new Joystick(directInput, hwnd);
 
 	return true;
-}
+};
 
 bool InputManager::frame()
 {
 	bool result;
-
 	// Read the current state of the joystick.
 	if (myJoystick->available)
 	{
@@ -82,21 +79,20 @@ bool InputManager::frame()
 	// Process the changes in the mouse and keyboard.
 	myKeyboard->processInput();
 	myMouse->processInput();
-
 	return true;
-}
+};
 
 Keyboard* InputManager::getKeyboard()
 {
 	return myKeyboard;
-}
+};
 
 Mouse* InputManager::getMouse()
 {
 	return myMouse;
-}
+};
 
 Joystick* InputManager::getJoystick()
 {
 	return myJoystick;
-}
+};

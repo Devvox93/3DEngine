@@ -11,5 +11,4 @@ public:
 
 	virtual void useMouseInput(DIMOUSESTATE mouseState) = 0;
 };
-
 #endif

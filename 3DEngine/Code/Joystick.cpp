@@ -5,7 +5,7 @@ Joystick::Joystick(IDirectInput8* argInterface, HWND hDlg)
 {
 	HRESULT result;
 
-	// Initialize the direct input interface for the joystick.
+	//Initialize the direct input interface for the joystick.
 	result = argInterface->CreateDevice(GUID_Joystick, &joystick, NULL);
 	if (FAILED(result))
 	{
@@ -13,21 +13,21 @@ Joystick::Joystick(IDirectInput8* argInterface, HWND hDlg)
 		return;
 	}
 
-	// Set the data format.  In this case since it is a joystick we can use the predefined data format.
+	//Set the data format.  In this case since it is a joystick we can use the predefined data format.
 	result = joystick->SetDataFormat(&c_dfDIJoystick2);
 	if (FAILED(result))
 	{
 		return;
 	}
 
-	// Set the cooperative level of the joystick to not share with other programs.
+	//Set the cooperative level of the joystick to not share with other programs.
 	result = joystick->SetCooperativeLevel(hDlg, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 	if (FAILED(result))
 	{
 		return;
 	}
 
-	// Now acquire the joystick.
+	//Now acquire the joystick.
 	result = joystick->Acquire();
 	if (FAILED(result))
 	{
@@ -36,18 +36,16 @@ Joystick::Joystick(IDirectInput8* argInterface, HWND hDlg)
 
 	joystickListeners = std::vector<JoystickListener*>();
 	available = true;
-}
-
+};
 
 Joystick::~Joystick()
 {
-}
-
+};
 
 void Joystick::addJoystickListener(JoystickListener* argJoystickListener)
 {
 	joystickListeners.push_back(argJoystickListener);
-}
+};
 
 bool Joystick::read()
 {
@@ -67,9 +65,8 @@ bool Joystick::read()
 			return false;
 		}
 	}
-
 	return true;
-}
+};
 
 void Joystick::processInput()
 {
@@ -158,8 +155,7 @@ void Joystick::processInput()
 		updateListeners();
 		joystickStateOld = joystickState;
 	}
-}
-
+};
 
 void Joystick::updateListeners()
 {
@@ -167,4 +163,4 @@ void Joystick::updateListeners()
 	{
 		current->useJoystickInput(joystickState);
 	}
-}
+};

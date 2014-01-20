@@ -10,7 +10,6 @@ public:
 	~Kernel();
 
 	void run();
-
 	void useKeyboardInput(std::array<unsigned char, 256> keyboardState);
 private:
 	Renderer *renderer;

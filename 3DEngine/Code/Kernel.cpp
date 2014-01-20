@@ -12,12 +12,11 @@
 
 Kernel::Kernel()
 {
-}
+};
 
 Kernel::~Kernel()
 {
-
-}
+};
 
 void Kernel::run()
 {
@@ -33,7 +32,7 @@ void Kernel::run()
 	Camera* cam = new Camera();
 	Camera2* cam2 = new Camera2();
 	ResourceManager *rsManager = new ResourceManager;
-	rsManager->g_pd3dDevice = &((DirectXRenderer *)renderer)->g_pd3dDevice;
+	rsManager->setD3DDevice(((DirectXRenderer *)renderer)->getD3DDevice());
 	rsManager->PrintMap();
 
 	sceneManager->createScene(rsManager, "default.txt");
@@ -59,7 +58,7 @@ void Kernel::run()
 		wManager->updateWindows();
 		iManager->frame();
 	}
-}
+};
 
 void Kernel::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 {
@@ -68,4 +67,4 @@ void Kernel::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 		Logger::getInstance().log(INFO, "Afgesloten met Escape");
 		exit(EXIT_SUCCESS);
 	}
-}
+};

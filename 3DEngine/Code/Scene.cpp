@@ -9,43 +9,14 @@ Scene::Scene(char* path, ResourceManager* resourceManager)
 	cameras = std::vector<Entity*>();
 	sceneFile = resourceManager->getSceneFile(path);
 	readSceneFile(sceneFile, resourceManager);
-}
-
+};
 
 Scene::~Scene()
 {
-}
-
-void Scene::createEntity(Entities sort, ResourceManager* rsm){
-	Entity *newEntity;
-
-	switch (sort)
-	{
-	case(CAMERA) :
-		newEntity = new Camera();
-		cameras.push_back(newEntity);
-		break;
-	case(MODEL) :
-		models.push_back(newEntity);
-		break;
-	default:
-		Logger::getInstance().log(WARNING, "Entity error");
-		break;
-	}
 };
 
 void Scene::deleteModel(Entity* entity){
 	// destroy and delete passed entity from list
-};
-
-void Scene::render()
-{
-	//???
-};
-
-void Scene::loadEntities()
-{
-	//???
 };
 
 void Scene::updateEntities()
@@ -68,17 +39,17 @@ std::vector<Entity*> Scene::getModels()
 void Scene::addCamera(Entity* camera)
 {
 	cameras.push_back(camera);
-}
+};
 
 void Scene::setActiveCamera(int camera)
 {
 	activeCamera = camera;
-}
+};
 
 Entity* Scene::getActiveCamera()
 {
 	return cameras[activeCamera];
-}
+};
 
 Terrain* Scene::getTerrain()
 {
@@ -146,18 +117,6 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 		float pscaleYFloat = atof(scaleY.c_str());
 		float scaleZFloat = atof(scaleZ.c_str());
 
-		/*Logger::getInstance().log(INFO, xResourceName);
-		Logger::getInstance().log(INFO, positionX);
-		Logger::getInstance().log(INFO, positionY);
-		Logger::getInstance().log(INFO, positionZ);
-		Logger::getInstance().log(INFO, yaw);
-		Logger::getInstance().log(INFO, pitch);
-		Logger::getInstance().log(INFO, roll);
-		Logger::getInstance().log(INFO, scaleX);
-		Logger::getInstance().log(INFO, scaleY);
-		Logger::getInstance().log(INFO, scaleZ);*/
-
-		//createEntity(MODEL, resourceManager);
 		models.push_back(new Model((XResource*)resourceManager->getResource(xResourceNameChar), positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat));
 	}
 };

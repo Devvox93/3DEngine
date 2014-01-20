@@ -17,15 +17,20 @@ DirectXRenderer::~DirectXRenderer()
 	Cleanup();
 };
 
+LPDIRECT3DDEVICE9 DirectXRenderer::getD3DDevice()
+{
+	return g_pd3dDevice;
+};
+
 void DirectXRenderer::setRenderSize(int width, int height)
 {
 	setMyRenderSize(width, height, true);
-}
+};
 
 D3DPRESENT_PARAMETERS DirectXRenderer::setMyRenderSize(int width, int height, bool activate)
 {
-	// Set up the structure used to create the D3DDevice. Since we are now
-	// using more complex geometry, we will create a device with a zbuffer.
+	//Set up the structure used to create the D3DDevice. Since we are now
+	//using more complex geometry, we will create a device with a zbuffer.
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));//Make sure all the values are emptied, so there's no random results.
 	d3dpp.Windowed = true;
@@ -41,28 +46,28 @@ D3DPRESENT_PARAMETERS DirectXRenderer::setMyRenderSize(int width, int height, bo
 	if (activate)
 	{
 		g_pd3dDevice->Reset(&d3dpp);
-		// For the projection matrix, we set up a perspective transform (which
-		// transforms geometry from 3D view space to 2D viewport space, with
-		// a perspective divide making objects smaller in the distance). To build
-		// a perpsective transform, we need the field of view (1/4 pi is common),
-		// the aspect ratio, and the near and far clipping planes (which define at
-		// what distances geometry should be no longer be rendered).
+		//For the projection matrix, we set up a perspective transform (which
+		//transforms geometry from 3D view space to 2D viewport space, with
+		//a perspective divide making objects smaller in the distance). To build
+		//a perpsective transform, we need the field of view (1/4 pi is common),
+		//the aspect ratio, and the near and far clipping planes (which define at
+		//what distances geometry should be no longer be rendered).
 		D3DXMATRIXA16 matProj;
 		D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, (float)width / (float)height, 0.1f, 1000.0f);
 		g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 
-		// Turn off culling
+		//Turn off culling
 		g_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-		// Turn on ambient lighting 
+		//Turn on ambient lighting 
 		g_pd3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
 
-		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR); // minification
-		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR); // magnification
-		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR); // mipmapping
+		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR); //minification
+		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR); //magnification
+		g_pd3dDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR); //mipmapping
 	}
 	return d3dpp;
-}
+};
 
 void DirectXRenderer::Initialize(int width, int height)
 {
@@ -75,10 +80,6 @@ void DirectXRenderer::Initialize(int width, int height)
 	}
 };
 
-//-----------------------------------------------------------------------------
-// Name: InitD3D()
-// Desc: Initializes Direct3D
-//-----------------------------------------------------------------------------
 HRESULT DirectXRenderer::InitD3D(HWND hWnd, int width, int height)
 {
 	// Create the D3D object.
@@ -111,21 +112,21 @@ HRESULT DirectXRenderer::InitD3D(HWND hWnd, int width, int height)
 void DirectXRenderer::initTerrain(Terrain *terrain)
 {
 	//Create a vertex buffer for the terrain, which is made of a dynamic amount of vertices, depending on it's size.
-	g_pd3dDevice->CreateVertexBuffer(terrain->data->width * terrain->data->height * sizeof(Vertex), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_MANAGED, &g_pTerrainVertexBuffer, NULL);
+	g_pd3dDevice->CreateVertexBuffer(terrain->getWidth() * terrain->getHeight() * sizeof(Vertex), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_MANAGED, &g_pTerrainVertexBuffer, NULL);
 	//Create an index buffer for the terrain, which is also a dynamic amount, depending on it's size.
-	g_pd3dDevice->CreateIndexBuffer(terrain->amountOfIndices * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pTerrainIndexBuffer, NULL);
+	g_pd3dDevice->CreateIndexBuffer(terrain->getAmountOfIndices() * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pTerrainIndexBuffer, NULL);
 
 	VOID* pVertices;
-	g_pTerrainVertexBuffer->Lock(0, terrain->data->width * terrain->data->height * sizeof(Vertex), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, terrain->aTerrainVertices, terrain->data->width * terrain->data->height * sizeof(Vertex)); //copy data
-	g_pTerrainVertexBuffer->Unlock();                                 //unlock buffer
+	g_pTerrainVertexBuffer->Lock(0, terrain->getWidth() * terrain->getHeight() * sizeof(Vertex), (void**)&pVertices, 0);//lock buffer
+	memcpy(pVertices, terrain->getVertices(), terrain->getWidth() * terrain->getHeight() * sizeof(Vertex));//copy data
+	g_pTerrainVertexBuffer->Unlock();//unlock buffer
 
 	//Put the g_pTerrainVertexBuffer into the array, we need to do this or we have issues with stack/heap memory allocation.
 	terrainVertexBuffers[terrain] = &g_pTerrainVertexBuffer;
 
-	g_pTerrainIndexBuffer->Lock(0, terrain->amountOfIndices * sizeof(int), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, terrain->aTerrainIndices, terrain->amountOfIndices * sizeof(int));   //copy data
-	g_pTerrainIndexBuffer->Unlock();                                 //unlock buffer
+	g_pTerrainIndexBuffer->Lock(0, terrain->getAmountOfIndices() * sizeof(int), (void**)&pVertices, 0);//lock buffer
+	memcpy(pVertices, terrain->getIndices(), terrain->getAmountOfIndices() * sizeof(int));//copy data
+	g_pTerrainIndexBuffer->Unlock();//unlock buffer
 
 	//Put the g_pTerrainIndexBuffer into the array, we need to do this or we have issues with stack/heap memory allocation.
 	terrainIndexBuffers[terrain] = &g_pTerrainIndexBuffer;
@@ -140,24 +141,20 @@ void DirectXRenderer::initSkybox(Skybox* skybox)
 
 	VOID* pVertices;
 	g_pSkyboxVertexBuffer->Lock(0, 24 * sizeof(Vertex), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, skybox->aSkyboxVertices, 24 * sizeof(Vertex)); //copy data
+	memcpy(pVertices, skybox->getVertices(), 24 * sizeof(Vertex)); //copy data
 	g_pSkyboxVertexBuffer->Unlock();                                 //unlock buffer
 
 	//Put the g_pSkyboxVertexBuffer into the array, we need to do this or we have issues with stack/heap memory allocation.
 	skyboxVertexBuffers[skybox] = &g_pSkyboxVertexBuffer;
 
 	g_pSkyboxIndexBuffer->Lock(0, 36 * sizeof(int), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, skybox->aSkyboxIndices, 36 * sizeof(int));   //copy data
+	memcpy(pVertices, skybox->getIndices(), 36 * sizeof(int));   //copy data
 	g_pSkyboxIndexBuffer->Unlock();                                 //unlock buffer
 
 	//Put the g_pSkyboxIndexBuffer into the array, we need to do this or we have issues with stack/heap memory allocation.
 	skyboxIndexBuffers[skybox] = &g_pSkyboxIndexBuffer;
 };
 
-//-----------------------------------------------------------------------------
-// Name: Cleanup()
-// Desc: Releases all previously initialized objects
-//-----------------------------------------------------------------------------
 void DirectXRenderer::Cleanup()
 {
 	if (g_pd3dDevice != NULL)
@@ -169,12 +166,8 @@ void DirectXRenderer::Cleanup()
 	{
 		g_pD3D->Release();
 	}
-}
+};
 
-//-----------------------------------------------------------------------------
-// Name: Render()
-// Desc: Draws the scene
-//-----------------------------------------------------------------------------
 void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 {
 	// Clear the backbuffer and the zbuffer
@@ -184,7 +177,6 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
 	{
 		Entity* activeCamera = scene->getActiveCamera();
-		scene->updateEntities();//Wellicht is het verstandig om dit ergens anders te doen?
 
 		//If we do not set a default material, there's a chance it will crash or show black matter.
 		D3DMATERIAL9 material = D3DMATERIAL9();
@@ -205,7 +197,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 
 		//Draw the actual skybox
 		Skybox *skybox = scene->getSkybox();
-		g_pd3dDevice->SetTexture(0, skybox->texture->texture);
+		g_pd3dDevice->SetTexture(0, skybox->getTextureResource()->getTexture());
 		g_pd3dDevice->SetStreamSource(0, *skyboxVertexBuffers[skybox], 0, sizeof(Vertex));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(*skyboxIndexBuffers[skybox]);
@@ -221,11 +213,11 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 
 		//Draw the actual terrain
 		Terrain *terrain = scene->getTerrain();
-		g_pd3dDevice->SetTexture(0, terrain->texture->texture);
+		g_pd3dDevice->SetTexture(0, terrain->getTextureResource()->getTexture());
 		g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(Vertex));
 		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
-		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->data->width * terrain->data->height, 0, (terrain->data->width - 1) * (terrain->data->height - 1) * 2);
+		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->getWidth() * terrain->getHeight(), 0, (terrain->getWidth() - 1) * (terrain->getHeight() - 1) * 2);
 		
 		//We want to draw all the models in the current scene, so we loop through them.
 		std::vector<Entity*> entities = scene->getModels();
@@ -238,14 +230,14 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 
 			Model *currentModel = (Model*)currentEntity;
 			// Meshes are divided into subsets, one for each material. Render them in a loop
-			for (DWORD i = 0; i < currentModel->model->g_dwNumMaterials; i++)
+			for (DWORD i = 0; i < currentModel->getModel()->getNumberOfMaterials(); i++)
 			{
 				// Set the material and texture for this subset
-				g_pd3dDevice->SetMaterial(&currentModel->model->g_pMeshMaterials[i]);
+				g_pd3dDevice->SetMaterial(&currentModel->getModel()->getMeshMaterials()[i]);
 				//Make sure the TextureResource is loaded properly, otherwise set the texture to NULL so it's white instead of a crash.
-				if (currentModel->model->myTextures[i])
+				if (currentModel->getModel()->getTextures()[i])
 				{
-					g_pd3dDevice->SetTexture(0, currentModel->model->myTextures[i]->texture);
+					g_pd3dDevice->SetTexture(0, currentModel->getModel()->getTextures()[i]->getTexture());
 				}
 				else
 				{
@@ -253,7 +245,7 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 				}
 
 				// Draw the mesh subset
-				currentModel->model->g_pMesh->DrawSubset(i);
+				currentModel->getModel()->getMesh()->DrawSubset(i);
 			}
 		}
 		// End the scene
@@ -262,4 +254,4 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 
 	// Present the backbuffer contents to the display
 	g_pd3dDevice->Present(NULL, NULL, hwnd, NULL);
-}
+};

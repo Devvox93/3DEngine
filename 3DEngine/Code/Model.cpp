@@ -7,14 +7,18 @@ Model::Model(XResource* _model, float _positionX, float _positionY, float _posit
 	setPosition(_positionX, _positionY, _positionZ);
 	setRotation(_yaw, _pitch, _roll);
 	setScale(_scaleX, _scaleY, _scaleZ);
-}
+};
 
 
 Model::~Model()
 {
-}
+};
 
 void Model::update()
 {
-	
-}
+};
+
+XResource* Model::getModel()
+{
+	return model;
+};

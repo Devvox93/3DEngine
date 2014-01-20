@@ -1,7 +1,6 @@
 #ifndef _WINDOWMANAGER_H_
 #define _WINDOWMANAGER_H_
 
-
 #include <Windows.h>
 #include "Window.h"
 #include "DirectXWindow.h"
@@ -12,7 +11,6 @@ struct WindowList
 	Window* window;
 	WindowList* next;
 };
-
 
 class WindowManager
 {
@@ -27,5 +25,4 @@ private:
 	WindowList* windows;
 	SceneManager *sceneManager;
 };
-
 #endif

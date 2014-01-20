@@ -1,7 +1,6 @@
 #ifndef _MOUSE_H_
 #define _MOUSE_H_
 
-
 #include "dinput.h"
 #include "MouseListener.h"
 #include <vector>
@@ -18,7 +17,6 @@ public:
 	void updateListeners();
 	void getMouseLocation(int&, int&);
 private:
-
 	IDirectInputDevice8* mouse;
 	DIMOUSESTATE mouseState;
 	std::vector<MouseListener*> mouseListeners;
@@ -27,5 +25,4 @@ private:
 	int screenWidth;
 	int screenHeight;
 };
-
 #endif
