@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "Logger.h"
 
-Scene::Scene(char* path, ResourceManager* resourceManager)
+Scene::Scene(std::string path, ResourceManager* resourceManager)
 {
 	models = std::vector<Entity*>();
 	cameras = std::vector<Entity*>();
@@ -77,7 +77,7 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 	strcpy_s(skyboxTexturePath, stringSkyboxTexturePath.length()+1, stringSkyboxTexturePath.c_str());
 	skybox = new Skybox(skyboxTexturePath, resourceManager);
 
-	for (int i = 4; i <= sceneFile->size(); ++i)
+	for (unsigned int i = 4; i <= sceneFile->size(); ++i)
 	{
 		
 		std::string infoString = sceneFile->at(i - 1);
@@ -107,15 +107,15 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 		char* xResourceNameChar = new char[xResourceName.length() + 1];
 		strcpy_s(xResourceNameChar, xResourceName.length() + 1, xResourceName.c_str());
 
-		float positionXFloat = atof(positionX.c_str());
-		float positionYFloat = atof(positionY.c_str());
-		float positionZFloat = atof(positionZ.c_str());
-		float yawFloat = atof(yaw.c_str());
-		float pitchFloat = atof(pitch.c_str());
-		float rollFloat = atof(roll.c_str());
-		float scaleXFloat = atof(scaleX.c_str());
-		float pscaleYFloat = atof(scaleY.c_str());
-		float scaleZFloat = atof(scaleZ.c_str());
+		float positionXFloat = (float)atof(positionX.c_str());
+		float positionYFloat = (float)atof(positionY.c_str());
+		float positionZFloat = (float)atof(positionZ.c_str());
+		float yawFloat = (float)atof(yaw.c_str());
+		float pitchFloat = (float)atof(pitch.c_str());
+		float rollFloat = (float)atof(roll.c_str());
+		float scaleXFloat = (float)atof(scaleX.c_str());
+		float pscaleYFloat = (float)atof(scaleY.c_str());
+		float scaleZFloat = (float)atof(scaleZ.c_str());
 
 		models.push_back(new Model((XResource*)resourceManager->getResource(xResourceNameChar), positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat));
 	}

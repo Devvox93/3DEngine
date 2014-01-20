@@ -15,7 +15,7 @@ enum Entities
 class Scene
 {
 public:
-	Scene(char* path, ResourceManager* rsm);
+	Scene(std::string path, ResourceManager* rsm);
 	~Scene();
 
 	void deleteModel(Entity* entity);
