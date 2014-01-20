@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "Logger.h"
 
-Scene::Scene(char* path, ResourceManager* resourceManager)
+Scene::Scene(std::string path, ResourceManager* resourceManager)
 {
 	models = std::vector<Entity*>();
 	cameras = std::vector<Entity*>();
