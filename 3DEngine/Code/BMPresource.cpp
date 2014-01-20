@@ -34,9 +34,6 @@ BMPresource::BMPresource(std::string path)
 	isLoaded = true;
 
 }
-BMPresource::BMPresource()
-{
-}
 
 BMPresource::~BMPresource()
 {
