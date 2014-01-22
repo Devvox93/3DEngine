@@ -229,23 +229,26 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
 
 			Model *currentModel = (Model*)currentEntity;
-			// Meshes are divided into subsets, one for each material. Render them in a loop
-			for (DWORD i = 0; i < currentModel->getModel()->getNumberOfMaterials(); i++)
+			if (currentModel->getModel())
 			{
-				// Set the material and texture for this subset
-				g_pd3dDevice->SetMaterial(&currentModel->getModel()->getMeshMaterials()[i]);
-				//Make sure the TextureResource is loaded properly, otherwise set the texture to NULL so it's white instead of a crash.
-				if (currentModel->getModel()->getTextures()[i])
+				// Meshes are divided into subsets, one for each material. Render them in a loop
+				for (DWORD i = 0; i < currentModel->getModel()->getNumberOfMaterials(); i++)
 				{
-					g_pd3dDevice->SetTexture(0, currentModel->getModel()->getTextures()[i]->getTexture());
-				}
-				else
-				{
-					g_pd3dDevice->SetTexture(0, NULL);
-				}
+					// Set the material and texture for this subset
+					g_pd3dDevice->SetMaterial(&currentModel->getModel()->getMeshMaterials()[i]);
+					//Make sure the TextureResource is loaded properly, otherwise set the texture to NULL so it's white instead of a crash.
+					if (currentModel->getModel()->getTextures()[i])
+					{
+						g_pd3dDevice->SetTexture(0, currentModel->getModel()->getTextures()[i]->getTexture());
+					}
+					else
+					{
+						g_pd3dDevice->SetTexture(0, NULL);
+					}
 
-				// Draw the mesh subset
-				currentModel->getModel()->getMesh()->DrawSubset(i);
+					// Draw the mesh subset
+					currentModel->getModel()->getMesh()->DrawSubset(i);
+				}
 			}
 		}
 		// End the scene

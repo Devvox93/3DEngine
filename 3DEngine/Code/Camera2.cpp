@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "Defines.h"
 #include <sstream>
+
 Camera2::Camera2()
 {
 	spinAroundCurrentAngle = spinAroundX = spinAroundZ = spinAroundRadius = 0.0f;
@@ -46,9 +47,6 @@ void Camera2::update()
 		{
 			spinAroundCurrentAngle = 0.0f;
 		}
-		std::ostringstream oss;
-		oss << "Current angle: " << spinAroundCurrentAngle;
-		Logger::getInstance().log(INFO, oss.str());
 	}
 };
 
@@ -63,13 +61,13 @@ void Camera2::setPosition(float _x, float _y, float _z)
 
 void Camera2::setRotation(float _yaw, float _pitch, float _roll)
 {
-	if (_pitch > RADIANS(90.0))
+	if (_pitch > RADIANS(90.0f))
 	{
-		_pitch = RADIANS(90.0);
+		_pitch = RADIANS(90.0f);
 	}
-	else if (_pitch < RADIANS(-90.0))
+	else if (_pitch < RADIANS(-90.0f))
 	{
-		_pitch = RADIANS(-90.0);
+		_pitch = RADIANS(-90.0f);
 	}
 
 	yaw = -_yaw;
@@ -126,8 +124,8 @@ void Camera2::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
 	if (keyboardState[DIK_RETURN] & 0x80 || keyboardState[DIK_1] & 0x80)
 	{
 		spinning = true;
-		spinAroundX = 100.0f;
-		spinAroundZ = 500.0f;
+		spinAroundX = 0.0f;
+		spinAroundZ = 0.0f;
 		spinAroundRadius = 100.0f;
 		return;
 	}
