@@ -1,6 +1,2 @@
-entity:Models\Nick\nick1.x,100.0f,100.0f,500.0f,0.0f,0.0f,0.0f,1.0f,1.0f,1.0f
-entity:Models\Car\car.x,-100.0f,100.0f,500.0f,-1.57079633f,0.0f,0.0f,0.5f,0.5f,0.5f
-entity:Models\Jordi\ac3.X,0.0f,100.0f,0.0f,0.0f,0.0f,0.0f,20.0f,20.0f,20.0f
-entity:Models\Jordi\ac.X,0.0f,150.0f,0.0f,0.0f,0.0f,0.0f,0.35f,0.35f,0.35f
-heightmap:clouds.bmp,tex.bmp
+heightmap:clouds.bmp,clouds.bmp
 skybox:skybox.jpg

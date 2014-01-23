@@ -83,7 +83,6 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 			std::string heightmap = lineInfo.substr(0, comma);
 			std::string terrainTexture = lineInfo.substr(comma + 1, lineInfo.size()-colon-1);
 			terrain = new Terrain(heightmap, terrainTexture, resourceManager);
-
 		}
 		else if (lineType.compare("entity") == 0)
 		{
