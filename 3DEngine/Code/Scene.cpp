@@ -63,12 +63,6 @@ Skybox* Scene::getSkybox()
 
 void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *resourceManager)
 {
-	std::string stringTerrainPath = sceneFile->at(0);
-
-	std::string stringTerrainTexturePath = sceneFile->at(1);
-	
-	
-
 	for (unsigned int i = 0; i < sceneFile->size(); ++i)
 	{
 		std::string infoString = sceneFile->at(i);
@@ -126,12 +120,5 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 
 			models.push_back(new Model((XResource*)resourceManager->getResource(xResourceName), positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat));
 		}
-	}
-
-
-
-	for (unsigned int i = 50; i <= sceneFile->size(); ++i)
-	{
-		
 	}
 };
