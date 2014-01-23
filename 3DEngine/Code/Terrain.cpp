@@ -27,7 +27,39 @@ Terrain::Terrain(std::string path, std::string texturePath, ResourceManager *res
 	hbmp = LoadImage(NULL, terrainPath, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	if (hbmp == NULL)	//Give a visual warning if the loading of the image failed
 	{
-		Logger::getInstance().log(WARNING, "Could not load BMP from path: " + std::string(path));
+		Logger::getInstance().log(WARNING, "Could not load BMP from path: " + std::string(path) + ", using hardcoded emergency terrain.");
+		data->width = 2;
+		data->height = 2;
+		aTerrainVertices = new Vertex[getWidth() * getHeight()];
+		aTerrainVertices[0] = { -1000.0f,//x
+								0.0f,//y
+								-1000.0f,//z
+								0.0f,//u
+								0.0f };//v
+		aTerrainVertices[1] = { 1000.0f,
+								0.0f,
+								-1000.0f,
+								1.0f,
+								0.0f };
+		aTerrainVertices[2] = { -1000.0f,
+								0.0f,
+								1000.0f,
+								0.0f,
+								1.0f };
+		aTerrainVertices[3] = { 1000.0f,
+								0.0f,
+								1000.0f,
+								1.0f,
+								1.0f };
+		amountOfIndices = 6;// 2 triangles on emergency terrain, good for 6 vertex indices.
+		aTerrainIndices = new int[amountOfIndices];
+		aTerrainIndices[0] = 0;
+		aTerrainIndices[1] = 1;
+		aTerrainIndices[2] = 2;
+		aTerrainIndices[3] = 1;
+		aTerrainIndices[4] = 2;
+		aTerrainIndices[5] = 3;
+		texture = resourceManager->getTexture(texturePath);
 		return;		//Jump out of the function
 	}
 	//At this point it is sure that lhdcDest & hbmp are valid.
