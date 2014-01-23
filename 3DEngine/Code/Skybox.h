@@ -17,7 +17,7 @@ Purpose: Loads X resources.
 class Skybox
 {
 public:
-	Skybox(char *texturePath, ResourceManager *resourceManager);
+	Skybox(std::string texturePath, ResourceManager *resourceManager);
 	~Skybox();
 	Vertex* getVertices();
 	int* getIndices();
