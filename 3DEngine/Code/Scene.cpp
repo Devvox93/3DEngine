@@ -79,6 +79,10 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 			{
 				skybox = new Skybox(lineInfo, resourceManager);
 			}
+			else
+			{
+				Logger::getInstance().log(WARNING, "Skybox could not be found.");
+			}
 		}
 		else if (lineType.compare("heightmap") == 0)
 		{
@@ -92,6 +96,10 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 			if (fileHeightmap && fileTerrainTexture)
 			{
 				terrain = new Terrain(heightmap, terrainTexture, resourceManager);
+			}
+			else
+			{
+				Logger::getInstance().log(WARNING, "Terrain of terrain's texture could not be found.");
 			}
 		}
 		else if (lineType.compare("entity") == 0)
@@ -133,6 +141,10 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 
 			
 				models.push_back(new Model((XResource*)resourceManager->getResource(xResourceName), positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat));
+			}
+			else
+			{
+				Logger::getInstance().log(WARNING, "XResource could not be found.");
 			}
 		}
 	}
