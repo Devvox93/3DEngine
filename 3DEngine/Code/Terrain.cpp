@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager)
+Terrain::Terrain(std::string path, std::string texturePath, ResourceManager *resourceManager)
 {
 	data = new TerrainData();
 	HDC lhdcDest;	//Handle to Device Context (Windows GDI)
@@ -21,7 +21,10 @@ Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager
 	}
 
 	//Windows GDI load image of type BMP (fileformat)
-	hbmp = LoadImage(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	char* terrainPath = new char[path.length() + 1];
+	strcpy_s(terrainPath, path.length() + 1, path.c_str());
+
+	hbmp = LoadImage(NULL, terrainPath, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	if (hbmp == NULL)	//Give a visual warning if the loading of the image failed
 	{
 		Logger::getInstance().log(WARNING, "Could not load BMP from path: " + std::string(path));
