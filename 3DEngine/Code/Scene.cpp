@@ -99,7 +99,7 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 			}
 			else
 			{
-				Logger::getInstance().log(WARNING, "Terrain of terrain's texture could not be found.");
+				Logger::getInstance().log(WARNING, "Terrain or terrain's texture could not be found.");
 			}
 		}
 		else if (lineType.compare("entity") == 0)

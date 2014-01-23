@@ -198,15 +198,23 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		//Draw the actual skybox
 		if (Skybox *skybox = scene->getSkybox())
 		{
-			g_pd3dDevice->SetTexture(0, skybox->getTextureResource()->getTexture());
+			//Make sure the TextureResource is loaded properly, otherwise set the texture to NULL so it's white instead of a crash.
+			if (skybox->getTextureResource())
+			{
+				g_pd3dDevice->SetTexture(0, skybox->getTextureResource()->getTexture());
+			}
+			else
+			{
+				g_pd3dDevice->SetTexture(0, NULL);
+			}
 			g_pd3dDevice->SetStreamSource(0, *skyboxVertexBuffers[skybox], 0, sizeof(Vertex));
 			g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 			g_pd3dDevice->SetIndices(*skyboxIndexBuffers[skybox]);
 			g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 		}
 
-			//Enable the z-buffer again because we want all the other objects to behave "normal"
-			g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+		//Enable the z-buffer again because we want all the other objects to behave "normal"
+		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 		//In addition to moving the terrain with the camera, we also want to scale it in height, otherwise there's not much depth.
 		D3DXMATRIXA16 matWorldScaled;
 		D3DXMatrixScaling(&matWorldScaled, 1.0f, 250.0f, 1.0f);
@@ -216,7 +224,15 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		//Draw the actual terrain
 		if (Terrain *terrain = scene->getTerrain())
 		{
-			g_pd3dDevice->SetTexture(0, terrain->getTextureResource()->getTexture());
+			//Make sure the TextureResource is loaded properly, otherwise set the texture to NULL so it's white instead of a crash.
+			if (terrain->getTextureResource())
+			{
+				g_pd3dDevice->SetTexture(0, terrain->getTextureResource()->getTexture());
+			}
+			else
+			{
+				g_pd3dDevice->SetTexture(0, NULL);
+			}
 			g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(Vertex));
 			g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 			g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
