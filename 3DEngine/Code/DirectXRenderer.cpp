@@ -111,48 +111,55 @@ HRESULT DirectXRenderer::InitD3D(HWND hWnd, int width, int height)
 
 void DirectXRenderer::initTerrain(Terrain *terrain)
 {
+	VOID* pVertices;
+
+	LPDIRECT3DVERTEXBUFFER9 g_pTerrainVertexBuffer = terrainVertexBuffers[terrain];//Get it from the array, so it is on the heap.
 	//Create a vertex buffer for the terrain, which is made of a dynamic amount of vertices, depending on it's size.
 	g_pd3dDevice->CreateVertexBuffer(terrain->getWidth() * terrain->getHeight() * sizeof(Vertex), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_MANAGED, &g_pTerrainVertexBuffer, NULL);
-	//Create an index buffer for the terrain, which is also a dynamic amount, depending on it's size.
-	g_pd3dDevice->CreateIndexBuffer(terrain->getAmountOfIndices() * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pTerrainIndexBuffer, NULL);
 
-	VOID* pVertices;
 	g_pTerrainVertexBuffer->Lock(0, terrain->getWidth() * terrain->getHeight() * sizeof(Vertex), (void**)&pVertices, 0);//lock buffer
 	memcpy(pVertices, terrain->getVertices(), terrain->getWidth() * terrain->getHeight() * sizeof(Vertex));//copy data
 	g_pTerrainVertexBuffer->Unlock();//unlock buffer
 
-	//Put the g_pTerrainVertexBuffer into the array, we need to do this or we have issues with stack/heap memory allocation.
-	terrainVertexBuffers[terrain] = &g_pTerrainVertexBuffer;
+	//Put the g_pTerrainVertexBuffer back into the array.
+	terrainVertexBuffers[terrain] = g_pTerrainVertexBuffer;
 
+
+	LPDIRECT3DINDEXBUFFER9 g_pTerrainIndexBuffer = terrainIndexBuffers[terrain];//Get it from the array, so it is on the heap.
+	//Create an index buffer for the terrain, which is also a dynamic amount, depending on it's size.
+	g_pd3dDevice->CreateIndexBuffer(terrain->getAmountOfIndices() * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pTerrainIndexBuffer, NULL);
 	g_pTerrainIndexBuffer->Lock(0, terrain->getAmountOfIndices() * sizeof(int), (void**)&pVertices, 0);//lock buffer
 	memcpy(pVertices, terrain->getIndices(), terrain->getAmountOfIndices() * sizeof(int));//copy data
 	g_pTerrainIndexBuffer->Unlock();//unlock buffer
 
-	//Put the g_pTerrainIndexBuffer into the array, we need to do this or we have issues with stack/heap memory allocation.
-	terrainIndexBuffers[terrain] = &g_pTerrainIndexBuffer;
+	//Put the g_pTerrainIndexBuffer back into the array.
+	terrainIndexBuffers[terrain] = g_pTerrainIndexBuffer;
 };
 
 void DirectXRenderer::initSkybox(Skybox* skybox)
 {
+	VOID* pVertices;
+
+	LPDIRECT3DVERTEXBUFFER9 g_pSkyboxVertexBuffer = skyboxVertexBuffers[skybox];//Get it from the array, so it is on the heap.
 	//Create a vertex buffer for the skybox, which is always made out of 24 vertices, you can make a cube with 8 but if you want the textures to be correct you need 24.
 	g_pd3dDevice->CreateVertexBuffer(24 * sizeof(Vertex), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_MANAGED, &g_pSkyboxVertexBuffer, NULL);
-	//Create an index buffer for the skybox, 6 indices per side, so 36 indices total.
-	g_pd3dDevice->CreateIndexBuffer(36 * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pSkyboxIndexBuffer, NULL);
-
-	VOID* pVertices;
+	
 	g_pSkyboxVertexBuffer->Lock(0, 24 * sizeof(Vertex), (void**)&pVertices, 0);   //lock buffer
 	memcpy(pVertices, skybox->getVertices(), 24 * sizeof(Vertex)); //copy data
 	g_pSkyboxVertexBuffer->Unlock();                                 //unlock buffer
 
-	//Put the g_pSkyboxVertexBuffer into the array, we need to do this or we have issues with stack/heap memory allocation.
-	skyboxVertexBuffers[skybox] = &g_pSkyboxVertexBuffer;
+	//Put the g_pSkyboxVertexBuffer back into the array.
+	skyboxVertexBuffers[skybox] = g_pSkyboxVertexBuffer;
 
-	g_pSkyboxIndexBuffer->Lock(0, 36 * sizeof(int), (void**)&pVertices, 0);   //lock buffer
-	memcpy(pVertices, skybox->getIndices(), 36 * sizeof(int));   //copy data
-	g_pSkyboxIndexBuffer->Unlock();                                 //unlock buffer
+	LPDIRECT3DINDEXBUFFER9 g_pSkyboxIndexBuffer = skyboxIndexBuffers[skybox];//Get it from the array, so it is on the heap.
+	//Create an index buffer for the skybox, 6 indices per side, so 36 indices total.
+	g_pd3dDevice->CreateIndexBuffer(36 * sizeof(int), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &g_pSkyboxIndexBuffer, NULL);
+	g_pSkyboxIndexBuffer->Lock(0, 36 * sizeof(int), (void**)&pVertices, 0);//lock buffer
+	memcpy(pVertices, skybox->getIndices(), 36 * sizeof(int));//copy data
+	g_pSkyboxIndexBuffer->Unlock();//unlock buffer
 
-	//Put the g_pSkyboxIndexBuffer into the array, we need to do this or we have issues with stack/heap memory allocation.
-	skyboxIndexBuffers[skybox] = &g_pSkyboxIndexBuffer;
+	//Put the g_pSkyboxIndexBuffer back into the array.
+	skyboxIndexBuffers[skybox] = g_pSkyboxIndexBuffer;
 };
 
 void DirectXRenderer::Cleanup()
@@ -207,9 +214,9 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			{
 				g_pd3dDevice->SetTexture(0, NULL);
 			}
-			g_pd3dDevice->SetStreamSource(0, *skyboxVertexBuffers[skybox], 0, sizeof(Vertex));
+			g_pd3dDevice->SetStreamSource(0, skyboxVertexBuffers[skybox], 0, sizeof(Vertex));
 			g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-			g_pd3dDevice->SetIndices(*skyboxIndexBuffers[skybox]);
+			g_pd3dDevice->SetIndices(skyboxIndexBuffers[skybox]);
 			g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 		}
 
@@ -233,9 +240,9 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			{
 				g_pd3dDevice->SetTexture(0, NULL);
 			}
-			g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(Vertex));
+			g_pd3dDevice->SetStreamSource(0, terrainVertexBuffers[terrain], 0, sizeof(Vertex));
 			g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-			g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
+			g_pd3dDevice->SetIndices(terrainIndexBuffers[terrain]);
 			g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->getWidth() * terrain->getHeight(), 0, (terrain->getWidth() - 1) * (terrain->getHeight() - 1) * 2);
 		}
 		//We want to draw all the models in the current scene, so we loop through them.
