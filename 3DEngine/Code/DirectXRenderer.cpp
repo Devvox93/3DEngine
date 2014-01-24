@@ -183,12 +183,26 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 	// Begin the scene
 	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
 	{
+		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+		g_pd3dDevice->SetRenderState(D3DRS_ALPHATESTENABLE, false);
+
+		g_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		g_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+		g_pd3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+		g_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+		g_pd3dDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+
+		g_pd3dDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+		g_pd3dDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+		g_pd3dDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+
 		Entity* activeCamera = scene->getActiveCamera();
 
 		//If we do not set a default material, there's a chance it will crash or show black matter.
 		D3DMATERIAL9 material = D3DMATERIAL9();
 		material.Ambient = D3DCOLORVALUE();
-		material.Ambient.a = 1.0f;
+		material.Ambient.a = 0.0f;
 		material.Ambient.r = 1.0f;
 		material.Ambient.g = 1.0f;
 		material.Ambient.b = 1.0f;
