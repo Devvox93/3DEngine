@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	SceneManager.h
 	Purpose: Manages scenes.
@@ -20,7 +20,7 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	/*
+	/*!
 		Creates a scene.
 
 		@param rsm: A pointer to the Resourcemanager to load scene information from file.
@@ -31,7 +31,7 @@ public:
 	void createScene(ResourceManager* rsm, std::string path, HWND hwnd, Renderer* renderer);
 	void deleteScene();
 
-	/*
+	/*!
 		Returns a pointer to a scene in a hwnd.
 
 		@return Scene*: A pointer to the scene.

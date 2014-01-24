@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	BMPresource.h
 	Purpose: Loads BMP resources.
@@ -16,7 +16,7 @@
 class BMPresource : public Resource
 {
 public:
-	/*
+	/*!
 		Loads a BMP resource from file.
 
 		@param path: Path to the .bmp-file

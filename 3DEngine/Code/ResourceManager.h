@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	ResourceManager.h
 	Purpose: Manages the loading and unloading of resource files on disk.
@@ -24,7 +24,7 @@ public:
 	ResourceManager();
 	~ResourceManager();
 
-	/*
+	/*!
 		Returns a pointer.
 
 		@return Resource*: A pointer to a resource.
@@ -32,7 +32,7 @@ public:
 	*/
 	Resource* getResource(std::string path);
 
-	/*
+	/*!
 		Returns a pointer.
 
 		@return TextureResource*: A pointer to a texture resource.
@@ -40,12 +40,12 @@ public:
 	*/
 	TextureResource* getTexture(std::string path);
 
-	/*
+	/*!
 		Prints the entire map of resources.
 	*/
 	void PrintMap();
 
-	/*
+	/*!
 		Returns a pointer.
 
 		@return vector<string>*: A vector of strings containting data from a scene file.
@@ -53,7 +53,7 @@ public:
 	*/
 	std::vector<std::string>* getSceneFile(std::string path);
 
-	/*
+	/*!
 		Sets the D3DDevice, which is used for loading resources.
 
 		@param device: The device that needs to be set.

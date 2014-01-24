@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Window.h
 	Purpose: Keeping information concerning windows.
@@ -22,7 +22,7 @@ public:
 	Window();
 	~Window();
 
-	/*
+	/*!
 		Creates a window and returns it's HWND.
 
 		@return HWND: The HWND of the created window.
@@ -38,7 +38,7 @@ public:
 	HWND _hwnd;
 	WindowState state;
 
-	/*
+	/*!
 		Abstract method that renders the given scene.
 
 		@param *scene: The scene to be rendered.

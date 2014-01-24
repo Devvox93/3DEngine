@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	MouseListener.h
 	Purpose: Interface to unify the way mouse input is used.
@@ -18,7 +18,7 @@ public:
 	MouseListener();
 	virtual ~MouseListener();
 
-	/*
+	/*!
 		Abstract method which needs to be implemented with actions based on mouse input.
 	*/
 	virtual void useMouseInput(DIMOUSESTATE mouseState) = 0;

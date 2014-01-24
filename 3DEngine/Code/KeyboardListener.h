@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	KeyboardListener.h
 	Purpose: Interface to unify the way keyboard input is used.
@@ -18,7 +18,7 @@ public:
 	KeyboardListener();
 	virtual ~KeyboardListener();
 
-	/*
+	/*!
 		Abstract method which needs to be implemented with actions based on keyboard input.
 
 		@param keyboardState: Array that contains the state of all keys on the keyboard.

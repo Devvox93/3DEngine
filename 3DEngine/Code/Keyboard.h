@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Keyboard.h
 	Purpose: Reads, processes and uses keyboard input and updates the keyboardlisteners accordingly.
@@ -19,7 +19,7 @@
 class Keyboard
 {
 public:
-	/*
+	/*!
 		 Uses directInput to set the keyboard.
 
 		@param directInput: Pointer to the directInput, which is used to create the keyboard.
@@ -28,24 +28,24 @@ public:
 	Keyboard(IDirectInput8* directInput, HWND hwnd);
 	~Keyboard();
 	
-	/*
+	/*!
 		 Adds a keyboardlistener to a list of keyboardlisteners.
 
 		@param argKeyboardListener: A pointer to the keyboardlistener which is to be added.
 	*/
 	void addKeyboardListener(KeyboardListener* argKeyboardListener);
 
-	/*
+	/*!
 		 Reads the input from the keyboard.
 	*/
 	bool read();
 
-	/*
+	/*!
 		 Processes the input.
 	*/
 	void processInput();
 
-	/*
+	/*!
 		 Updates the listeners saved in the list.
 	*/
 	void updateListeners();

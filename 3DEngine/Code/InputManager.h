@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	InputManager.h
 	Purpose: Creates and manages the input devices.
@@ -22,7 +22,7 @@ public:
 	InputManager();
 	~InputManager();
 
-	/*
+	/*!
 		Initializes the directInput and creates input devices.
 
 		@param HINSTANCE: The Modulehandle needed for directInput.
@@ -32,26 +32,26 @@ public:
 	*/
 	bool initialize(HINSTANCE, HWND, int screenWidth, int screenHeight);
 
-	/*
+	/*!
 		Reads and processes the input every frame.
 	*/
 	bool frame();
 
-	/*
+	/*!
 		Passes a KeyboardListener to myKeyboard.
 
 		@param argKeyboardListener: The Keyboardlistener to be passed through.
 	*/
 	void addListenerToKeyboard(KeyboardListener* argKeyboardListener);
 
-	/*
+	/*!
 		Passes a MouseListener to myMouse.
 
 		@param argMouseListener: The MouseListener to be passed through.
 	*/
 	void addListenerToMouse(MouseListener* argMouseListener);
 
-	/*
+	/*!
 		Passes a JoystickListener to myJoystick.
 
 		@param argJoystickListener: The JoystickListener to be passed through.

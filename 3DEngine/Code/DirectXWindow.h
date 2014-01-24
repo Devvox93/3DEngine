@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	DirectXWindow.h
 	Purpose: Window with specific functions for DirectX.
@@ -19,7 +19,7 @@ public:
 	DirectXWindow();
 	~DirectXWindow();
 
-	/*
+	/*!
 		 Creates and sets variables of a new window, specifically for Direct X.
 
 		 @param *directXRenderer: A pointer to the DirectX renderer.

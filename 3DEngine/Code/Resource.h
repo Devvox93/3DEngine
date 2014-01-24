@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Resource.h
 	Purpose: Class to keep track which resources are loaded.
@@ -13,7 +13,7 @@
 class Resource
 {
 public:
-	/*
+	/*!
 		Creates a resource and loads the resource file.
 
 		@param path: The path to the resource file on disk.

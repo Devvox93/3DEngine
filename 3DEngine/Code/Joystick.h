@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Joystick.h
 	Purpose: Reads, processes and uses joystick input and updates the joysticklisteners accordingly.
@@ -19,7 +19,7 @@
 class Joystick
 {
 public:
-	/*
+	/*!
 		 Uses directInput to set the joystick.
 
 		@param directInput: Pointer to the directInput, which is used to create the joystick.
@@ -28,24 +28,24 @@ public:
 	Joystick(IDirectInput8* argInterface, HWND hDlg);
 	~Joystick();
 
-	/*
+	/*!
 		 Adds a joysticklistener to a list of joysticklisteners.
 
 		@param argJoystickListener: A pointer to the joysticklistener which is to be added.
 	*/
 	void addJoystickListener(JoystickListener* argJoystickListener);
 
-	/*
+	/*!
 		 Reads the input from the joystick.
 	*/
 	bool read();
 
-	/*
+	/*!
 		 Processes the input.
 	*/
 	void processInput();
 
-	/*
+	/*!
 		 Updates the listeners saved in the list.
 	*/
 	void updateListeners();
