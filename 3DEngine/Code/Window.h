@@ -1,10 +1,10 @@
 /*
-3D Engine
-Xresource.h
-Purpose: Loads X resources.
+	3D Engine
+	Window.h
+	Purpose: Keeping information concerning windows.
 
-@author Patrick, Nick, Robert, Jordi
-@version 1.0
+	@author Patrick, Nick, Robert, Jordi
+	@version 1.0
 */
 
 #ifndef _WINDOW_H_
@@ -15,14 +15,34 @@ Purpose: Loads X resources.
 #include "Scene.h"
 
 enum WindowState { fullscreen, maximized, normal, minimized, closed };
+
 class Window
 {
 public:
 	Window();
 	~Window();
+
+	/*
+		Creates a window and returns it's HWND.
+
+		@return HWND: The HWND of the created window.
+		@param x: The horizontal position of the upper left corner of the window.
+		@param y: The vertical position of the upper left corner of the window.
+		@param nWidth: The width of the window.
+		@param nHeight: The height of the window.
+		@param hParent: The HWND of the creating window.
+		@param hMenu: The menu of the created window.
+		@param hInstance: The instance of this process.
+	*/
 	HWND Create(int x, int y, int nWidth, int nHeight, HWND hParent, HMENU hMenu, HINSTANCE hInstance);
 	HWND _hwnd;
 	WindowState state;
+
+	/*
+		Abstract method that renders the given scene.
+
+		@param *scene: The scene to be rendered.
+	*/
 	virtual void render(Scene *scene);
 protected:
 	static LRESULT CALLBACK BaseWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);

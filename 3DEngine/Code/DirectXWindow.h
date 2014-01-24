@@ -1,10 +1,10 @@
 /*
-3D Engine
-Xresource.h
-Purpose: Loads X resources.
+	3D Engine
+	DirectXWindow.h
+	Purpose: Window with specific functions for DirectX.
 
-@author Patrick, Nick, Robert, Jordi
-@version 1.0
+	@author Patrick, Nick, Robert, Jordi
+	@version 1.0
 */
 
 #ifndef _DIRECTXWINDOW_H_
@@ -17,6 +17,12 @@ class DirectXWindow : public Window
 {
 public:
 	DirectXWindow();
+
+	/*
+		 Creates and sets variables of a new window, specifically for Direct X.
+
+		 @param *directXRenderer: A pointer to the DirectX renderer.
+	*/
 	DirectXWindow(Renderer *directXRenderer);
 	virtual void render(Scene *scene);
 protected:

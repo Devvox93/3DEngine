@@ -1,7 +1,7 @@
 /*
 	3D Engine
 	JoystickListener.h
-	Purpose: Interface to be implemented where joystick input is needed.
+	Purpose: Interface to unify the way joystick input is used.
 
 	@author Patrick, Nick, Robert, Jordi
 	@version 1.0
@@ -20,9 +20,9 @@ public:
 	virtual ~JoystickListener();
 
 	/*
-		Method that performs actions based on joystick input.
+		Abstract method which needs to be implemented with actions based on joystick input.
 
-		@param keyboardState: Array that contains the state of all buttons on the joystick.
+		@param DIJOYSTATE2: Array that contains the state of all buttons on the joystick.
 	*/
 	virtual void useJoystickInput(DIJOYSTATE2) = 0;
 };
