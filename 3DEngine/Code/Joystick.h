@@ -1,3 +1,12 @@
+/*
+3D Engine
+Xresource.h
+Purpose: Loads X resources.
+
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
+*/
+
 #ifndef _JOYSTICK_H_
 #define _JOYSTICK_H_
 

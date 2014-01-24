@@ -22,3 +22,6 @@ Debug/
 
 # Logging files
 Log*.txt
+
+# Other files
+Doxyfile

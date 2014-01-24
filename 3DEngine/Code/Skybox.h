@@ -1,3 +1,12 @@
+/*
+3D Engine
+Xresource.h
+Purpose: Loads X resources.
+
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
+*/
+
 #ifndef _SKYBOX_H_
 #define _SKYBOX_H_
 
