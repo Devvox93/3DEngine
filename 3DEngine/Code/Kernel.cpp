@@ -1,4 +1,6 @@
-#include "Kernel.h"
+#include "NoobKernel.h"
+#include "ExpertKernel.h"
+
 #include "Logger.h"
 #include "WindowManager.h"
 #include "InputManager.h"
@@ -10,25 +12,135 @@
 #include <sstream>
 #include "SceneManager.h"
 
-Kernel::Kernel()
+NoobKernel::NoobKernel()
 {
 };
 
-Kernel::~Kernel()
+NoobKernel::~NoobKernel()
 {
 	delete renderer;
 	delete sManager;
 	delete wManager;
 	delete iManager;
 	delete rManager;
-	delete cam;
-	delete cam2;	
+	delete cam2;
 };
 
-void Kernel::run()
+ExpertKernel::ExpertKernel()
 {
-	int width = 1280;
-	int height = 720;
+};
+
+ExpertKernel::~ExpertKernel()
+{
+	delete renderer;
+	delete sManager;
+	delete wManager;
+	delete iManager;
+	delete rManager;
+};
+
+bool ExpertKernel::createRenderer(RendererType type)
+{
+	switch (type)
+	{
+	case DirectX:
+		renderer = new DirectXRenderer();
+		if (renderer)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		break;
+	default:
+		return false;
+	}
+}
+
+bool ExpertKernel::createInputManager()
+{
+	iManager = new InputManager();
+	if (iManager)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool ExpertKernel::createSceneManager()
+{
+	sManager = new SceneManager();
+	if (sManager)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool ExpertKernel::createWindowManager()
+{
+	wManager = new WindowManager(sManager);
+	if (wManager)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool ExpertKernel::createResourceManager()
+{
+	rManager = new ResourceManager();
+	rManager->setD3DDevice(((DirectXRenderer *)renderer)->getD3DDevice());
+	if (rManager)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+InputManager* ExpertKernel::getInputManager()
+{
+	return iManager;
+}
+
+SceneManager* ExpertKernel::getSceneManager()
+{
+	return sManager;
+}
+
+WindowManager* ExpertKernel::getWindowManager()
+{
+	return wManager;
+}
+
+ResourceManager* ExpertKernel::getResourceManager()
+{
+	return rManager;
+}
+
+Renderer* ExpertKernel::getRenderer()
+{
+	return renderer;
+}
+
+void NoobKernel::run(int screenWidth, int screenHeight, std::string scenefile)
+{
+	int width = screenWidth;
+	int height = screenHeight;
 
 	renderer = new DirectXRenderer();
 	renderer->Initialize(width, height);
@@ -36,26 +148,18 @@ void Kernel::run()
 	wManager = new WindowManager(sManager);
 	iManager = new InputManager();
 
-	cam = new Camera();
 	cam2 = new Camera2();
 	rManager = new ResourceManager;
 	rManager->setD3DDevice(((DirectXRenderer *)renderer)->getD3DDevice());
-	rManager->PrintMap();
 
 	wManager->newWindow(renderer, 10, 10, width, height);
 
-	sManager->createScene(rManager, "scene one.txt", wManager->getLastWindow()->_hwnd, renderer);
+	sManager->createScene(rManager, scenefile, wManager->getLastWindow()->_hwnd, renderer);
 	Scene* scene = sManager->getScene(wManager->getLastWindow()->_hwnd);
-	scene->addCamera(cam);
 	scene->addCamera(cam2);
-	scene->setActiveCamera(1);
+	scene->setActiveCamera(0);
 
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, width, height);
-
-	iManager->addListenerToKeyboard(this);
-	iManager->addListenerToKeyboard(cam);
-	iManager->addListenerToMouse(cam);
-	iManager->addListenerToJoystick(cam);
 
 	iManager->addListenerToKeyboard(cam2);
 	iManager->addListenerToMouse(cam2);
@@ -65,14 +169,5 @@ void Kernel::run()
 	{
 		wManager->updateWindows();
 		iManager->frame();
-	}
-};
-
-void Kernel::useKeyboardInput(std::array<unsigned char, 256> keyboardState)
-{
-	if (keyboardState[DIK_ESCAPE] & 0x80)
-	{
-		Logger::getInstance().log(INFO, "Afgesloten met Escape");
-		exit(EXIT_SUCCESS);
 	}
 };

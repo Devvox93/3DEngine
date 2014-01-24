@@ -13,16 +13,16 @@
 #include "Camera2.h"
 #include <array>
 
-class Kernel : KeyboardListener
+class NoobKernel
 {
 public:
-	Kernel();
-	~Kernel();
+	NoobKernel();
+	~NoobKernel();
 
 	/*
 		Function that initiates all parts of the engine.
 	*/
-	void run();
+	void run(int screenWidth, int screenHeight, std::string scenefile);
 
 	/*
 		Method that performs actions based on keyboard input.
@@ -35,8 +35,6 @@ private:
 	WindowManager *wManager;
 	InputManager *iManager;
 	SceneManager *sManager;
-	Camera *cam;
 	Camera2 *cam2;
 	ResourceManager *rManager;
-
 };

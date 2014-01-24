@@ -33,7 +33,6 @@
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\DirectXWindow.h" />
     <ClInclude Include="Code\Entity.h" />
-    <ClInclude Include="Code\Kernel.h" />
     <ClInclude Include="Code\KeyboardListener.h" />
     <ClInclude Include="Code\InputManager.h" />
     <ClInclude Include="Code\Keyboard.h" />
@@ -58,5 +57,7 @@
     <ClInclude Include="Code\TextureResource.h" />
     <ClInclude Include="Code\Defines.h" />
     <ClInclude Include="Code\Camera2.h" />
+    <ClInclude Include="Code\NoobKernel.h" />
+    <ClInclude Include="Code\ExpertKernel.h" />
   </ItemGroup>
 </Project>
