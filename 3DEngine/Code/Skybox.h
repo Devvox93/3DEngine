@@ -8,7 +8,7 @@
 class Skybox
 {
 public:
-	Skybox(std::string texturePath, ResourceManager *resourceManager);
+	Skybox(TextureResource* textureResource, ResourceManager *resourceManager);
 	~Skybox();
 	Vertex* getVertices();
 	int* getIndices();
@@ -16,6 +16,6 @@ public:
 private:
 	Vertex* aSkyboxVertices;
 	int* aSkyboxIndices;
-	TextureResource *texture;
+	TextureResource* texture;
 };
 #endif
