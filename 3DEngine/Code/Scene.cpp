@@ -2,6 +2,7 @@
 #include "Model.h"
 #include "Camera.h"
 #include "Logger.h"
+#include <sstream>
 
 Scene::Scene(std::string path, ResourceManager* resourceManager)
 {
@@ -79,6 +80,7 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 
 		if (lineType.compare("skybox") == 0)
 		{
+<<<<<<< HEAD
 			std::ifstream file(lineInfo);
 			if (file)
 			{
@@ -88,12 +90,17 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 			{
 				Logger::getInstance().log(WARNING, "Skybox could not be found.");
 			}
+=======
+			TextureResource* texture = resourceManager->getTexture(lineInfo);
+			skybox = new Skybox(texture, resourceManager);
+>>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 		}
 		else if (lineType.compare("heightmap") == 0)
 		{
 			size_t comma = lineInfo.find_first_of(",");
 
 			std::string heightmap = lineInfo.substr(0, comma);
+<<<<<<< HEAD
 			std::string terrainTexture = lineInfo.substr(comma + 1, lineInfo.size()-colon-1);
 
 			std::ifstream fileHeightmap(heightmap);
@@ -106,14 +113,24 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 			{
 				Logger::getInstance().log(WARNING, "Terrain or terrain's texture could not be found.");
 			}
+=======
+			std::string terrainTexture = lineInfo.substr(comma + 1, lineInfo.size() - comma - 1);
+
+			TextureResource* texture = resourceManager->getTexture(terrainTexture);
+				terrain = new Terrain(heightmap, texture, resourceManager);
+>>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 		}
 		else if (lineType.compare("entity") == 0)
 		{
 			size_t nameComma = lineInfo.find_first_of(",");
 			std::string xResourceName = lineInfo.substr(0, nameComma);
+<<<<<<< HEAD
 
 			std::ifstream fileResource(xResourceName);
 			if (fileResource)
+=======
+			if (Resource* resource = resourceManager->getResource(xResourceName))
+>>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 			{
 				size_t positionXComma = lineInfo.find(",", nameComma + 1);
 				size_t positionYComma = lineInfo.find(",", positionXComma + 1);
@@ -144,12 +161,29 @@ void Scene::readSceneFile(std::vector<std::string>* sceneFile, ResourceManager *
 				float pscaleYFloat = (float)atof(scaleY.c_str());
 				float scaleZFloat = (float)atof(scaleZ.c_str());
 
+<<<<<<< HEAD
 			
 				models.push_back(new Model((XResource*)resourceManager->getResource(xResourceName), positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat));
 			}
 			else
 			{
 				Logger::getInstance().log(WARNING, "XResource could not be found.");
+=======
+				std::string allStrings = positionX + positionY + positionZ + yaw + pitch + roll + scaleX + scaleY + scaleZ;
+
+				std::stringstream oss;
+
+				oss << allStrings.find_first_not_of("1234567890.-");
+
+				Logger::getInstance().log(INFO, oss.str());
+
+				if (allStrings.find_first_not_of("1234567890.-") != std::string::npos)
+				{
+					Logger::getInstance().log(WARNING, "Unexpected content in your scene text file. Unexpected results might occur.");
+				}
+
+				models.push_back(new Model((XResource*)resource, positionXFloat, positionYFloat, positionZFloat, yawFloat, pitchFloat, rollFloat, scaleXFloat, pscaleYFloat, scaleZFloat));
+>>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 			}
 		}
 	}

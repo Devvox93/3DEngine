@@ -45,12 +45,17 @@ void Kernel::run()
 	wManager->newWindow(renderer, 10, 10, width, height);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	sceneManager->createScene(rsManager, "scene one.txt", wManager->getLastWindow()->_hwnd, renderer);
 	Scene* scene = sceneManager->getScene(wManager->getLastWindow()->_hwnd);
 =======
 	sManager->createScene(rManager, "default.txt", wManager->getLastWindow()->_hwnd, renderer);
 	Scene* scene = sManager->getScene(wManager->getLastWindow()->_hwnd);
 >>>>>>> 04ac3ee... Destructors (patrick houdt van mannen.)
+=======
+	sManager->createScene(rManager, "scene one.txt", wManager->getLastWindow()->_hwnd, renderer);
+	Scene* scene = sManager->getScene(wManager->getLastWindow()->_hwnd);
+>>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 	scene->addCamera(cam);
 	scene->addCamera(cam2);
 	scene->setActiveCamera(1);

@@ -18,15 +18,22 @@ class DirectXWindow : public Window
 public:
 	DirectXWindow();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	~DirectXWindow();
+>>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 
 	/*
 		 Creates and sets variables of a new window, specifically for Direct X.
 
 		 @param *directXRenderer: A pointer to the DirectX renderer.
 	*/
+<<<<<<< HEAD
 =======
 	~DirectXWindow();
 >>>>>>> 04ac3ee... Destructors (patrick houdt van mannen.)
+=======
+>>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 	DirectXWindow(Renderer *directXRenderer);
 	virtual void render(Scene *scene);
 protected:
