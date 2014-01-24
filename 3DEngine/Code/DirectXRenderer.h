@@ -26,7 +26,6 @@ private:
 	LPDIRECT3D9         g_pD3D;
 	LPDIRECT3DDEVICE9   g_pd3dDevice;
 	HRESULT InitD3D(HWND hWnd, int width, int height);
-	void Cleanup();
 	HRESULT InitGeometry(std::string filename);
 	D3DPRESENT_PARAMETERS setMyRenderSize(int width, int height, bool activate);
 	

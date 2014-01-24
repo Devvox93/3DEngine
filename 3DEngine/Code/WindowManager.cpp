@@ -10,6 +10,9 @@ WindowManager::WindowManager(SceneManager *sManager)
 
 WindowManager::~WindowManager()
 {
+	delete windows;
+	delete sceneManager;
+	delete list;
 };
 
 void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int height)
@@ -23,7 +26,7 @@ void WindowManager::newWindow(Renderer *renderer, int x, int y, int width, int h
 		return;
 	}
 
-	WindowList *list = new WindowList();
+	list = new WindowList();
 
 	list->window = window;
 	list->next = windows;

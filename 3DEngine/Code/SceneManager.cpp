@@ -9,6 +9,7 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
+	scenes.clear();
 };
 
 void SceneManager::createScene(ResourceManager* resourceManager, std::string path, HWND hwnd, Renderer* renderer)

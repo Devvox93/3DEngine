@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "WindowManager.h"
 #include "InputManager.h"
+#include "Camera2.h"
 #include <array>
 
 class Kernel : KeyboardListener
@@ -15,5 +16,9 @@ private:
 	Renderer *renderer;
 	WindowManager *wManager;
 	InputManager *iManager;
-	SceneManager *sceneManager;
+	SceneManager *sManager;
+	Camera *cam;
+	Camera2 *cam2;
+	ResourceManager *rManager;
+
 };

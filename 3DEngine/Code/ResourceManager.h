@@ -21,6 +21,9 @@ public:
 	void setD3DDevice(LPDIRECT3DDEVICE9 device);
 private:
 	std::map<std::string, Resource*> ResourceMap;
+	Resource *bmprsrc;
+	Resource *xrsrc;
+	TextureResource *txrsrc;
 	LPDIRECT3DDEVICE9 g_pd3dDevice;
 };
 #endif

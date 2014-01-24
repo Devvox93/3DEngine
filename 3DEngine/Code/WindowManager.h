@@ -22,6 +22,7 @@ public:
 	bool hasActiveWindow();
 	Window* getLastWindow();
 private:
+	WindowList *list;
 	WindowList* windows;
 	SceneManager *sceneManager;
 };

@@ -62,6 +62,9 @@ XResource::XResource()
 
 XResource::~XResource()
 {
+	delete g_pMesh;
+	delete g_pMeshMaterials;
+	delete myTextures;
 };
 
 LPD3DXMESH XResource::getMesh()
