@@ -12,12 +12,9 @@ XResource::XResource(std::string path, LPDIRECT3DDEVICE9 g_pd3dDevice, ResourceM
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 
 	// Load the mesh from the specified file
-	if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM,
-		g_pd3dDevice, NULL,
-		&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
-		&g_pMesh)))
+	if (FAILED(D3DXLoadMeshFromX(path.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials, &g_pMesh)))
 	{
-		Logger::getInstance().log(WARNING, "Could not load X from path: " + std::string(path));
+		Logger::getInstance().log(WARNING, "D3DXLoadMeshFromX failed with path: " + path);
 		isLoaded = false;
 		return;		//Jump out of the function
 	}

@@ -16,9 +16,14 @@ void SceneManager::createScene(ResourceManager* resourceManager, std::string pat
 	Scene* newScene = new Scene(path, resourceManager);
 
 	scenes[hwnd] = newScene;
-	
-	renderer->initTerrain(newScene->getTerrain());
-	renderer->initSkybox(newScene->getSkybox());
+	if (newScene->getTerrain())
+	{
+		renderer->initTerrain(newScene->getTerrain());
+	}
+	if (newScene->getSkybox())
+	{
+		renderer->initSkybox(newScene->getSkybox());
+	}
 };
 
 void SceneManager::deleteScene()

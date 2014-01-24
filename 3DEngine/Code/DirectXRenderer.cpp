@@ -196,15 +196,25 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
 
 		//Draw the actual skybox
-		Skybox *skybox = scene->getSkybox();
-		g_pd3dDevice->SetTexture(0, skybox->getTextureResource()->getTexture());
-		g_pd3dDevice->SetStreamSource(0, *skyboxVertexBuffers[skybox], 0, sizeof(Vertex));
-		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-		g_pd3dDevice->SetIndices(*skyboxIndexBuffers[skybox]);
-		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
+		if (Skybox *skybox = scene->getSkybox())
+		{
+			//Make sure the TextureResource is loaded properly, otherwise set the texture to NULL so it's white instead of a crash.
+			if (skybox->getTextureResource())
+			{
+				g_pd3dDevice->SetTexture(0, skybox->getTextureResource()->getTexture());
+			}
+			else
+			{
+				g_pd3dDevice->SetTexture(0, NULL);
+			}
+			g_pd3dDevice->SetStreamSource(0, *skyboxVertexBuffers[skybox], 0, sizeof(Vertex));
+			g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
+			g_pd3dDevice->SetIndices(*skyboxIndexBuffers[skybox]);
+			g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
+		}
+
 		//Enable the z-buffer again because we want all the other objects to behave "normal"
 		g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
-
 		//In addition to moving the terrain with the camera, we also want to scale it in height, otherwise there's not much depth.
 		D3DXMATRIXA16 matWorldScaled;
 		D3DXMatrixScaling(&matWorldScaled, 1.0f, 250.0f, 1.0f);
@@ -212,13 +222,22 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 		g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
 
 		//Draw the actual terrain
-		Terrain *terrain = scene->getTerrain();
-		g_pd3dDevice->SetTexture(0, terrain->getTextureResource()->getTexture());
-		g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(Vertex));
-		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-		g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
-		g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->getWidth() * terrain->getHeight(), 0, (terrain->getWidth() - 1) * (terrain->getHeight() - 1) * 2);
-		
+		if (Terrain *terrain = scene->getTerrain())
+		{
+			//Make sure the TextureResource is loaded properly, otherwise set the texture to NULL so it's white instead of a crash.
+			if (terrain->getTextureResource())
+			{
+				g_pd3dDevice->SetTexture(0, terrain->getTextureResource()->getTexture());
+			}
+			else
+			{
+				g_pd3dDevice->SetTexture(0, NULL);
+			}
+			g_pd3dDevice->SetStreamSource(0, *terrainVertexBuffers[terrain], 0, sizeof(Vertex));
+			g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
+			g_pd3dDevice->SetIndices(*terrainIndexBuffers[terrain]);
+			g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, terrain->getWidth() * terrain->getHeight(), 0, (terrain->getWidth() - 1) * (terrain->getHeight() - 1) * 2);
+		}
 		//We want to draw all the models in the current scene, so we loop through them.
 		std::vector<Entity*> entities = scene->getModels();
 		for each(Entity *currentEntity in entities)
@@ -229,23 +248,26 @@ void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 			g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorldFinal);
 
 			Model *currentModel = (Model*)currentEntity;
-			// Meshes are divided into subsets, one for each material. Render them in a loop
-			for (DWORD i = 0; i < currentModel->getModel()->getNumberOfMaterials(); i++)
+			if (currentModel->getModel())
 			{
-				// Set the material and texture for this subset
-				g_pd3dDevice->SetMaterial(&currentModel->getModel()->getMeshMaterials()[i]);
-				//Make sure the TextureResource is loaded properly, otherwise set the texture to NULL so it's white instead of a crash.
-				if (currentModel->getModel()->getTextures()[i])
+				// Meshes are divided into subsets, one for each material. Render them in a loop
+				for (DWORD i = 0; i < currentModel->getModel()->getNumberOfMaterials(); i++)
 				{
-					g_pd3dDevice->SetTexture(0, currentModel->getModel()->getTextures()[i]->getTexture());
-				}
-				else
-				{
-					g_pd3dDevice->SetTexture(0, NULL);
-				}
+					// Set the material and texture for this subset
+					g_pd3dDevice->SetMaterial(&currentModel->getModel()->getMeshMaterials()[i]);
+					//Make sure the TextureResource is loaded properly, otherwise set the texture to NULL so it's white instead of a crash.
+					if (currentModel->getModel()->getTextures()[i])
+					{
+						g_pd3dDevice->SetTexture(0, currentModel->getModel()->getTextures()[i]->getTexture());
+					}
+					else
+					{
+						g_pd3dDevice->SetTexture(0, NULL);
+					}
 
-				// Draw the mesh subset
-				currentModel->getModel()->getMesh()->DrawSubset(i);
+					// Draw the mesh subset
+					currentModel->getModel()->getMesh()->DrawSubset(i);
+				}
 			}
 		}
 		// End the scene

@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager)
+Terrain::Terrain(std::string path, std::string texturePath, ResourceManager *resourceManager)
 {
 	data = new TerrainData();
 	HDC lhdcDest;	//Handle to Device Context (Windows GDI)
@@ -21,10 +21,45 @@ Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager
 	}
 
 	//Windows GDI load image of type BMP (fileformat)
-	hbmp = LoadImage(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	char* terrainPath = new char[path.length() + 1];
+	strcpy_s(terrainPath, path.length() + 1, path.c_str());
+
+	hbmp = LoadImage(NULL, terrainPath, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	if (hbmp == NULL)	//Give a visual warning if the loading of the image failed
 	{
-		Logger::getInstance().log(WARNING, "Could not load BMP from path: " + std::string(path));
+		Logger::getInstance().log(WARNING, "Could not load BMP from path: " + std::string(path) + ", using hardcoded emergency terrain.");
+		data->width = 2;
+		data->height = 2;
+		aTerrainVertices = new Vertex[getWidth() * getHeight()];
+		aTerrainVertices[0] = { -1000.0f,//x
+								0.0f,//y
+								-1000.0f,//z
+								0.0f,//u
+								0.0f };//v
+		aTerrainVertices[1] = { 1000.0f,
+								0.0f,
+								-1000.0f,
+								1.0f,
+								0.0f };
+		aTerrainVertices[2] = { -1000.0f,
+								0.0f,
+								1000.0f,
+								0.0f,
+								1.0f };
+		aTerrainVertices[3] = { 1000.0f,
+								0.0f,
+								1000.0f,
+								1.0f,
+								1.0f };
+		amountOfIndices = 6;// 2 triangles on emergency terrain, good for 6 vertex indices.
+		aTerrainIndices = new int[amountOfIndices];
+		aTerrainIndices[0] = 0;
+		aTerrainIndices[1] = 1;
+		aTerrainIndices[2] = 2;
+		aTerrainIndices[3] = 1;
+		aTerrainIndices[4] = 2;
+		aTerrainIndices[5] = 3;
+		texture = resourceManager->getTexture(texturePath);
 		return;		//Jump out of the function
 	}
 	//At this point it is sure that lhdcDest & hbmp are valid.
@@ -51,13 +86,13 @@ Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager
 		{
 			aTerrainVertices[(lHeight*getWidth()) + lWidth] = { -(getWidth() / 2) + (float)lWidth, //x
 																-0.5f + ((float)GetRValue(GetPixel(lhdcDest, lWidth, lHeight)) / 255.0f), //y
-																-(getWidth() / 2) + (float)lHeight, //z
+																(getWidth() / 2) - (float)lHeight, //z
 																(1.0f / (getWidth() - 1)) * lWidth, //u
 																(1.0f / (getHeight() - 1)) * lHeight }; //v
 		}
 	}
 
-	amountOfIndices = (getWidth() - 1) * (getHeight() - 1) * 2 * 3;
+	amountOfIndices = (getWidth() - 1) * (getHeight() - 1) * 2 * 3;// * 2 * 3 because there's 2 triangles with 3 vertices per square
 	aTerrainIndices = new int[amountOfIndices];
 
 	std::stringstream ss2;
@@ -68,7 +103,7 @@ Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager
 	int offset = 0;
 	for (int i = 0; i < amountOfIndices; i += 6)
 	{
-		if (i != 0 && (i - 0) % ((getWidth() - 1) * 6) == 0)
+		if (i != 0 && i % ((getWidth() - 1) * 6) == 0)
 		{
 			offset += 1;
 		}
@@ -79,7 +114,6 @@ Terrain::Terrain(char* path, char* texturePath, ResourceManager *resourceManager
 		aTerrainIndices[i + 4] = i / 6 + getWidth() + offset;
 		aTerrainIndices[i + 5] = i / 6 + getWidth() + 1 + offset;
 	}
-
 	texture = resourceManager->getTexture(texturePath);
 };
 

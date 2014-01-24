@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BMPresource" Collapsed="true">
+    <Position X="0.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Code\BMPresource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera2" Collapsed="true">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAABJMAQCAAAAADUAAAAYAACGAAgAAEKACAAAgAEAAg=</HashCode>
+      <FileName>Code\Camera2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectXRenderer" Collapsed="true">
+    <Position X="8.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACDIACAAgAERAIBAIAAAiAAAAAABgIAFBICEAEAAA=</HashCode>
+      <FileName>Code\DirectXRenderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAACIIABCAAAAABQQAAAYQACGAAwAQECAAAAC0AEACg=</HashCode>
+      <FileName>Code\Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectXWindow" Collapsed="true">
+    <Position X="0.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAIAAAEAAAAAAAAAAAQAAAAAQgAA=</HashCode>
+      <FileName>Code\DirectXWindow.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entity" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>VAAAIogAAQAAAAAAAAAAAAAiCCAgAEACAABgAQAEAAA=</HashCode>
+      <FileName>Code\Entity.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Terrain" Collapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAEAABARAAAAAAAQAABAAAQgCAAEAQAAAAAAA=</HashCode>
+      <FileName>code\terrain.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Joystick" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAABEAAAAAgGAAACAAAAQAAQAAAAAAAABAAgA=</HashCode>
+      <FileName>Code\Joystick.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JoystickListener" Collapsed="true">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAABAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\JoystickListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kernel" Collapsed="true">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAgAAAAAAAAAAAEAAAAAAAAAAAAAAIAAABgAAgAA=</HashCode>
+      <FileName>Code\Kernel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Renderer" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAQAIAAAAAAgAAAAAAAAAAFCAAAAAAAA=</HashCode>
+      <FileName>Code\Renderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyboardListener" Collapsed="true">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAgAAAAA=</HashCode>
+      <FileName>Code\KeyboardListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAABCAAAAAAEAAAAAAIAAQAEAAAAAIQAQAgA=</HashCode>
+      <FileName>Code\InputManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Keyboard" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAgIIAAAgAAACgCAAACAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\Keyboard.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Logger" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAACAAAAAAAAAQAAAAgAIAAAAA=</HashCode>
+      <FileName>code\logger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAMAAA=</HashCode>
+      <FileName>Code\Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mouse" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACAABAAAEAwCAgAGAAAAAAAAQAAAAAQAAAAAA=</HashCode>
+      <FileName>Code\Mouse.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MouseListener" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\MouseListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Resource" Collapsed="true">
+    <Position X="3" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAACAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\Resource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceManager" Collapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAwAAQAAAEAAAAAAAAAAAAAFAAAAIAAg=</HashCode>
+      <FileName>Code\ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARABIIAAACAAAACgQAAQIAAQAAAAABAAAAAABBIABA=</HashCode>
+      <FileName>code\scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneManager" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAEAAAAAAAIAAAAAIAAgAAAAAAAAAAAQ=</HashCode>
+      <FileName>Code\SceneManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skybox" Collapsed="true">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABABAAhAAAAgAgBAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\Skybox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextureResource" Collapsed="true">
+    <Position X="5.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAwAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>code\textureresource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Window" Collapsed="true">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAIAAAAAgAEACAQAEAEAEAAAACAIQIAA=</HashCode>
+      <FileName>Code\Window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowManager" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAgAAAAAAACAAAAAAAAQAAAAggAAAAAABAAQAAA=</HashCode>
+      <FileName>Code\WindowManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XResource" Collapsed="true">
+    <Position X="3" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQECIBAAAAQAAAEAAAACAAAAAAACAAAAAAAg=</HashCode>
+      <FileName>Code\XResource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Vertex" Collapsed="true">
+    <Position X="17" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABJgAQAAAAA=</HashCode>
+      <FileName>Code\Defines.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TripleFloat" Collapsed="true">
+    <Position X="15.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAQAAAAA=</HashCode>
+      <FileName>Code\Defines.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TerrainData" Collapsed="true">
+    <Position X="13.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>code\terrain.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="WindowList" Collapsed="true">
+    <Position X="18.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAIAAAA=</HashCode>
+      <FileName>Code\WindowManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="BYTE" Collapsed="true">
+    <Position X="13.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="LogLevel" Collapsed="true">
+    <Position X="15.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIEAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>code\logger.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Entities" Collapsed="true">
+    <Position X="13.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAIAAA=</HashCode>
+      <FileName>code\scene.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WindowState" Collapsed="true">
+    <Position X="17" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAgAAAAAAAAAAIACAAACAAA=</HashCode>
+      <FileName>Code\Window.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

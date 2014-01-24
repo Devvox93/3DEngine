@@ -100,11 +100,18 @@ std::vector<std::string>* ResourceManager::getSceneFile(std::string path)
 	}
 	else 
 	{
-		Logger::getInstance().log(INFO, "Scene was not found, using HELLO WORLD instead");
+		Logger::getInstance().log(INFO, "Scene was not found, using default.txt instead");
 		std::ifstream file("default.txt");
-		while (std::getline(file, line))
+		if (file)
 		{
-			sceneFile->push_back(line);
+			while (std::getline(file, line))
+			{
+				sceneFile->push_back(line);
+			}
+		}
+		else 
+		{
+			Logger::getInstance().log(WARNING, "Error opening default.txt, you will get a green screen.");
 		}
 	}
 	return sceneFile;

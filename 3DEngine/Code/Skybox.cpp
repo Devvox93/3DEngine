@@ -2,7 +2,7 @@
 #include <sstream>
 #include "Logger.h"
 
-Skybox::Skybox(char *texturePath, ResourceManager *resourceManager)
+Skybox::Skybox(std::string texturePath, ResourceManager *resourceManager)
 {
 	aSkyboxVertices = new Vertex[24];
 	aSkyboxVertices[0] = { -50.0f, -50.0f, 50.0f, 0.25f, 0.6666f };//front

@@ -23,7 +23,7 @@ struct TerrainData
 class Terrain
 {
 public:
-	Terrain(char* path, char* texturepath, ResourceManager *resourceManager);
+	Terrain(std::string path, std::string texturepath, ResourceManager *resourceManager);
 	~Terrain();
 	int getWidth();
 	int getHeight();
