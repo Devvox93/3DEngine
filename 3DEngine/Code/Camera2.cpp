@@ -14,6 +14,7 @@ Camera2::Camera2()
 
 Camera2::~Camera2()
 {
+
 };
 
 void Camera2::update()

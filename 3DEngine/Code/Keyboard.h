@@ -1,10 +1,10 @@
 /*
-3D Engine
-Xresource.h
-Purpose: Loads X resources.
+	3D Engine
+	Keyboard.h
+	Purpose: Reads, processes and uses keyboard input and updates the keyboardlisteners accordingly.
 
-@author Patrick, Nick, Robert, Jordi
-@version 1.0
+	@author Patrick, Nick, Robert, Jordi
+	@version 1.0
 */
 
 #ifndef _KEYBOARD_H_
@@ -19,13 +19,37 @@ Purpose: Loads X resources.
 class Keyboard
 {
 public:
+	/*
+		 Uses directInput to set the keyboard.
+
+		@param directInput: Pointer to the directInput, which is used to create the keyboard.
+		@param hwnd: The hwnd of the window that will catch the keyboard input.
+	*/
 	Keyboard(IDirectInput8* directInput, HWND hwnd);
 	~Keyboard();
 	
+	/*
+		 Adds a keyboardlistener to a list of keyboardlisteners.
+
+		@param argKeyboardListener: A pointer to the keyboardlistener which is to be added.
+	*/
 	void addKeyboardListener(KeyboardListener* argKeyboardListener);
+
+	/*
+		 Reads the input from the keyboard.
+	*/
 	bool read();
+
+	/*
+		 Processes the input.
+	*/
 	void processInput();
+
+	/*
+		 Updates the listeners saved in the list.
+	*/
 	void updateListeners();
+
 private:
 	IDirectInputDevice8* keyboard;
 	std::array<unsigned char, 256> keyboardState;

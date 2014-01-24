@@ -7,6 +7,7 @@
 
 BMPresource::BMPresource(std::string path)
 {
+	
 	HANDLE hbmp;	//Handle to an object (standard handle)
 	HDC lhdcDest;	//Handle to Device Context (Windows GDI)
 
@@ -32,8 +33,10 @@ BMPresource::BMPresource(std::string path)
 	SelectObject(lhdcDest, hbmp);
 	//The BITMAP structure defines the type, width, height, color format, and bit values of a bitmap
 	isLoaded = true;
+	
 };
 
 BMPresource::~BMPresource()
 {
+
 };

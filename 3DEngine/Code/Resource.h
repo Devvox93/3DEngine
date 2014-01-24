@@ -1,10 +1,10 @@
 /*
-3D Engine
-Xresource.h
-Purpose: Loads X resources.
+	3D Engine
+	Resource.h
+	Purpose: Class to keep track which resources are loaded.
 
-@author Patrick, Nick, Robert, Jordi
-@version 1.0
+	@author Patrick, Nick, Robert, Jordi
+	@version 1.0
 */
 
 #ifndef _RESOURCE_H_
@@ -13,6 +13,11 @@ Purpose: Loads X resources.
 class Resource
 {
 public:
+	/*
+		Creates a resource and loads the resource file.
+
+		@param path: The path to the resource file on disk.
+	*/
 	Resource(char *path);
 	Resource();
 	~Resource();

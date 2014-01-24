@@ -7,6 +7,11 @@ DirectXWindow::DirectXWindow()
 {
 };
 
+DirectXWindow::~DirectXWindow()
+{
+	delete renderer;
+};
+
 DirectXWindow::DirectXWindow(Renderer *directXRenderer)
 {
 	//Override class name and style attributes.

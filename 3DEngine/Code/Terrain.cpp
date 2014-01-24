@@ -119,6 +119,9 @@ Terrain::Terrain(std::string path, TextureResource* textureResource, ResourceMan
 
 Terrain::~Terrain()
 {
+	delete data;
+	delete aTerrainVertices;
+	delete aTerrainIndices;
 };
 
 int Terrain::getWidth()

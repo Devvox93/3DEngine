@@ -26,7 +26,7 @@ public:
 		Initializes the directInput and creates input devices.
 
 		@param HINSTANCE: The Modulehandle needed for directInput.
-		@param HWND: The window that will catch the input of the input devices.
+		@param HWND: The hwnd of the window that will catch the input of the input devices.
 		@param screenWidth: The width of the screen, used to determine the borders of mouse.
 		@param screenHeigth: The height of the screen, used to determine the borders of mouse.
 	*/

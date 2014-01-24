@@ -1,10 +1,10 @@
 /*
-3D Engine
-Xresource.h
-Purpose: Loads X resources.
+	3D Engine
+	MouseListener.h
+	Purpose: Interface to unify the way mouse input is used.
 
-@author Patrick, Nick, Robert, Jordi
-@version 1.0
+	@author Patrick, Nick, Robert, Jordi
+	@version 1.0
 */
 
 #ifndef _MOUSELISTENER_H_
@@ -18,6 +18,9 @@ public:
 	MouseListener();
 	virtual ~MouseListener();
 
+	/*
+		Abstract method which needs to be implemented with actions based on mouse input.
+	*/
 	virtual void useMouseInput(DIMOUSESTATE mouseState) = 0;
 };
 #endif

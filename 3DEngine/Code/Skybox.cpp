@@ -49,6 +49,11 @@ Skybox::Skybox(TextureResource* textureResource, ResourceManager *resourceManage
 
 Skybox::~Skybox()
 {
+	delete aSkyboxVertices;
+	delete aSkyboxIndices;
+	delete texture;
+	
+
 };
 
 Vertex* Skybox::getVertices()

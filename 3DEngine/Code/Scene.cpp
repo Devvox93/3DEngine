@@ -14,6 +14,11 @@ Scene::Scene(std::string path, ResourceManager* resourceManager)
 
 Scene::~Scene()
 {
+	delete skybox;
+	delete terrain;
+	delete sceneFile;
+	
+	
 };
 
 void Scene::deleteModel(Entity* entity){

@@ -12,6 +12,7 @@ Model::Model(XResource* _model, float _positionX, float _positionY, float _posit
 
 Model::~Model()
 {
+	delete model;
 };
 
 void Model::update()
