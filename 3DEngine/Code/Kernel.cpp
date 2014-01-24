@@ -44,7 +44,7 @@ void Kernel::run()
 
 	wManager->newWindow(renderer, 10, 10, width, height);
 
-	sManager->createScene(rManager, "default.txt", wManager->getLastWindow()->_hwnd, renderer);
+	sManager->createScene(rManager, "scene one.txt", wManager->getLastWindow()->_hwnd, renderer);
 	Scene* scene = sManager->getScene(wManager->getLastWindow()->_hwnd);
 	scene->addCamera(cam);
 	scene->addCamera(cam2);
