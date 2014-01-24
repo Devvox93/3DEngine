@@ -1,7 +1,7 @@
 /*!
 	3D Engine
-	Kernel.h
-	Purpose: Manages all managers and is the main interface to our engine.
+	NoobKernel.h
+	Purpose: Manages all managers and is the main interface to our engine, noob version.
 
 	@author Patrick, Nick, Robert, Jordi
 	@version 1.0
@@ -21,6 +21,10 @@ public:
 
 	/*!
 		Function that initiates all parts of the engine.
+
+		@param screenWidth: The width of the window that will be created.
+		@param screenHeight: The height of the window that will be created.
+		@param scenefile: The name of the scenefile (
 	*/
 	void run(int screenWidth, int screenHeight, std::string scenefile);
 
