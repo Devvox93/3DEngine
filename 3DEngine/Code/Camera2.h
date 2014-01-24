@@ -1,10 +1,10 @@
 /*
-3D Engine
-Xresource.h
-Purpose: Loads X resources.
+	3D Engine
+	Camera2.h
+	Purpose: Provide the ability to change the field of view.
 
-@author Patrick, Nick, Robert, Jordi
-@version 1.0
+	@author Patrick, Nick, Robert, Jordi
+	@version 1.0
 */
 
 #ifndef _CAMERA2_H_
