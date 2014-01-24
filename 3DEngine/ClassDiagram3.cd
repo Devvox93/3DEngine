@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="BMPresource">
+    <Position X="20.75" Y="20.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Code\BMPresource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera2">
+    <Position X="8.5" Y="18" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>BAABJMAQCAAAAADUAAAAYAACGAAgAAEKACAAAgAEAAg=</HashCode>
+      <FileName>code\camera2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectXRenderer">
+    <Position X="10.5" Y="9.75" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAIACAAAAARAIBAIAAAiAAAAAABgAAFBIAAAEAAA=</HashCode>
+      <FileName>Code\DirectXRenderer.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="g_pD3D" />
+      <Field Name="g_pd3dDevice" />
+      <Field Name="skyboxIndexBuffers" />
+      <Field Name="skyboxVertexBuffers" />
+      <Field Name="terrainIndexBuffers" />
+      <Field Name="terrainVertexBuffers" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Camera">
+    <Position X="2.5" Y="18" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>BAACIIABCAAAAABQQAAAYQACGAAwAQECAAAAC0AEACg=</HashCode>
+      <FileName>Code\Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectXWindow">
+    <Position X="3.5" Y="12.5" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAJAAAEAAAAAAAAAAAQAAAAAQgAA=</HashCode>
+      <FileName>Code\DirectXWindow.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="renderer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Entity">
+    <Position X="18" Y="12.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>VAAAIogAAQAAAAAAAAAAAAAiCCAgAEACAABgAQAEAAA=</HashCode>
+      <FileName>Code\Entity.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="finalMatrix" />
+      <Field Name="positionMatrix" />
+      <Field Name="rotationMatrix" />
+      <Field Name="scaleMatrix" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Terrain">
+    <Position X="27.75" Y="9.75" Width="6" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAEAABARAAAAAAAQAABAAAQgCAAEAQAAAAAAA=</HashCode>
+      <FileName>Code\Terrain.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="aTerrainVertices" />
+      <Field Name="data" />
+      <Field Name="texture" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Joystick">
+    <Position X="15.75" Y="5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAABEAAAAAgGAAACAAAAQAAQAAAAAAAABAAgA=</HashCode>
+      <FileName>Code\Joystick.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="joystickListeners" />
+      <Field Name="joystickState" />
+      <Field Name="joystickStateOld" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="JoystickListener">
+    <Position X="4.25" Y="15.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAABAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\JoystickListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kernel">
+    <Position X="19" Y="18" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>GQEABgAAAAAAAAAAAEAAAAAAAAAAAAAAIAAAAgAAgAA=</HashCode>
+      <FileName>Code\Kernel.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="cam" />
+      <Field Name="cam2" />
+      <Field Name="iManager" />
+      <Field Name="renderer" />
+      <Field Name="rManager" />
+      <Field Name="sManager" />
+      <Field Name="wManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Renderer">
+    <Position X="22.75" Y="11.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAQAIAAAAAAgAAAAAAAAAAFCAAAAAAAA=</HashCode>
+      <FileName>code\renderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyboardListener">
+    <Position X="8.5" Y="15.75" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAgAAAAA=</HashCode>
+      <FileName>Code\KeyboardListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager">
+    <Position X="27.75" Y="2.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABCAAAAAAEAQAIAAAEAAAEAAAAAIQAQAgA=</HashCode>
+      <FileName>Code\InputManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="myJoystick" />
+      <Field Name="myKeyboard" />
+      <Field Name="myMouse" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Keyboard">
+    <Position X="21.75" Y="7" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAgIIAAAgAAACgCAAACAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\Keyboard.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="keyboardListeners" />
+      <Field Name="keyboardState" />
+      <Field Name="keyboardStateOld" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Logger">
+    <Position X="10.5" Y="28" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAACAAAAAAAAAQAAAAgAIAAAAA=</HashCode>
+      <FileName>code\logger.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="logfile" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Model">
+    <Position X="25.25" Y="18" Width="9.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAMAAA=</HashCode>
+      <FileName>Code\Model.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="model" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Mouse">
+    <Position X="21" Y="2.75" Width="5.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAABAAAEAwCAgAGAAAAAAAAQAAAAAQAAAAAA=</HashCode>
+      <FileName>Code\Mouse.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="mouseListeners" />
+      <Field Name="mouseState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MouseListener">
+    <Position X="13.75" Y="15.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\MouseListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Resource">
+    <Position X="16.5" Y="18" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAACAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\Resource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceManager">
+    <Position X="21.5" Y="23.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAgAAAAAIwAAQCAAEAAAAAAAAAAAAAFAAAAIAAg=</HashCode>
+      <FileName>Code\ResourceManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="bmprsrc" />
+      <Field Name="g_pd3dDevice" />
+      <Field Name="ResourceMap" />
+      <Field Name="txrsrc" />
+      <Field Name="xrsrc" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Scene">
+    <Position X="9.25" Y="3.5" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AARABIIAAACAAAACgQAAQIAAQAAAAABAAAAAABBIABA=</HashCode>
+      <FileName>Code\Scene.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="cameras" />
+      <Field Name="models" />
+      <Field Name="sceneFile" />
+      <Field Name="skybox" />
+      <Field Name="terrain" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SceneManager">
+    <Position X="22.25" Y="14.5" Width="5.75" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAEAAAAAAAIAAAAAIAAgAAAAAAAAAAAQ=</HashCode>
+      <FileName>Code\SceneManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="scenes" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Skybox">
+    <Position X="28" Y="6.25" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABABAAhAAAAgAgBAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\Skybox.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="aSkyboxVertices" />
+      <Field Name="texture" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TextureResource">
+    <Position X="23.5" Y="20.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAwAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\TextureResource.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="texture" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Window">
+    <Position X="3" Y="9.75" Width="6.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAIAAAAAgAEACAQAEAEAEAAAACAIQIAA=</HashCode>
+      <FileName>Code\Window.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_dwExtendedStyle" />
+      <Field Name="_dwStyle" />
+      <Field Name="_hwnd" />
+      <Field Name="_pszClassName" />
+      <Field Name="_pszTitle" />
+      <Field Name="_WndClass" />
+      <Field Name="state" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WindowManager">
+    <Position X="28.75" Y="14" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AABAAggAAAAAAACAAAAAAAAQAAAAggAAAAAABAAQAAA=</HashCode>
+      <FileName>code\windowmanager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="list" />
+      <Field Name="sceneManager" />
+      <Field Name="windows" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="XResource">
+    <Position X="14.5" Y="20.75" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQECIBAAAAQAAAEAAAACAAAAAAACAAAAAAAg=</HashCode>
+      <FileName>Code\XResource.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="g_dwNumMaterials" />
+      <Field Name="g_pMesh" />
+      <Field Name="g_pMeshMaterials" />
+      <Field Name="myTextures" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;" Collapsed="true">
+    <Position X="13.5" Y="14" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAEAAAAAgQAgAAAAAAA=</HashCode>
+      <FileName>d:\visual studio 2013\vc\include\map</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::vector&lt;_Ty, _Alloc&gt;" Collapsed="true">
+    <Position X="16.5" Y="9" Width="4" />
+    <TypeIdentifier>
+      <HashCode>IUoEEIEqCLBMUEBAAKMIAgASAgUESAIAxQMwgwAEQgI=</HashCode>
+      <FileName>d:\visual studio 2013\vc\include\vector</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::array&lt;_Ty, _Size&gt;" Collapsed="true">
+    <Position X="22.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAIECADAEAABAAKAAAAISAAEAAAAAwAgQAgAEAAI=</HashCode>
+      <FileName>d:\visual studio 2013\vc\include\array</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Vertex" Collapsed="true">
+    <Position X="34.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABJgAQAAAAA=</HashCode>
+      <FileName>Code\Defines.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TerrainData" Collapsed="true">
+    <Position X="34.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Code\Terrain.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="WindowList" Collapsed="true">
+    <Position X="34.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAIAAAA=</HashCode>
+      <FileName>code\windowmanager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DIJOYSTATE2" Collapsed="true">
+    <Position X="16.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAgAUAAAAIAAgBSIJFGgAAABAAAQAAEAgAAAAAAQA=</HashCode>
+      <FileName>c:\program files (x86)\windows kits\8.1\include\um\dinput.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="DWORD" Collapsed="true">
+    <Position X="10.5" Y="14" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\windows kits\8.1\include\shared\strsafe.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HWND" Collapsed="true">
+    <Position X="0.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\windows kits\8.1\include\shared\wtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPSTR" Collapsed="true">
+    <Position X="5.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\windows kits\8.1\include\um\winnt.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="WNDCLASSEX" Collapsed="true">
+    <Position X="2" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\windows kits\8.1\include\um\winuser.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPD3DXMESH" Collapsed="true">
+    <Position X="20" Y="26.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>d:\directx 9 sdk\include\d3dx9mesh.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="D3DMATERIAL9" Collapsed="true">
+    <Position X="16" Y="25.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>d:\directx 9 sdk\include\d3d9types.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPDIRECT3DTEXTURE9" Collapsed="true">
+    <Position X="26" Y="23.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>d:\directx 9 sdk\include\d3d9.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="D3DXMATRIXA16" Collapsed="true">
+    <Position X="17.75" Y="10.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>d:\directx 9 sdk\include\d3dx9math.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPDIRECT3D9" Collapsed="true">
+    <Position X="12" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>d:\directx 9 sdk\include\d3d9.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPDIRECT3DDEVICE9" Collapsed="true">
+    <Position X="16.5" Y="24" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>d:\directx 9 sdk\include\d3d9.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DIMOUSESTATE" Collapsed="true">
+    <Position X="25.75" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\windows kits\8.1\include\um\dinput.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="std::ofstream" Collapsed="true">
+    <Position X="10.25" Y="26.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>d:\visual studio 2013\vc\include\iosfwd</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="WindowState" Collapsed="true">
+    <Position X="5.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAgAAAAAAAAAAIACAAACAAA=</HashCode>
+      <FileName>Code\Window.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
