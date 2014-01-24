@@ -15,6 +15,17 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
+	
+	ResourceMap.clear();
+	delete bmprsrc;
+	delete xrsrc;
+	delete txrsrc;
+	if (g_pd3dDevice != NULL)
+	{
+		g_pd3dDevice = NULL;
+	}
+
+
 };
 
 Resource* ResourceManager::getResource(std::string path)
@@ -35,7 +46,7 @@ Resource* ResourceManager::getResource(std::string path)
 		}
 		if (path.substr(path.find_last_of(".") + 1) == "x" || path.substr(path.find_last_of(".") + 1) == "X")
 		{
-			Resource *xrsrc = new XResource(path, g_pd3dDevice, this);
+			xrsrc = new XResource(path, g_pd3dDevice, this);
 			if (xrsrc->isLoaded)
 			{
 				ResourceMap.insert(std::make_pair(path, xrsrc));
@@ -58,10 +69,10 @@ TextureResource* ResourceManager::getTexture(std::string path)
 {
 	if (ResourceMap.find(path) == ResourceMap.end())
 	{
-		TextureResource *xrsrc = new TextureResource(path, g_pd3dDevice);
-		if (xrsrc->isLoaded)
+		txrsrc = new TextureResource(path, g_pd3dDevice);
+		if (txrsrc->isLoaded)
 		{
-			ResourceMap.insert(std::make_pair(path, xrsrc));
+			ResourceMap.insert(std::make_pair(path, txrsrc));
 			return (TextureResource*)ResourceMap[path];
 		}
 		else

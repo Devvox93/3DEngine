@@ -20,6 +20,10 @@ TextureResource::TextureResource()
 
 TextureResource::~TextureResource()
 {
+	if (texture != NULL){
+		delete texture;
+		texture = NULL;
+	}
 };
 
 LPDIRECT3DTEXTURE9 TextureResource::getTexture()

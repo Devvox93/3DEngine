@@ -6,6 +6,7 @@ Renderer::Renderer()
 
 Renderer::~Renderer()
 {
+	
 };
 
 void Renderer::Initialize(int width, int height)

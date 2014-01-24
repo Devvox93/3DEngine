@@ -19,7 +19,7 @@ class Renderer
 {
 public:
 	Renderer();
-	~Renderer();
+	virtual ~Renderer() = 0;
 
 	/*
 		 Abstract method that initializes the renderer.

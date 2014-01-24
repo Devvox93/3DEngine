@@ -17,6 +17,7 @@ class DirectXWindow : public Window
 {
 public:
 	DirectXWindow();
+	~DirectXWindow();
 
 	/*
 		 Creates and sets variables of a new window, specifically for Direct X.

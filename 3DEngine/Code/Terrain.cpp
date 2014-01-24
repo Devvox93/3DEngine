@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-Terrain::Terrain(std::string path, std::string texturePath, ResourceManager *resourceManager)
+Terrain::Terrain(std::string path, TextureResource* textureResource, ResourceManager *resourceManager)
 {
 	data = new TerrainData();
 	HDC lhdcDest;	//Handle to Device Context (Windows GDI)
@@ -59,7 +59,7 @@ Terrain::Terrain(std::string path, std::string texturePath, ResourceManager *res
 		aTerrainIndices[3] = 1;
 		aTerrainIndices[4] = 2;
 		aTerrainIndices[5] = 3;
-		texture = resourceManager->getTexture(texturePath);
+		texture = textureResource;
 		return;		//Jump out of the function
 	}
 	//At this point it is sure that lhdcDest & hbmp are valid.
@@ -114,11 +114,14 @@ Terrain::Terrain(std::string path, std::string texturePath, ResourceManager *res
 		aTerrainIndices[i + 4] = i / 6 + getWidth() + offset;
 		aTerrainIndices[i + 5] = i / 6 + getWidth() + 1 + offset;
 	}
-	texture = resourceManager->getTexture(texturePath);
+	texture = textureResource;
 };
 
 Terrain::~Terrain()
 {
+	delete data;
+	delete aTerrainVertices;
+	delete aTerrainIndices;
 };
 
 int Terrain::getWidth()

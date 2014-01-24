@@ -1,10 +1,10 @@
 /*
-	3D Engine
+3D Engine
 	Skybox.h
 	Purpose: Holds information about the skybox.
 
-	@author Patrick, Nick, Robert, Jordi
-	@version 1.0
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
 */
 
 #ifndef _SKYBOX_H_
@@ -18,12 +18,12 @@ class Skybox
 {
 public:
 	/*
-		Loads a texture for the skybox and applies it.
+	Loads a texture for the skybox and applies it.
 
-		@param texturePath: The path to the texture resource of the Skybox.
-		@param *resourceManager: A pointer to the resourceManager.
+	@param textureResource: A pointer to the texture resource of the Skybox.
+	@param *resourceManager: A pointer to the resourceManager.
 	*/
-	Skybox(std::string texturePath, ResourceManager *resourceManager);
+	Skybox(TextureResource* textureResource, ResourceManager *resourceManager);
 	~Skybox();
 
 	/*
@@ -49,6 +49,6 @@ public:
 private:
 	Vertex* aSkyboxVertices;
 	int* aSkyboxIndices;
-	TextureResource *texture;
+	TextureResource* texture;
 };
 #endif
