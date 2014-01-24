@@ -40,6 +40,7 @@ Joystick::Joystick(IDirectInput8* argInterface, HWND hDlg)
 
 Joystick::~Joystick()
 {
+	delete joystick;
 };
 
 void Joystick::addJoystickListener(JoystickListener* argJoystickListener)

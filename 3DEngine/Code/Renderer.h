@@ -19,6 +19,7 @@ class Renderer
 {
 public:
 	Renderer();
+<<<<<<< HEAD
 	~Renderer();
 
 	/*
@@ -27,6 +28,9 @@ public:
 		@param width: The width of the window that will be created.
 		@param height: The height of the window that will be created.
 	*/
+=======
+	virtual ~Renderer()= NULL;
+>>>>>>> 04ac3ee... Destructors (patrick houdt van mannen.)
 	virtual void Initialize(int width, int height) = 0;
 
 	/*

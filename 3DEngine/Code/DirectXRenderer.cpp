@@ -14,7 +14,16 @@ DirectXRenderer::DirectXRenderer()
 
 DirectXRenderer::~DirectXRenderer()
 {
-	Cleanup();
+	
+	if (g_pd3dDevice != NULL)
+	{
+		g_pd3dDevice->Release();
+	}
+
+	if (g_pD3D != NULL)
+	{
+		g_pD3D->Release();
+	}
 };
 
 LPDIRECT3DDEVICE9 DirectXRenderer::getD3DDevice()
@@ -155,18 +164,6 @@ void DirectXRenderer::initSkybox(Skybox* skybox)
 	skyboxIndexBuffers[skybox] = &g_pSkyboxIndexBuffer;
 };
 
-void DirectXRenderer::Cleanup()
-{
-	if (g_pd3dDevice != NULL)
-	{
-		g_pd3dDevice->Release();
-	}
-
-	if (g_pD3D != NULL)
-	{
-		g_pD3D->Release();
-	}
-};
 
 void DirectXRenderer::Render(HWND hwnd, Scene* scene)
 {

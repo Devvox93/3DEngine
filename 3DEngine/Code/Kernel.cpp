@@ -16,6 +16,13 @@ Kernel::Kernel()
 
 Kernel::~Kernel()
 {
+	delete renderer;
+	delete sManager;
+	delete wManager;
+	delete iManager;
+	delete rManager;
+	delete cam;
+	delete cam2;	
 };
 
 void Kernel::run()
@@ -25,20 +32,25 @@ void Kernel::run()
 
 	renderer = new DirectXRenderer();
 	renderer->Initialize(width, height);
-	sceneManager = new SceneManager();
-	wManager = new WindowManager(sceneManager);
+	sManager = new SceneManager();
+	wManager = new WindowManager(sManager);
 	iManager = new InputManager();
 
-	Camera* cam = new Camera();
-	Camera2* cam2 = new Camera2();
-	ResourceManager *rsManager = new ResourceManager;
-	rsManager->setD3DDevice(((DirectXRenderer *)renderer)->getD3DDevice());
-	rsManager->PrintMap();
+	cam = new Camera();
+	cam2 = new Camera2();
+	rManager = new ResourceManager;
+	rManager->setD3DDevice(((DirectXRenderer *)renderer)->getD3DDevice());
+	rManager->PrintMap();
 
 	wManager->newWindow(renderer, 10, 10, width, height);
 
+<<<<<<< HEAD
 	sceneManager->createScene(rsManager, "scene one.txt", wManager->getLastWindow()->_hwnd, renderer);
 	Scene* scene = sceneManager->getScene(wManager->getLastWindow()->_hwnd);
+=======
+	sManager->createScene(rManager, "default.txt", wManager->getLastWindow()->_hwnd, renderer);
+	Scene* scene = sManager->getScene(wManager->getLastWindow()->_hwnd);
+>>>>>>> 04ac3ee... Destructors (patrick houdt van mannen.)
 	scene->addCamera(cam);
 	scene->addCamera(cam2);
 	scene->setActiveCamera(1);

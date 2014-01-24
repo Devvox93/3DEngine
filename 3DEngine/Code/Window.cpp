@@ -26,6 +26,7 @@ Window::Window()
 
 Window::~Window()
 {
+	delete _hwnd;
 };
 
 HWND Window::Create(int x, int y, int nWidth, int nHeight, HWND hParent, HMENU hMenu, HINSTANCE hInstance)
