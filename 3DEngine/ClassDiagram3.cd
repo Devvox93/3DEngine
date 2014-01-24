@@ -23,10 +23,10 @@
     <ShowAsAssociation>
       <Field Name="g_pD3D" />
       <Field Name="g_pd3dDevice" />
-      <Field Name="skyboxIndexBuffers" />
-      <Field Name="skyboxVertexBuffers" />
-      <Field Name="terrainIndexBuffers" />
       <Field Name="terrainVertexBuffers" />
+      <Field Name="terrainIndexBuffers" />
+      <Field Name="skyboxVertexBuffers" />
+      <Field Name="skyboxIndexBuffers" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Camera">
@@ -54,8 +54,8 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="finalMatrix" />
-      <Field Name="positionMatrix" />
       <Field Name="rotationMatrix" />
+      <Field Name="positionMatrix" />
       <Field Name="scaleMatrix" />
     </ShowAsAssociation>
   </Class>
@@ -66,8 +66,8 @@
       <FileName>Code\Terrain.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="aTerrainVertices" />
       <Field Name="data" />
+      <Field Name="aTerrainVertices" />
       <Field Name="texture" />
     </ShowAsAssociation>
   </Class>
@@ -78,9 +78,9 @@
       <FileName>Code\Joystick.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="joystickListeners" />
       <Field Name="joystickState" />
       <Field Name="joystickStateOld" />
+      <Field Name="joystickListeners" />
     </ShowAsAssociation>
   </Class>
   <Class Name="JoystickListener">
@@ -97,13 +97,13 @@
       <FileName>Code\Kernel.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Field Name="renderer" />
+      <Field Name="wManager" />
+      <Field Name="iManager" />
+      <Field Name="sManager" />
       <Field Name="cam" />
       <Field Name="cam2" />
-      <Field Name="iManager" />
-      <Field Name="renderer" />
       <Field Name="rManager" />
-      <Field Name="sManager" />
-      <Field Name="wManager" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Renderer">
@@ -127,9 +127,9 @@
       <FileName>Code\InputManager.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="myJoystick" />
       <Field Name="myKeyboard" />
       <Field Name="myMouse" />
+      <Field Name="myJoystick" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Keyboard">
@@ -139,9 +139,9 @@
       <FileName>Code\Keyboard.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="keyboardListeners" />
       <Field Name="keyboardState" />
       <Field Name="keyboardStateOld" />
+      <Field Name="keyboardListeners" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Logger">
@@ -171,8 +171,8 @@
       <FileName>Code\Mouse.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="mouseListeners" />
       <Field Name="mouseState" />
+      <Field Name="mouseListeners" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MouseListener">
@@ -196,11 +196,11 @@
       <FileName>Code\ResourceManager.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="bmprsrc" />
-      <Field Name="g_pd3dDevice" />
       <Field Name="ResourceMap" />
-      <Field Name="txrsrc" />
+      <Field Name="bmprsrc" />
       <Field Name="xrsrc" />
+      <Field Name="txrsrc" />
+      <Field Name="g_pd3dDevice" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Scene">
@@ -210,11 +210,11 @@
       <FileName>Code\Scene.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="cameras" />
-      <Field Name="models" />
-      <Field Name="sceneFile" />
-      <Field Name="skybox" />
       <Field Name="terrain" />
+      <Field Name="skybox" />
+      <Field Name="models" />
+      <Field Name="cameras" />
+      <Field Name="sceneFile" />
     </ShowAsAssociation>
   </Class>
   <Class Name="SceneManager">
@@ -255,13 +255,13 @@
       <FileName>Code\Window.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Field Name="_hwnd" />
+      <Field Name="state" />
+      <Field Name="_WndClass" />
       <Field Name="_dwExtendedStyle" />
       <Field Name="_dwStyle" />
-      <Field Name="_hwnd" />
       <Field Name="_pszClassName" />
       <Field Name="_pszTitle" />
-      <Field Name="_WndClass" />
-      <Field Name="state" />
     </ShowAsAssociation>
   </Class>
   <Class Name="WindowManager">
@@ -272,8 +272,8 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="list" />
-      <Field Name="sceneManager" />
       <Field Name="windows" />
+      <Field Name="sceneManager" />
     </ShowAsAssociation>
   </Class>
   <Class Name="XResource">
@@ -283,10 +283,10 @@
       <FileName>Code\XResource.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="g_dwNumMaterials" />
       <Field Name="g_pMesh" />
       <Field Name="g_pMeshMaterials" />
       <Field Name="myTextures" />
+      <Field Name="g_dwNumMaterials" />
     </ShowAsAssociation>
   </Class>
   <Class Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;" Collapsed="true">
