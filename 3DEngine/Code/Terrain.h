@@ -1,3 +1,12 @@
+/*
+3D Engine
+Xresource.h
+Purpose: Loads X resources.
+
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
+*/
+
 #ifndef _TERRAIN_H_
 #define _TERRAIN_H_
 
@@ -14,7 +23,7 @@ struct TerrainData
 class Terrain
 {
 public:
-	Terrain(std::string path, std::string texturepath, ResourceManager *resourceManager);
+	Terrain(std::string path, TextureResource* textureResource, ResourceManager *resourceManager);
 	~Terrain();
 	int getWidth();
 	int getHeight();

@@ -1,3 +1,12 @@
+/*
+3D Engine
+Xresource.h
+Purpose: Loads X resources.
+
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
+*/
+
 #ifndef _SKYBOX_H_
 #define _SKYBOX_H_
 
@@ -8,7 +17,7 @@
 class Skybox
 {
 public:
-	Skybox(std::string texturePath, ResourceManager *resourceManager);
+	Skybox(TextureResource* textureResource, ResourceManager *resourceManager);
 	~Skybox();
 	Vertex* getVertices();
 	int* getIndices();
@@ -16,6 +25,6 @@ public:
 private:
 	Vertex* aSkyboxVertices;
 	int* aSkyboxIndices;
-	TextureResource *texture;
+	TextureResource* texture;
 };
 #endif

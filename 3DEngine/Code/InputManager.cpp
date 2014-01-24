@@ -82,17 +82,17 @@ bool InputManager::frame()
 	return true;
 };
 
-Keyboard* InputManager::getKeyboard()
+void InputManager::addListenerToKeyboard(KeyboardListener* argKeyboardListener)
 {
-	return myKeyboard;
-};
+	myKeyboard->addKeyboardListener(argKeyboardListener);
+}
 
-Mouse* InputManager::getMouse()
+void InputManager::addListenerToMouse(MouseListener* argMouseListener)
 {
-	return myMouse;
-};
+	myMouse->addMouseListener(argMouseListener);
+}
 
-Joystick* InputManager::getJoystick()
+void InputManager::addListenerToJoystick(JoystickListener* argJoystickListener)
 {
-	return myJoystick;
-};
+	myJoystick->addJoystickListener(argJoystickListener);
+}
