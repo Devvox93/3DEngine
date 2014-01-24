@@ -59,7 +59,4 @@
     <ClInclude Include="Code\Defines.h" />
     <ClInclude Include="Code\Camera2.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
 </Project>
