@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Logger.h
 	Purpose: Used to log info, warnings and errors to the command line and the log-file.
@@ -17,7 +17,7 @@ class Logger
 {
 public:
 
-	/*
+	/*!
 		Returns the singleton logger.
 	*/
 	static Logger& getInstance()
@@ -26,7 +26,7 @@ public:
 		return instance;
 	}
 
-	/*
+	/*!
 		Method that logs a type and message.
 	*/
 	void log(LogLevel type, std::string message);

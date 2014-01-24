@@ -1,4 +1,4 @@
-/*
+/*!
 3D Engine
 Xresource.h
 Purpose: Loads X resources.
@@ -16,7 +16,7 @@ Purpose: Loads X resources.
 class Model : public Entity
 {
 public:
-	/*
+	/*!
 		Creates a model with given attributes.
 
 		@param _model: A pointer to the XResource.
@@ -33,12 +33,12 @@ public:
 	Model(XResource* _model, float _positionX, float _positionY, float _positionZ, float _yaw, float _pitch, float _roll, float _scaleX, float _scaleY, float _scaleZ);
 	~Model();
 
-	/*
+	/*!
 		Updates the model.
 	*/
 	void update();
 
-	/*
+	/*!
 		Returns a pointer.
 
 		@return XResource: The XResource of the model.

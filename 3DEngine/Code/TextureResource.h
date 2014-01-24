@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	TextureResource.h
 	Purpose: Loads and stores a texture.
@@ -17,7 +17,7 @@
 class TextureResource : public Resource
 {
 public:
-	/*
+	/*!
 		Loads a texture resource from file.
 
 		@param path: The path to the resource file on disk.
@@ -27,7 +27,7 @@ public:
 	TextureResource();
 	~TextureResource();
 
-	/*
+	/*!
 		Returns the texture.
 
 		@return LPDIRECT3DTEXTURE9: The texture.

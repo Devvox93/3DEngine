@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Defines.h
 	Purpose: Global defines used in the Engine.

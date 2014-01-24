@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Mouse.h
 	Purpose: Reads, processes and uses mouse input and updates the mouseListeners accordingly.
@@ -17,7 +17,7 @@
 class Mouse
 {
 public:
-	/*
+	/*!
 		 Uses directInput to set the mouse.
 
 		@param directInput: Pointer to the directInput, which is used to create the mouse.
@@ -28,24 +28,24 @@ public:
 	Mouse(IDirectInput8* directInput, HWND hwnd, int argScreenWidth, int argScreenHeight);
 	~Mouse();
 
-	/*
+	/*!
 		 Adds a mouselistener to a list of mouselisteners.
 
 		@param argMouseListener: A pointer to the mouselistener which is to be added.
 	*/
 	void addMouseListener(MouseListener* argMouseListener);
 
-	/*
+	/*!
 		 Reads the input from the mouse.
 	*/
 	bool read();
 
-	/*
+	/*!
 		 Processes the input.
 	*/
 	void processInput();
 
-	/*
+	/*!
 		 Updates the listeners saved in the list.
 	*/
 	void updateListeners();

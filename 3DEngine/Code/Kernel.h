@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Kernel.h
 	Purpose: Manages all managers and is the main interface to our engine.
@@ -19,12 +19,12 @@ public:
 	Kernel();
 	~Kernel();
 
-	/*
+	/*!
 		Function that initiates all parts of the engine.
 	*/
 	void run();
 
-	/*
+	/*!
 		Method that performs actions based on keyboard input.
 
 		@param keyboardState: Array that contains the state of all keys on the keyboard.

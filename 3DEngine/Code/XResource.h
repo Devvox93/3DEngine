@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Xresource.h
 	Purpose: Loads X resources.
@@ -18,7 +18,7 @@
 class XResource : public Resource
 {
 public:
-	/*
+	/*!
 		Loads an X resource from file.
 
 		@param path: Path to the resource file.
@@ -30,30 +30,30 @@ public:
 	XResource();
 
 	~XResource();
-	/*
+	/*!
 		Function to get the mesh of the X model.
 
 		@return LPD3DXMESH: The mesh of the X model.
 	*/
 	LPD3DXMESH getMesh();
 
-	/*
+	/*!
 		Function to get the mesh materials of the X model.
 
 		@return D3DMATERIAL9*: Pointer to the mesh material of the X model.
 	*/
 	D3DMATERIAL9* getMeshMaterials();
 
-	/*
+	/*!
 		Function to get the textures of the X model.
 
 		@return TextureResource**: Array of pointers to the textures of the X model.
 	*/
 	TextureResource** getTextures();
 
-	/*
+	/*!
 		Function to get the number of materials from the X model.
-
+	
 		@return DWORD: The number of materials of the X model.
 	*/
 	DWORD getNumberOfMaterials();

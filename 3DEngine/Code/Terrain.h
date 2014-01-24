@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	Terrain.h
 	Purpose: Holds information about the terrain.
@@ -23,7 +23,7 @@ struct TerrainData
 class Terrain
 {
 public:
-	/*
+	/*!
 		Loads a heightmap and texture for the terrain.
 
 		@param path: The path to the heightmap file on disk.
@@ -33,42 +33,42 @@ public:
 	Terrain(std::string path, TextureResource* textureResource, ResourceManager *resourceManager);
 	~Terrain();
 
-	/*
+	/*!
 		Returns a variable.
 
 		@return int: The width of the terrain.
 	*/
 	int getWidth();
 
-	/*
+	/*!
 		Returns a variable.
 
 		@return int: The height of the terrain.
 	*/
 	int getHeight();
 
-	/*
+	/*!
 		Returns a variable.
 
 		@return Vertex*: A pointer to the vertices of the terrain.
 	*/
 	Vertex* getVertices();
 
-	/*
+	/*!
 		Returns a variable.
 
 		@return int: The amount of indices in the terrain.
 	*/
 	int getAmountOfIndices();
 
-	/*
+	/*!
 		Returns a variable.
 
 		@return int*: A pointer to the indices in the terrain.
 	*/
 	int* getIndices();
 
-	/*
+	/*!
 		Returns a variable.
 
 		@return TextureResource*: The texture of the terrain.

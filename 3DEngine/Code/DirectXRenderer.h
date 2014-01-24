@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	DirectXRenderer.h
 	Purpose: DirectX
@@ -26,7 +26,7 @@ public:
 	DirectXRenderer();
 	~DirectXRenderer();
 
-	/*
+	/*!
 		 Abstract method that initializes the renderer.
 
 		@param width: The width of the window that will be created.
@@ -34,7 +34,7 @@ public:
 	*/
 	void Initialize(int width, int height);
 
-	/*
+	/*!
 		 Abstract method that renders.
 
 		@param hwnd: The hwnd of the window where the render output needs to be put.
@@ -42,7 +42,7 @@ public:
 	*/
 	void Render(HWND hwnd, Scene* scene);
 
-	/*
+	/*!
 		 Abstract method that sets the render size.
 
 		@param width: The width of the window that will be created.
@@ -50,14 +50,14 @@ public:
 	*/
 	void setRenderSize(int width, int height);
 
-	/*
+	/*!
 		 Abstract method that initializes the skybox.
 
 		@param *skybox: Pointer to the skybox that needs to be initialized.
 	*/
 	void initSkybox(Skybox* skybox);
 
-	/*
+	/*!
 		 Abstract method that initializes the terrain.
 
 		@param *terrain: A pointer to the terrain that needs to be initialized.

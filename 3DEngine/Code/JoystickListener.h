@@ -1,4 +1,4 @@
-/*
+/*!
 	3D Engine
 	JoystickListener.h
 	Purpose: Interface to unify the way joystick input is used.
@@ -19,7 +19,7 @@ public:
 	JoystickListener();
 	virtual ~JoystickListener();
 
-	/*
+	/*!
 		Abstract method which needs to be implemented with actions based on joystick input.
 
 		@param DIJOYSTATE2: Array that contains the state of all buttons on the joystick.
