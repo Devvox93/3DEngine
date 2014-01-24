@@ -1,3 +1,12 @@
+/*
+3D Engine
+Xresource.h
+Purpose: Loads X resources.
+
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
+*/
+
 //A header file to use for cross-class definition of stuff.
 #ifndef _DEFINES_H_
 #define _DEFINES_H_
