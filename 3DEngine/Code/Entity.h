@@ -1,3 +1,12 @@
+/*
+3D Engine
+Entity.h
+Purpose: Keeps track
+
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
+*/
+
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
 

@@ -52,14 +52,14 @@ void Kernel::run()
 
 	iManager->initialize(GetModuleHandle(NULL), wManager->getLastWindow()->_hwnd, width, height);
 
-	iManager->getKeyboard()->addKeyboardListener(this);
-	iManager->getKeyboard()->addKeyboardListener(cam);
-	iManager->getMouse()->addMouseListener(cam);
-	iManager->getJoystick()->addJoystickListener(cam);
+	iManager->addListenerToKeyboard(this);
+	iManager->addListenerToKeyboard(cam);
+	iManager->addListenerToMouse(cam);
+	iManager->addListenerToJoystick(cam);
 
-	iManager->getKeyboard()->addKeyboardListener(cam2);
-	iManager->getMouse()->addMouseListener(cam2);
-	iManager->getJoystick()->addJoystickListener(cam2);
+	iManager->addListenerToKeyboard(cam2);
+	iManager->addListenerToMouse(cam2);
+	iManager->addListenerToJoystick(cam2);
 	
 	while (wManager->hasActiveWindow())
 	{

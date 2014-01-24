@@ -1,3 +1,12 @@
+/*
+3D Engine
+Xresource.h
+Purpose: Loads X resources.
+
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
+*/
+
 #ifndef _CAMERA2_H_
 #define _CAMERA2_H_
 

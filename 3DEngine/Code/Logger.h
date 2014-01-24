@@ -1,3 +1,12 @@
+/*
+3D Engine
+Xresource.h
+Purpose: Loads X resources.
+
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
+*/
+
 #ifndef _LOGGER_H_
 #define _LOGGER_H_
 #include <fstream>
