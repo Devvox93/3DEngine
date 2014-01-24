@@ -19,12 +19,7 @@ class Renderer
 {
 public:
 	Renderer();
-<<<<<<< HEAD
-<<<<<<< HEAD
-	~Renderer();
-=======
 	virtual ~Renderer() = 0;
->>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 
 	/*
 		 Abstract method that initializes the renderer.
@@ -32,12 +27,6 @@ public:
 		@param width: The width of the window that will be created.
 		@param height: The height of the window that will be created.
 	*/
-<<<<<<< HEAD
-=======
-	virtual ~Renderer()= NULL;
->>>>>>> 04ac3ee... Destructors (patrick houdt van mannen.)
-=======
->>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 	virtual void Initialize(int width, int height) = 0;
 
 	/*

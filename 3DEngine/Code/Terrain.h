@@ -1,14 +1,10 @@
 /*
-<<<<<<< HEAD
-	3D Engine
-=======
 3D Engine
->>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 	Terrain.h
 	Purpose: Holds information about the terrain.
 
-	@author Patrick, Nick, Robert, Jordi
-	@version 1.0
+@author Patrick, Nick, Robert, Jordi
+@version 1.0
 */
 
 #ifndef _TERRAIN_H_
@@ -28,15 +24,6 @@ class Terrain
 {
 public:
 	/*
-<<<<<<< HEAD
-		Loads a heightmap and texture for the terrain.
-
-		@param path: The path to the heightmap file on disk.
-		@param texturepath: The path to the texture file on disk.
-		@param *resourceManager: A pointer to the resourcemanager to load the resources from disk.
-	*/
-	Terrain(std::string path, std::string texturepath, ResourceManager *resourceManager);
-=======
 	Loads a heightmap and texture for the terrain.
 
 	@param path: The path to the heightmap file on disk.
@@ -44,7 +31,6 @@ public:
 	@param *resourceManager: A pointer to the resourcemanager to load the resources from disk.
 	*/
 	Terrain(std::string path, TextureResource* textureResource, ResourceManager *resourceManager);
->>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 	~Terrain();
 
 	/*

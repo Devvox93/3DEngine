@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-entity:Models\Nick\nick1.x,100.0f,100.0f,500.0f,0.0f,0.0f,0.0f,1.0f,1.0f,1.0f
-entity:Models\Car\car.x,-100.0f,100.0f,500.0f,-1.57079633f,0.0f,0.0f,0.5f,0.5f,0.5f
-entity:Models\Jordi\ac3.X,0.0f,100.0f,0.0f,0.0f,0.0f,0.0f,20.0f,20.0f,20.0f
-entity:Models\Jordi\ac.X,0.0f,150.0f,0.0f,0.0f,0.0f,0.0f,0.35f,0.35f,0.35f
-=======
 entity:Models\Nick\nick1.x,100.0,100.0,500.0,0.0,0.0,0.0,1.0,1.0,1.0
 entity:Models\Car\car.x,-100.0,100.0,500.0,-1.57079633,0.0,0.0,0.5,0.5,0.5
 entity:Models\Jordi\ac3.X,0.0,100.0,0.0,0.0,0.0,0.0,20.0,20.0,20.0
 entity:Models\Jordi\ac.X,0.0,150.0,0.0,0.0,0.0,0.0,0.35,0.35,0.35
->>>>>>> b5be66274fd88ea8db96b62012391e3c9f26537f
 heightmap:clouds.bmp,tex.bmp
 skybox:skybox.jpg
